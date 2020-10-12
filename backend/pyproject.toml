@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "home-automation-backend"
+version = "0.1.0"
+description = "Home automation django backend"
+authors = [
+    "Maciej Rim <maciej.rim@gmail.com>",
+    "Patrycja Bojdoł <pat.bojdol@gmail.com>",
+    "Błażej Barcicki <blazej.barcicki@gmail.com>",
+    "Tomasz Gawlik <endero238@gmail.com>"
+]
+license = "GPL-3.0"
+repository = "https://gtihub.com/owocowe-piatki/home-automation.git"
+
+packages = [
+    { include="core", from="." },
+]
+
+[tool.poetry.scripts]
+server = "core.scripts:runserver"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = "^3.1.2"
+django-webpack-loader = "^0.7.0"
+requests = "^2.24.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

@@ -1,0 +1,10 @@
+{
+	"name": "React template",
+	"short_name": "React temlate",
+	"icons": [],
+	"start_url": "/",
+	"display": "standalone",
+	"scope": "/",
+	"background_color": "#000000",
+	"theme_color": "#000000"
+}

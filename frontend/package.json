@@ -1,0 +1,96 @@
+{
+	"name": "home-automation-frontend",
+	"description": "React frontend for home automation hub",
+	"version": "0.1.0",
+	"main": "src/index.jsx",
+	"contributors": [
+		"Maciej Rim <maciej.rim@gmail.com>",
+		"Patrycja Bojdoł <pat.bojdol@gmail.com>",
+		"Błażej Barcicki <blazej.barcicki@gmail.com>",
+		"Tomasz Gawlik <endero238@gmail.com>"
+	],
+	"license": "GPL-3.0",
+	"scripts": {
+		"dev": "webpack-dev-server --host 0.0.0.0 --config webpack/dev.js",
+		"build": "webpack --inline --progress --config webpack/dist.js"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.11.2",
+		"date-fns": "^2.16.1",
+		"history": "^5.0.0",
+		"polished": "^4.0.2",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"react-icons": "^3.11.0",
+		"react-is": "^16.13.1",
+		"react-router": "^6.0.0-beta.0",
+		"react-router-dom": "^6.0.0-beta.0",
+		"styled-components": "^5.2.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.11.6",
+		"@babel/plugin-transform-runtime": "^7.11.5",
+		"@babel/preset-env": "^7.11.5",
+		"@babel/preset-react": "^7.10.4",
+		"babel-eslint": "^10.1.0",
+		"babel-loader": "^8.1.0",
+		"browserslist": "^4.14.5",
+		"clean-webpack-plugin": "^3.0.0",
+		"copy-webpack-plugin": "^6.2.1",
+		"eslint": "^7.11.0",
+		"eslint-plugin-react": "^7.21.4",
+		"eslint-plugin-react-hooks": "^4.1.2",
+		"friendly-errors-webpack-plugin": "^1.7.0",
+		"prop-types": "^15.7.2",
+		"terser-webpack-plugin": "^4.2.3",
+		"webpack": "^4.44.2",
+		"webpack-bundle-tracker": "0.4.3",
+		"webpack-cli": "^3.3.12",
+		"webpack-dev-server": "^3.11.0",
+		"webpack-merge": "^5.1.4"
+	},
+	"browserslist": [
+		">1%",
+		"not ie 11",
+		"not op_mini all"
+	],
+	"babel": {
+		"presets": [
+			"@babel/preset-env",
+			"@babel/preset-react"
+		],
+		"plugins": [
+			"@babel/plugin-transform-runtime"
+		]
+	},
+	"eslintConfig": {
+		"env": {
+			"browser": true,
+			"es6": true,
+			"node": true
+		},
+		"extends": [
+			"eslint:recommended",
+			"plugin:react/recommended"
+		],
+		"globals": {
+			"Atomics": "readonly",
+			"SharedArrayBuffer": "readonly",
+			"API_URL": "readonly",
+			"workbox": "readonly"
+		},
+		"parser": "babel-eslint",
+		"parserOptions": {
+			"ecmaVersion": 2020,
+			"sourceType": "module"
+		},
+		"plugins": [
+			"react",
+			"react-hooks"
+		],
+		"rules": {
+			"react-hooks/rules-of-hooks": "error",
+			"react-hooks/exhaustive-deps": "warn"
+		}
+	}
+}

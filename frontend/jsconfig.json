@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"target": "es2020",
+		"allowSyntheticDefaultImports": false,
+		"baseUrl": "./",
+		"paths": {
+			"Components/*": ["src/components/*"],
+			"Pages/*": ["src/pages/*"],
+			"Root/*": ["src/*"]
+		}
+	},
+	"exclude": ["node_modules"]
+}

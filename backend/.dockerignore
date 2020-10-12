@@ -1,0 +1,6 @@
+db.sqlite3
+env.example
+README.md
+.vscode
+static_files
+media_files

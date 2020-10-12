@@ -1,0 +1,32 @@
+{% load get_files from webpack_loader %}
+{% get_files 'main' as main %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="HandheldFriendly" content="true" />
+
+    {% if debug %}
+        <link rel="stylesheet" href="http://localhost:5000/static/frontend/assets/fonts.css" />
+    {% else %}
+        <link rel="stylesheet" href="/static/frontend/assets/fonts.css" />
+    {% endif %}
+    <meta name="description" content="" />
+    <title>Home Automation</title>
+</head>
+
+<body>
+    <div id="root"></div><noscript>You need javascript enabled to run this site.</noscript>
+    <script>var csrf_token = '{{ csrf_token }}';</script>
+
+    {% if debug %}
+        <script crossorigin src="http://localhost:5000/static/frontend/{{main.0.name}}"></script>
+    {% else %}
+        <script src="/static/frontend/{{main.0.name}}"></script>
+    {% endif %}
+
+</body>
+
+</html>
