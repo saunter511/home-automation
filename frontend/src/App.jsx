@@ -34,7 +34,7 @@ const App = () => {
 				<Logo>
 					<FaReact />
 					<br />
-					React template
+					React template test
 				</Logo>
 				<button onClick={() => toggleTheme()}>
 					Switch to {isDark ? 'light' : 'dark'} theme
