@@ -11,8 +11,7 @@ const darkTheme = {
 };
 
 // Create react context for theme info
-export const ThemeContext = React.createContext([{}, () => {}, false]);
-
+export const ThemeContext = React.createContext([{}, () => {}, false])
 // Define a hook to control theme from any component
 export const useTheme = () => {
 	let stored = localStorage.getItem('theme');
