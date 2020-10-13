@@ -2,6 +2,10 @@ name: Lint
 
 on: [push, pull_request]
 
+defaults:
+  run:
+    working-directory: frontend
+
 jobs:
   run-linters:
     name: Run linters
@@ -9,9 +13,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Move configs
-        run: cp frontend/package.json . 
 
       - name: Install modules
         run: yarn
