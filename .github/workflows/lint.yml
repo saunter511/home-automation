@@ -8,9 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+
         run: cp frontend/package.json . 
-        name: Install modules
+        
+      - name: Install modules
         run: yarn
 
       - name: Run ESLint
