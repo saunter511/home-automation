@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Move configs
         run: cp frontend/package.json . 
 
@@ -17,4 +17,4 @@ jobs:
         run: yarn
 
       - name: Run ESLint
-        run: eslint . --ext .js,.jsx,.ts,.tsx
+        run: yarn run eslint:github-action

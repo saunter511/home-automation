@@ -12,7 +12,8 @@
 	"license": "GPL-3.0",
 	"scripts": {
 		"dev": "webpack-dev-server --host 0.0.0.0 --config webpack/dev.js",
-		"build": "webpack --inline --progress --config webpack/dist.js"
+		"build": "webpack --inline --progress --config webpack/dist.js",
+		"eslint:github-action": "eslint . --ext .js,.jsx"
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.11.2",
@@ -64,19 +65,22 @@
 		]
 	},
 	"eslintConfig": {
+		"settings": {
+            "react": {
+                "version": "detect"
+            }
+        },
 		"env": {
 			"browser": true,
 			"es6": true,
 			"node": true
 		},
+		
 		"extends": [
 			"eslint:recommended",
 			"plugin:react/recommended"
 		],
 		"globals": {
-			"Atomics": "readonly",
-			"SharedArrayBuffer": "readonly",
-			"API_URL": "readonly",
 			"workbox": "readonly"
 		},
 		"parser": "babel-eslint",
@@ -93,5 +97,6 @@
 			"react-hooks/exhaustive-deps": "warn",
 			"semi": ["error", "always"]
 		}
+	
 	}
 }
