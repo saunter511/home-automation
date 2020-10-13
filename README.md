@@ -19,6 +19,12 @@ It will consit of a mqtt broker, connected to a central hub subscribing and publ
 
 Then go to `localhost:8000` to see the website.
 
+## Deployment
+To build a docker image run:
+```
+docker build . -t <your tag>
+```
+
 ## Git workflow
 
 ### Prepare your fork
