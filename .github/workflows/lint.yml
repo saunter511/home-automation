@@ -9,9 +9,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      
+      - name: Move configs
         run: cp frontend/package.json . 
-        
+
       - name: Install modules
         run: yarn
 
