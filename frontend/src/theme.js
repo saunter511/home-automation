@@ -15,7 +15,7 @@ export const ThemeContext = React.createContext([{}, () => {}, false]);
 
 // Define a hook to control theme from any component
 export const useTheme = () => {
-	let stored = localStorage.getItem('theme');
+	let stored = localStorage.getItem('theme')
 
 	// If no theme variant is stored in local storage, check if client wants dark theme and set accordingly
 	if (!stored) {
