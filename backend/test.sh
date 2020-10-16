@@ -4,7 +4,6 @@ BASE_DIR=$(dirname $0)
 run_flake8() {
     printf "\nRunning flake8\n"
     flake8 . --max-line-length=120 --extend-exclude "migrations"
-    echo " Passed"
 }
 
 run_isort() {
@@ -14,13 +13,11 @@ run_isort() {
     else
         isort . -m 3 --trailing-comma --check-only
     fi
-    echo " Passed"
 }
 
 run_unittests() {
     printf "\nRunning unittests\n"
     python manage.py test
-    echo " Passed"
 }
 
 case "$1" in

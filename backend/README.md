@@ -1,9 +1,42 @@
-# Backend
+# Home automation backend
+![Backend](https://github.com/owocowe-piatki/home-automation/workflows/Backend/badge.svg)
 
+## Development
+
+
+### MQTT broker
+You will need to start a MQTT Broker to run the server.  
+
+If you don't need it for your work, you can either
+- disable it by commenting out `apps.mqtt` in INSTALLED_APPS  
+- provide an existing broker address with MQTT_BROKER_URL and MQTT_BROKER_PORT environment variables
+
+Starting a simple mqtt broker in a docker container  
+
+```sh
+docker run -it -p 1883:1883 eclipse-mosquitto  # interactively
+docker run -d -p 1883:1883 eclipse-mosquitto  # as a daemon
+```
+
+### Project setup
+```sh
+poetry install  # create a virtualenv and install dependencies
+poetry shell  # start a shell within the virtualenv
+./manage.py migrate  # run project db migrations
+./manage.py createsuperuser  # create a superuser
+```
+
+### Run the development server
+```sh
+poetry run server
+```
+
+
+## Testing
 `test.sh` script is used to run tests in the github actions workflow.  
 Before pushing changes you should check if the tests pass by running it while in the correct virtualenv.
 ```sh
-poetry shell
+poetry shell  # start a shell within the virtualenv
 ./test.sh
 ```
 
