@@ -23,6 +23,7 @@ python = "^3.8"
 django = "^3.1.2"
 django-webpack-loader = "^0.7.0"
 requests = "^2.24.0"
+docutils = "^0.16"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"

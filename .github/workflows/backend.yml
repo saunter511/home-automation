@@ -24,10 +24,10 @@ jobs:
               run: poetry export --dev -f requirements.txt -o requirements.txt && pip install -r requirements.txt
 
             - name: Run flake8 checks
-              run: flake8 . --max-line-length=120
+              run: ./test.sh flake8
 
             - name: Run isort
-              run: isort --check-only --recursive .
+              run: ./test.sh isort
 
             - name: Run tests
-              run: python manage.py test
+              run: ./test.sh unittests
