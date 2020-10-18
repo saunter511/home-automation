@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from 'Components/Button';
+import { ImGithub } from 'react-icons/im';
+import {AiFillBulb} from 'react-icons/ai';
 import { ThemeContext } from 'Root/theme';
-import { FaReact } from 'react-icons/fa';
-
 const AppWrapper = styled.div`
 	width: 100%;
 	height: 100%;
@@ -17,28 +18,23 @@ const ContentWrapper = styled.div`
 	text-align: center;
 `;
 
-const Logo = styled.div`
-	font-size: 4em;
 
-	& svg {
-		font-size: 6em;
-	}
-`;
 
 const App = () => {
-	const [toggleTheme, isDark] = React.useContext(ThemeContext);
+	const [toggleTheme] = React.useContext(ThemeContext);
 
 	return (
 		<AppWrapper>
 			<ContentWrapper>
-				<Logo>
-					<FaReact />
-					<br />
-					React template
-				</Logo>
-				<button onClick={() => toggleTheme()}>
-					Switch to {isDark ? 'light' : 'dark'} theme
-				</button>
+			 
+			<Button href="https://github.com/owocowe-piatki/home-automation"> 
+			<ImGithub/> home-automation
+			</Button> 
+
+			<Button onClick={() => toggleTheme()}>
+					<AiFillBulb/> Switch  theme
+			</Button>
+			
 			</ContentWrapper>
 		</AppWrapper>
 	);
