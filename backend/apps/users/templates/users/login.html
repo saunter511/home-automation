@@ -1,0 +1,45 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %} Login {% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" type="text/css" href="{% static 'users/css/form_style.css' %}">
+{%endblock%}
+
+{% block content %}
+  
+  <form class="form" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+
+    <div class="form__info">
+      {% if next %}
+        {% if user.is_authenticated %}
+          <p>Your account doesn't have access to this page. To proceed,
+          please login with an account that has access.</p>
+        {% else %}
+          <p>Please login to see this page.</p>
+        {% endif %}
+      {% endif %}
+  
+      {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+      {% endif %}
+
+    </div>
+
+    <div class="form__item">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+    </div>
+    
+    <div class="form__item">
+        {{ form.password.label_tag }}
+        {{ form.password }}
+    </div>  
+
+    <input type="submit" value="Let me in" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+   
+{% endblock %}

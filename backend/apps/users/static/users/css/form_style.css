@@ -1,0 +1,83 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	max-width: 500px;
+	padding: 30px;
+	margin: 5px;
+	background-color: white;
+
+	-webkit-box-shadow: 4px 4px 9px 0px rgba(0,0,0,0.35);
+	-moz-box-shadow: 4px 4px 9px 0px rgba(0,0,0,0.35);
+	box-shadow: 4px 4px 9px 0px rgba(0,0,0,0.35);
+}
+
+.form [type=submit] {
+	cursor: pointer;
+	border: 0;
+	color: white;
+	font-size: 17px;
+	background-color: #009A17;
+}
+
+.form input {
+	padding: 8px;
+	border: 0;
+	border-bottom: 1px solid black;
+}
+
+.form input:-webkit-autofill, 
+input:focus:-webkit-autofill {
+	background-color: transparent;
+}
+
+.form input:focus {
+	outline: none;
+}
+
+.form__item {
+	display: flex;
+	flex-direction: column;
+	margin: 13px 0;
+	letter-spacing: 1px;
+}
+
+.form__item * {
+	margin: 5px 0;
+	font-size: 16px;
+}
+
+.form__info p {
+	display: block;
+	color: #E03D3D;
+	margin: 10px 0;
+	padding: 5px 0;
+	padding-left: 4px;
+	border-left: 3px solid red;
+}
+
+.form__info p:first-child {
+	margin: 0;
+}
+
+.form__notification {
+	border-left: 10px solid #009A17;
+}
+
+.form__notification--error {
+	border-left: 10px solid #E03D3D;
+}
+
+.form .errorlist {
+	list-style: none;
+	padding-top: 4px 0;
+}
+
+.form .errorlist li {
+	font-size: 13px;
+	color: #E03D3D;
+	padding: 2px 5px;
+	border-left: 2px solid red;
+}
+
+

@@ -4,6 +4,7 @@ https://docs.djangoproject.com/en/3.1/topics/http/urls/
 """
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.urls import include, path
 from django.views.generic import TemplateView
 
@@ -18,7 +19,9 @@ urlpatterns = [
     path("admin/doc/", include("django.contrib.admindocs.urls")),
     path("admin/", admin.site.urls),
     # frontend template path
-    path("", TemplateView.as_view(template_name="frontend.html"), name="frontend"),
+    path("", login_required(TemplateView.as_view(template_name="frontend.html")), name="frontend"),
+    # user authentication
+    path("users/", include('apps.users.urls')),
 ]
 
 # Enable media and static files in debug mode
