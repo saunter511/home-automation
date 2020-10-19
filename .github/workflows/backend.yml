@@ -1,6 +1,6 @@
 name: Backend
 
-on: pull_request
+on: [push, pull_request]
 
 defaults:
     run:

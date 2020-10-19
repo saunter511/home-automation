@@ -8,16 +8,7 @@ The project is about building a hub connecting multiple IoT devices in a smart h
 It will consit of a mqtt broker, connected to a central hub subscribing and publishing to some dummy devices (possible to replace with real ones). It will provide REST and GraphQL APIs.
 
 ## Development
-
-### Backend
-Look in the backend directory README
-
-### Frontend
-1. Go to frontend directory
-2. Run `yarn install`
-3. Run `yarn dev` to start the development server
-
-Then go to `localhost:8000` to see the website.
+For more info about how to work on the project, go to respective project directories and check their READMEs.
 
 ## Deployment
 To build a docker image run:

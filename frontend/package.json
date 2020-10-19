@@ -13,7 +13,17 @@
 	"scripts": {
 		"dev": "webpack-dev-server --host 0.0.0.0 --config webpack/dev.js",
 		"build": "webpack --inline --progress --config webpack/dist.js",
-		"eslint:github-action": "eslint . --ext .js,.jsx"
+
+		"test": "jest --passWithNoTests",
+		"prettier": "prettier './src/**/*.(js|jsx)' --check",
+		"prettier:fix": "prettier './src/**/*.(js|jsx)' --write",
+		"lint:js": "eslint ./src/ --ext .js,.jsx",
+		"lint:css": "stylelint './src/**/*.(js|jsx)'"
+	},
+	"husky": {
+		"hooks": {
+			"pre-push": "yarn lint:js && yarn lint:css && yarn prettier && yarn test"
+		}
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.11.2",
@@ -34,7 +44,9 @@
 		"@babel/preset-env": "^7.11.5",
 		"@babel/preset-react": "^7.10.4",
 		"babel-eslint": "^10.1.0",
+		"babel-jest": "^26.5.2",
 		"babel-loader": "^8.1.0",
+		"babel-plugin-styled-components": "^1.11.1",
 		"browserslist": "^4.14.5",
 		"clean-webpack-plugin": "^3.0.0",
 		"copy-webpack-plugin": "^6.2.1",
@@ -42,7 +54,15 @@
 		"eslint-plugin-react": "^7.21.4",
 		"eslint-plugin-react-hooks": "^4.1.2",
 		"friendly-errors-webpack-plugin": "^1.7.0",
+		"husky": "^4.3.0",
+		"jest": "^26.5.3",
+		"prettier": "^2.1.2",
 		"prop-types": "^15.7.2",
+		"react-test-renderer": "^16.14.0",
+		"stylelint": "^13.7.2",
+		"stylelint-config-recommended": "^3.0.0",
+		"stylelint-config-styled-components": "^0.1.1",
+		"stylelint-processor-styled-components": "^1.10.0",
 		"terser-webpack-plugin": "^4.2.3",
 		"webpack": "^4.44.2",
 		"webpack-bundle-tracker": "0.4.3",
@@ -61,21 +81,22 @@
 			"@babel/preset-react"
 		],
 		"plugins": [
-			"@babel/plugin-transform-runtime"
+			"@babel/plugin-transform-runtime",
+			"babel-plugin-styled-components"
 		]
 	},
 	"eslintConfig": {
 		"settings": {
-            "react": {
-                "version": "detect"
-            }
-        },
+			"react": {
+				"version": "detect"
+			}
+		},
 		"env": {
 			"browser": true,
 			"es6": true,
-			"node": true
+			"node": true,
+			"jest": true
 		},
-		
 		"extends": [
 			"eslint:recommended",
 			"plugin:react/recommended"
@@ -95,8 +116,26 @@
 		"rules": {
 			"react-hooks/rules-of-hooks": "error",
 			"react-hooks/exhaustive-deps": "warn",
-			"semi": ["error", "always"]
+			"semi": [
+				"error",
+				"always"
+			]
 		}
-	
+	},
+	"stylelint": {
+		"processors": [
+			"stylelint-processor-styled-components"
+		],
+		"extends": [
+			"stylelint-config-recommended",
+			"stylelint-config-styled-components"
+		]
+	},
+	"prettier": {
+		"singleQuote": true,
+		"useTabs": true,
+		"tabWidth": 4,
+		"semi": true,
+		"printWidth": 120
 	}
 }

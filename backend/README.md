@@ -45,4 +45,7 @@ If you want to run one of the tests, add it as an argument
 ./test.sh flake8  # python linter
 ./test.sh isort  # python import sorter
 ./test.sh unittests  # django unit tests
+
+# if your code doesn't pass isort, you can run
+./test.sh isort -y
 ```
