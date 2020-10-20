@@ -65,6 +65,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # libraries
     "webpack_loader",
+    "rest_framework.authtoken",
+    "rest_framework",
+    "graphene_django",
     "apps.users",
     "apps.mqtt",
  ]
@@ -77,6 +80,20 @@ DATABASES = {
     }
 }
 # fmt: on
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_PARSER_CLASSES": ("rest_framework.parsers.JSONParser",),
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+}
+
+GRAPHENE = {
+    "SCHEMA": "core.schema.schema"
+}
 
 # Email settings
 DEFAULT_FROM_EMAIL = f"Home <home@{SITE_DOMAIN}>"  # default server email
