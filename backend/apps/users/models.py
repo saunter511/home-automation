@@ -18,7 +18,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # Fields
     email = models.EmailField(
-        "email address", db_index=True, unique=True, error_messages={"unique": "User with this email already exists."},
+        "email address",
+        db_index=True,
+        unique=True,
+        error_messages={"unique": "User with this email already exists."},
     )
 
     birth_date = models.DateField("birth date", null=True, blank=True)
@@ -27,7 +30,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField("last name", max_length=150, blank=True)
 
     is_active = models.BooleanField(
-        "active", default=True, help_text="Designates if this user should be treated as active."
+        "active",
+        default=True,
+        help_text="Designates if this user should be treated as active.",
     )
 
     # Configuration

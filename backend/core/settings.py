@@ -56,6 +56,7 @@ MQTT_TOPIC = "home"
 
 # Application definitions
 INSTALLED_APPS = [
+    # internals
     "django.contrib.admin",
     "django.contrib.admindocs",
     "django.contrib.auth",
@@ -64,13 +65,18 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # libraries
+    "polymorphic",
     "webpack_loader",
     "rest_framework.authtoken",
     "rest_framework",
     "graphene_django",
+    # modules
     "apps.users",
     "apps.mqtt",
- ]
+    "apps.home",
+    "apps.appliances.lamp",
+]
+
 # Database - https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 # fmt: off
 DATABASES = {
@@ -91,9 +97,7 @@ REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
 }
 
-GRAPHENE = {
-    "SCHEMA": "core.schema.schema"
-}
+GRAPHENE = {"SCHEMA": "core.schema.schema"}
 
 # Email settings
 DEFAULT_FROM_EMAIL = f"Home <home@{SITE_DOMAIN}>"  # default server email
@@ -110,7 +114,9 @@ else:
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 AUTH_USER_MODEL = "users.User"
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -130,9 +136,9 @@ LOGGING = {
 
 # User after/before authentication config
 
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/users/login'
-LOGOUT_REDIRECT_URL = '/users/login'
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/users/login"
+LOGOUT_REDIRECT_URL = "/users/login"
 
 # Middlewares - https://docs.djangoproject.com/en/3.0/topics/http/middleware/
 MIDDLEWARE = [

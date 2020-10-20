@@ -25,7 +25,7 @@ class UserAdmin(BaseUserAdmin):
 
     fieldsets = (
         ("Account details", {"fields": ("email", "password")}),
-        ("User info", {"fields": ("first_name", "last_name", "birth_date")},),
+        ("User info", {"fields": ("first_name", "last_name", "birth_date")}),
         ("Permissions", {"fields": ("is_superuser", "user_permissions")}),
         ("Groups", {"fields": ("groups",)}),
     )
@@ -35,7 +35,14 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fields": ("email", "first_name", "last_name", "birth_date", "password1", "password2"),
+                "fields": (
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "birth_date",
+                    "password1",
+                    "password2",
+                ),
             },
         ),
     )

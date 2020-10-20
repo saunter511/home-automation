@@ -44,11 +44,15 @@ urlpatterns = [
     path("admin/doc/", include("django.contrib.admindocs.urls")),
     path("admin/", admin.site.urls),
     # user authentication
-    path("users/", include('apps.users.urls')),
+    path("users/", include("apps.users.urls")),
     # graphql endpoints
     path("graphql/", DRFAuthenticateGraphQLView.as_view(graphiql=True)),
     # frontend template path
-    path("", login_required(TemplateView.as_view(template_name="frontend.html")), name="frontend"),
+    path(
+        "",
+        login_required(TemplateView.as_view(template_name="frontend.html")),
+        name="frontend",
+    ),
 ]
 
 # Enable media and static files in debug mode

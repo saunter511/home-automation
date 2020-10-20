@@ -3,21 +3,21 @@ BASE_DIR=$(dirname $0)
 
 run_flake8() {
     printf "\nRunning flake8\n"
-    flake8 . --max-line-length=120 --extend-exclude "migrations"
+    poetry run flake8 . --max-line-length=100 --extend-exclude "migrations"
 }
 
 run_isort() {
     printf "\nRunning isort\n"
     if [ -n "$1" ]; then
-        isort . -m 3 --trailing-comma "$@"
+        poetry run isort . -m 3 --trailing-comma "$@"
     else
-        isort . -m 3 --trailing-comma --check-only
+        poetry run isort . -m 3 --trailing-comma --check-only
     fi
 }
 
 run_unittests() {
     printf "\nRunning unittests\n"
-    python manage.py test
+    poetry run python manage.py test
 }
 
 case "$1" in
@@ -37,7 +37,6 @@ case "$1" in
         run_flake8
         run_isort
         run_unittests
-        printf "\nTests passed\n"
         ;;
     *)
         echo "Unknown command '$1'"
