@@ -7,63 +7,71 @@ from .signals import mqtt_publish, mqtt_receive
 
 logger = logging.getLogger(__name__)
 
-client = mqtt.Client()
 
-if not settings.TEST_MODE:
-    client.connect(settings.MQTT_BROKER_URL, settings.MQTT_BROKER_PORT, 60)
+def start_client():
+    client = mqtt.Client("control-center", protocol=mqtt.MQTTv5)
 
+    # Set username and password if at least username is specified in settings
+    if settings.MQTT_USERNAME:
+        client.username_pw_set(settings.MQTT_USERNAME, settings.MQTT_PASSWORD)
 
-def on_connect(client, userdata, flags, rc):
-    """
-    MQTT on connect callback
+    def on_connect(client, userdata, flags, rc, properties):
+        """
+        MQTT on connect callback
 
-    :param client: mqtt client instance
-    :param userdata: user data passed when creating a client
-    :param flags: flags dictionary
-    :param rc: return code
-    """
+        :param client: mqtt client instance
+        :param userdata: user data passed when creating a client
+        :param flags: flags dictionary
+        :param rc: return code
+        :param properties: properties
+        """
+        if rc == 0:
+            client.subscribe(f"{settings.MQTT_TOPIC}/#")
+            logger.info("Connected to MQTT broker")
+        else:
+            logger.error("Connection to MQTT broker failed")
 
-    if rc == 0:
-        client.subscribe(f"{settings.MQTT_TOPIC}/#")
-        logger.info("Successfully connected to MQTT broker")
-    else:
-        logger.error("Connection to MQTT broker failed")
+    def on_disconnect(client, userdata, rc):
+        """
+        MQTT on disconnect callback
 
+        :param client: mqtt client instance
+        :param userdata: user data passed when creating a client
+        :param rc: return code
+        """
+        logger.debug(f"MQTT Broker disconnected [{rc}]")
 
-def on_disconnect(client, userdata, rc):
-    """
-    MQTT on disconnect callback
+    def on_message(client, userdata, msg):
+        """
+        Receive mqtt message callback
 
-    :param client: mqtt client instance
-    :param userdata: user data passed when creating a client
-    :param rc: return code
-    """
-    logger.info("MQTT Disconnected")
+        :param client: mqtt client instance
+        :param userdata: user data passed when creating a client
+        :param msg: message object
+        """
+        topic = msg.topic
+        payload = msg.payload.decode()
+        mqtt_receive.send(__name__, topic=topic, payload=payload)
 
+    def on_publish(sender, topic, payload, **kwargs):
+        """
+        Publish signal callback, push a message to mqtt with passed topic and payload
 
-def on_message(client, userdata, msg):
-    """
-    Receive mqtt message callback
+        :param sender: signal sender
+        :param topic: message topic
+        :param payload: message payload
+        """
+        client.publish(topic=f"{settings.MQTT_TOPIC}/{topic}", payload=payload)
 
-    :param client: mqtt client instance
-    :param userdata: user data passed when creating a client
-    :param msg: message object
-    """
-    mqtt_receive.send(__name__, topic=msg.topic, payload=msg.payload.decode())
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.on_message = on_message
+    mqtt_publish.connect(on_publish)
 
+    try:
+        client.connect(settings.MQTT_URL, settings.MQTT_PORT, 60)
+        return client
 
-def on_publish(sender, topic, payload, **kwargs):
-    """
-    Publish signal callback, push a message to mqtt with passed topic and payload
-
-    :param sender: signal sender
-    :param topic: message topic
-    :param payload: message payload
-    """
-    client.publish(topic=f"{settings.MQTT_TOPIC}/{topic}", payload=payload)
-
-
-client.on_connect = on_connect
-client.on_disconnect = on_disconnect
-client.on_message = on_message
-mqtt_publish.connect(on_publish)
+    except Exception as e:
+        logger.error(f"Failed to connect to broker: {e}")
+        return None

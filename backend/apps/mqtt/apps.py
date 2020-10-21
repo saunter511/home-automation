@@ -1,9 +1,9 @@
 import logging
+import os
 
 from django.apps import AppConfig
-from django.conf import settings
 
-from .client import client
+from .client import start_client
 
 logger = logging.getLogger(__name__)
 
@@ -13,6 +13,10 @@ class MqttConfig(AppConfig):
     verbose_name = "MQTT handler"
 
     def ready(self):
-        if not settings.TEST_MODE:
-            client.loop_stop()
+        # Skip if running in the main thread
+        if not os.environ.get("RUN_MAIN"):
+            return
+
+        client = start_client()
+        if client:
             client.loop_start()

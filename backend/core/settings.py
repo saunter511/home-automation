@@ -6,7 +6,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
-import sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -14,12 +13,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Runtime security settings
 DEBUG = True
-SECRET_KEY = os.getenv("SECRET_KEY") or "secret"
+SECRET_KEY = os.getenv("SECRET_KEY", "secret")
 ALLOWED_HOSTS = []
 
-TEST_MODE = "test" in sys.argv
-
-SITE_DOMAIN = os.getenv("SITE_DOMAIN") or "localhost"
+SITE_DOMAIN = os.getenv("SITE_DOMAIN", "localhost")
 
 # Needed for debug variable in templates (to make webpack work)
 if DEBUG:
@@ -50,8 +47,10 @@ MEDIA_ROOT = BASE_DIR / "media_files"
 
 
 # MQTT Config
-MQTT_BROKER_URL = "localhost"
-MQTT_BROKER_PORT = 1883
+MQTT_URL = "localhost"
+MQTT_PORT = 1883
+MQTT_USERNAME = os.getenv("MQTT_USERNAME", None)
+MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", None)
 MQTT_TOPIC = "home"
 
 # Application definitions
