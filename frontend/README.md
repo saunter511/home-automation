@@ -31,3 +31,9 @@ yarn prettier  # for prettier code formatter check
 # if your code doesn't pass prettier check, you can run
 yarn prettier:fix
 ```
+
+### Pre-push testing
+Above test can be performed locally with
+```sh
+yarn test:all
+```
