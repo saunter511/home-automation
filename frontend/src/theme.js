@@ -2,12 +2,24 @@ import React from 'react';
 
 const lightTheme = {
 	text: '#000',
+	textSecondary: '#696969',
 	background: '#E5E5E5',
+	mobile: '576px',
+	colors: {
+		accent: '#000',
+		error: 'red',
+	},
 };
 
 const darkTheme = {
-	text: '#FFF',
+	text: '#F5F5F5',
+	textSecondary: '#D3D3D3',
 	background: '#2F2F2F',
+	mobile: '576px',
+	colors: {
+		accent: '#2F2F2F',
+		error: 'red',
+	},
 };
 
 // Create react context for theme info

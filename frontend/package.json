@@ -13,7 +13,6 @@
 	"scripts": {
 		"dev": "webpack-dev-server --host 0.0.0.0 --config webpack/dev.js",
 		"build": "webpack --inline --progress --config webpack/dist.js",
-
 		"test": "jest --passWithNoTests",
 		"prettier": "prettier './src/**/*.(js|jsx)' --check",
 		"prettier:fix": "prettier './src/**/*.(js|jsx)' --write",
@@ -27,12 +26,12 @@
 		}
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.11.2",
+		"@babel/runtime": "^7.12.1",
 		"date-fns": "^2.16.1",
 		"history": "^5.0.0",
-		"polished": "^4.0.2",
-		"react": "^16.13.1",
-		"react-dom": "^16.13.1",
+		"polished": "^4.0.3",
+		"react": "^16.14.0",
+		"react-dom": "^16.14.0",
 		"react-icons": "^3.11.0",
 		"react-is": "^16.13.1",
 		"react-router": "^6.0.0-beta.0",
@@ -40,12 +39,12 @@
 		"styled-components": "^5.2.0"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.11.6",
-		"@babel/plugin-transform-runtime": "^7.11.5",
-		"@babel/preset-env": "^7.11.5",
-		"@babel/preset-react": "^7.10.4",
+		"@babel/core": "^7.12.3",
+		"@babel/plugin-transform-runtime": "^7.12.1",
+		"@babel/preset-env": "^7.12.1",
+		"@babel/preset-react": "^7.12.1",
 		"babel-eslint": "^10.1.0",
-		"babel-jest": "^26.5.2",
+		"babel-jest": "^26.6.0",
 		"babel-loader": "^8.1.0",
 		"babel-plugin-styled-components": "^1.11.1",
 		"browserslist": "^4.14.5",
@@ -55,8 +54,9 @@
 		"eslint-plugin-react": "^7.21.4",
 		"eslint-plugin-react-hooks": "^4.1.2",
 		"friendly-errors-webpack-plugin": "^1.7.0",
+		"fs": "^0.0.1-security",
 		"husky": "^4.3.0",
-		"jest": "^26.5.3",
+		"jest": "^26.6.0",
 		"prettier": "^2.1.2",
 		"prop-types": "^15.7.2",
 		"react-test-renderer": "^16.14.0",
@@ -69,7 +69,7 @@
 		"webpack-bundle-tracker": "0.4.3",
 		"webpack-cli": "^3.3.12",
 		"webpack-dev-server": "^3.11.0",
-		"webpack-merge": "^5.1.4"
+		"webpack-merge": "^5.2.0"
 	},
 	"browserslist": [
 		">1%",

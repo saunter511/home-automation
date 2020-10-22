@@ -9,7 +9,7 @@ const Button = styled.a`
 	border-radius: 5px;
 	padding: 4px;
 	margin: 0.5rem 1rem;
-	width: 11rem;
+	width: 15rem;
 	background: transparent;
 	border: 2px solid ${(p) => p.theme.text};
 	text-decoration: none;

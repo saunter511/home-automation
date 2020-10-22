@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { ThemeContext, useTheme } from './theme';
+import { createGlobalStyle } from 'styled-components';
 
 import App from './App';
 
-// CSS Reset + border-box
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
 	html, body, #root {
 		height: 100%;
 		max-width: 100vw;
 		margin: 0;
 		box-sizing: border-box;
+		font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
+		transition: 0.2s
 	}
 
 	*, *:before, &:after {
