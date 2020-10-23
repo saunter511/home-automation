@@ -71,9 +71,9 @@ INSTALLED_APPS = [
     "graphene_django",
     # modules
     "apps.users",
-    "apps.mqtt",
     "apps.home",
-    "apps.appliances.lamp",
+    "appliances.lamp",
+    "apps.mqtt",  # has to be last
 ]
 
 # Database - https://docs.djangoproject.com/en/3.1/ref/settings/#databases

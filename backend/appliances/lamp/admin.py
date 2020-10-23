@@ -11,9 +11,13 @@ ApplianceParentAdmin.child_models.append(Lamp)
 class LampAdmin(ApplianceChildAdmin):
     base_model = Lamp
 
-    readonly_fields = ("state",)
-
     def get_exclude(self, request, obj):
         if obj:
-            return []
-        return ["state"]
+            return ()
+        return ("state",)
+
+    def get_readonly_fields(self, request, obj):
+        if obj:
+            return ("state",)
+        else:
+            return ()

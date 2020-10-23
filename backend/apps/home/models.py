@@ -24,6 +24,17 @@ class Room(models.Model):
     def mqtt_topic(self):
         return f"{settings.MQTT_TOPIC}/{self.code_name}"
 
+    def mqtt_message(self, topic, payload):
+        """
+        Handle mqtt message to the room
+        """
+        appliance = self.appliances.get(  # type: ignore
+            polymorphic_ctype__model=topic[0], appliance_id=topic[1]
+        )
+
+        # pass the message to appliance
+        appliance.mqtt_message(topic[2:], payload)
+
 
 class Appliance(PolymorphicModel):
     """
@@ -37,7 +48,7 @@ class Appliance(PolymorphicModel):
     """
 
     name = models.CharField(verbose_name="Name", max_length=50)
-    appliance_id = models.IntegerField(verbose_name="Appliance ID")
+    appliance_id = models.PositiveSmallIntegerField(verbose_name="Appliance ID")
     room = models.ForeignKey(
         Room, verbose_name="Room", related_name="appliances", on_delete=models.CASCADE
     )
