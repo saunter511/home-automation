@@ -45,9 +45,7 @@ class UserManager(BaseUserManager):
 
         return self.create_user(email, password, **extra_fields)
 
-    def send_email_to_everyone(
-        self, subject, message, from_addr=settings.DEFAULT_FROM_EMAIL
-    ):
+    def send_email_to_everyone(self, subject, message, from_addr=settings.DEFAULT_FROM_EMAIL):
         """
         Send an email to all users
         :param subject: Message subject

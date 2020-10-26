@@ -29,7 +29,10 @@ class Migration(migrations.Migration):
                 ),
                 ("state", models.BooleanField(default=False, verbose_name="state")),
             ],
-            options={"verbose_name": "Lamp", "verbose_name_plural": "Lamps",},
+            options={
+                "verbose_name": "Lamp",
+                "verbose_name_plural": "Lamps",
+            },
             bases=("home.appliance",),
         ),
     ]

@@ -9,10 +9,15 @@ run_flake8() {
 run_isort() {
     printf "\nRunning isort\n"
     if [ -n "$1" ]; then
-        poetry run isort . -m 3 --trailing-comma "$@"
+        poetry run isort . "$@"
     else
-        poetry run isort . -m 3 --trailing-comma --check-only
+        poetry run isort . --check-only
     fi
+}
+
+run_black() {
+    printf "\nFixing with black\n"
+    poetry run black .
 }
 
 run_unittests() {
@@ -32,6 +37,11 @@ case "$1" in
     "unittests")
         shift
         run_unittests "$@"
+        ;;
+    "fix")
+        shift
+        run_isort --interactive
+        run_black
         ;;
     "")
         run_flake8

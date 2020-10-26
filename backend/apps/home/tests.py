@@ -16,18 +16,14 @@ class RoomTest(TestCase):
         self.name = "Test Room"
         self.code_name = "test-room"
         self.floor = 0
-        self.room = Room.objects.create(
-            name=self.name, code_name=self.code_name, floor=self.floor
-        )
+        self.room = Room.objects.create(name=self.name, code_name=self.code_name, floor=self.floor)
 
     def test_room_added_correctly(self):
         """
         Test if the room was added correctly and that the fields are set correctly
         """
         self.assertEqual(self.room.name, self.name, "The name wasn't set correctly")
-        self.assertEqual(
-            self.room.code_name, self.code_name, "The codename wasn't set correctly"
-        )
+        self.assertEqual(self.room.code_name, self.code_name, "The codename wasn't set correctly")
         self.assertEqual(self.room.floor, self.floor, "The floor wasn't set correctly")
 
     def test_room_mqtt_topic(self):
@@ -45,9 +41,7 @@ class RoomTest(TestCase):
         Make sure it isn't possible to add a room with duplicate code_name
         """
         with pytest.raises(IntegrityError):
-            Room.objects.create(
-                name=self.name, code_name=self.code_name, floor=self.floor
-            )
+            Room.objects.create(name=self.name, code_name=self.code_name, floor=self.floor)
 
 
 class ApplianceTest(TestCase):
@@ -67,17 +61,13 @@ class ApplianceTest(TestCase):
         """
         Test if the appliance was added correctly and that the fields are set correctly
         """
-        self.assertEqual(
-            self.appliance.name, self.name, "The name wasn't set correctly"
-        )
+        self.assertEqual(self.appliance.name, self.name, "The name wasn't set correctly")
         self.assertEqual(
             self.appliance.appliance_id,
             self.appliance_id,
             "The appliance_id wasn't set correctly",
         )
-        self.assertEqual(
-            self.appliance.room, self.room, "The floor wasn't set correctly"
-        )
+        self.assertEqual(self.appliance.room, self.room, "The floor wasn't set correctly")
 
     def test_appliance_mqtt_topic(self):
         """
@@ -94,6 +84,4 @@ class ApplianceTest(TestCase):
         Make sure it isn't possible to add an appliance with duplicate code_name
         """
         with pytest.raises(IntegrityError):
-            Appliance.objects.create(
-                name=self.name, appliance_id=self.appliance_id, room=self.room
-            )
+            Appliance.objects.create(name=self.name, appliance_id=self.appliance_id, room=self.room)

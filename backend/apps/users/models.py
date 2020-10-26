@@ -1,11 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from django.contrib.auth.models import (
-    AbstractBaseUser,
-    Group,
-    PermissionsMixin,
-)
+from django.contrib.auth.models import AbstractBaseUser, Group, PermissionsMixin
 from django.core.mail import send_mail
 from django.db import models
 

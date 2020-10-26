@@ -29,7 +29,10 @@ class Migration(migrations.Migration):
                 ("code_name", models.SlugField(unique=True, verbose_name="Code name")),
                 ("floor", models.SmallIntegerField(verbose_name="Floor")),
             ],
-            options={"verbose_name": "Room", "verbose_name_plural": "Rooms",},
+            options={
+                "verbose_name": "Room",
+                "verbose_name_plural": "Rooms",
+            },
         ),
         migrations.CreateModel(
             name="Appliance",

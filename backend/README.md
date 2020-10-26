@@ -15,7 +15,7 @@ Starting a simple mqtt broker in a docker container
 
 ```sh
 docker run -it -p 1883:1883 eclipse-mosquitto  # interactively
-docker run -d -p 1883:1883 eclipse-mosquitto  # as a daemon
+docker run -d -p 1883:1883 --name mqtt eclipse-mosquitto  # as a daemon
 ```
 
 ### Project setup

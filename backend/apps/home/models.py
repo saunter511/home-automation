@@ -58,6 +58,4 @@ class Appliance(PolymorphicModel):
 
     @property
     def mqtt_topic(self):
-        return (
-            f"{self.room.mqtt_topic}/{self.polymorphic_ctype.model}/{self.appliance_id}"
-        )
+        return f"{self.room.mqtt_topic}/{self.polymorphic_ctype.model}/{self.appliance_id}"

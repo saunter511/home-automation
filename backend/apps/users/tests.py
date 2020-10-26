@@ -17,9 +17,7 @@ class UserTest(TestCase):
         )
 
     def test_user_email_correct(self):
-        self.assertEqual(
-            self.user.email, "test@testing.com", "Email is wrong on the user"
-        )
+        self.assertEqual(self.user.email, "test@testing.com", "Email is wrong on the user")
 
     def test_user_superuser_status(self):
         self.assertEqual(self.user.is_superuser, False, "User was superuser by default")
@@ -36,9 +34,7 @@ class UserTest(TestCase):
         delta = datetime.now().date() - self.birth_date
         years = int(delta.days / 365.25)
 
-        self.assertEqual(
-            self.user.get_age(), years, "Age returned for the user was wrong"
-        )
+        self.assertEqual(self.user.get_age(), years, "Age returned for the user was wrong")
 
     def test_user_fullname(self):
         self.assertEqual(
