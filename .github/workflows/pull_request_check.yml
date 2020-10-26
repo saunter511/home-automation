@@ -1,0 +1,19 @@
+name: PR title check
+on:
+  pull_request:
+    types: 
+    - opened
+    - edited
+    - synchronize
+    - reopened
+
+
+jobs:
+    pr-check:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
+      - uses: deepakputhraya/action-pr-title@master
+        with:
+          regex: '(HA-\d+):' 
+     
