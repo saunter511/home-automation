@@ -12,22 +12,23 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - uses: actions/checkout@v2
-            - uses: actions/cache@v2
-              with:
-                  path: '~/.poetry'
-                  key: ${{ runner.os }}-modules-${{ hashFiles('**/poetry.lock') }}
+            - name: Checkout
+              uses: actions/checkout@v2
+
             - uses: actions/setup-python@v2
               with:
                   python-version: 3.8
 
             - name: Setup poetry
-              uses: abatilo/actions-poetry@v2.0.0
+              uses: Gr1N/setup-poetry@v4
 
-            - name: Configure poetry
-              run: |
-                  poetry config virtualenvs.create false
-                  poetry config cache-dir ~/.poetry
+            - name: Cache
+              uses: actions/cache@v2
+              with:
+                  path: ~/.cache/pypoetry/virtualenvs
+                  key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-poetry-
 
             - name: Install requirements
               run: poetry install --no-root
