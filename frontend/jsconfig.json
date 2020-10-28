@@ -1,13 +1,14 @@
 {
+	"exclude": ["node_modules", "dist", "static"],
 	"compilerOptions": {
 		"target": "es2020",
 		"allowSyntheticDefaultImports": false,
 		"baseUrl": "./",
 		"paths": {
-			"Components/*": ["src/components/*"],
-			"Pages/*": ["src/pages/*"],
+			"Components/*": ["src/Components/*"],
+			"Pages/*": ["src/Pages/*"],
+			"Theme/*": ["src/Theme/*"],
 			"Root/*": ["src/*"]
 		}
-	},
-	"exclude": ["node_modules"]
+	}
 }

@@ -1,20 +1,22 @@
 import styled from 'styled-components';
 
 const Button = styled.a`
-	color: ${(p) => p.theme.text};
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	color: ${(p) => p.theme.text.primary};
+	background: ${(p) => p.theme.buttonBg};
 	border-radius: 5px;
+
+	box-shadow: rgba(0, 0, 0, 0.25) 2px 2px 4px;
+
 	padding: 4px;
-	margin: 0.5rem 1rem;
-	width: 15rem;
-	background: transparent;
-	border: 2px solid ${(p) => p.theme.text};
 	text-decoration: none;
-	font-family: sans-serif;
-	font-size: large;
+
+	&:hover {
+		cursor: pointer;
+	}
 `;
 
 export default Button;

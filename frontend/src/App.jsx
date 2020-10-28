@@ -1,46 +1,36 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
-import Menu from './pages/Menu';
-import Profile from './components/Profile';
-import Dashboard from './components/Dashboard';
-import Settings from './components/Settings';
+import React from 'react';
+import Sidebar, { SidebarContext } from 'Components/Sidebar';
+import Routing from 'Components/Routing';
+import Topbar from 'Components/Topbar';
 
-import { HashRouter, Route, Routes } from 'react-router-dom';
+const Overlay = styled.div`
+	@media screen and (max-width: 800px) {
+		background: rgba(0, 0, 0, 0.5);
+		z-index: 50;
 
-const AppWrapper = styled.div`
-	width: 100%;
-	height: 100%;
-	display: flex;
-`;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
 
-const ContentWrapper = styled.div`
-	display: grid;
-	text-align: center;
-	grid-template-columns: minmax(80px, auto) minmax(50vw, auto);
-`;
-
-const DashboardWrapper = styled.div`
-	margin: 15px;
+		&:hover {
+			cursor: pointer;
+		}
+	}
 `;
 
 const App = () => {
-	const [hamburger, setHamburger] = useState(false);
+	const [sidebar, setSidebar] = React.useState(false);
 
 	return (
-		<AppWrapper>
-			<ContentWrapper>
-				<Menu open={hamburger} setHamburger={() => setHamburger(!hamburger)} />
-				<DashboardWrapper>
-					<HashRouter>
-						<Routes>
-							<Route path="/" element={<Dashboard />} />
-							<Route path="/settings" element={<Settings />} />
-							<Route path="/profile" element={<Profile />} />
-						</Routes>
-					</HashRouter>
-				</DashboardWrapper>
-			</ContentWrapper>
-		</AppWrapper>
+		<SidebarContext.Provider value={[sidebar, setSidebar]}>
+			<Topbar />
+			<Sidebar />
+			<Routing />
+			{sidebar ? <Overlay onClick={() => setSidebar(false)} /> : null}
+		</SidebarContext.Provider>
 	);
 };
 

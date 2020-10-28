@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
-import { ThemeContext, useTheme } from './theme';
+import { ThemeContext, useTheme } from './Theme';
 import { createGlobalStyle } from 'styled-components';
+import { HashRouter as Router } from 'react-router-dom';
 
 import App from './App';
 
@@ -13,7 +14,6 @@ export const GlobalStyle = createGlobalStyle`
 		margin: 0;
 		box-sizing: border-box;
 		font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
-		transition: 0.2s
 	}
 
 	*, *:before, &:after {
@@ -22,26 +22,24 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
 		background: ${(p) => p.theme.background};
-		color: ${(p) => p.theme.text};
+		color: ${(p) => p.theme.text.primary};
 	}
 `;
 
 const Root = () => {
-	const [theme, toggleTheme, isDark] = useTheme();
+	const { theme, toggle, isDark } = useTheme();
 
 	return (
-		<ThemeContext.Provider value={[toggleTheme, isDark]}>
+		<ThemeContext.Provider value={{ theme, toggle, isDark }}>
 			<ThemeProvider theme={theme}>
-				<GlobalStyle />
-				<App />
+				<Router>
+					<GlobalStyle />
+					<App />
+				</Router>
 			</ThemeProvider>
 		</ThemeContext.Provider>
 	);
 };
 
 // Render App with providers on #root
-ReactDOM.render(
-	<Root />,
-
-	document.getElementById('root')
-);
+ReactDOM.render(<Root />, document.getElementById('root'));
