@@ -49,3 +49,25 @@ If you want to run one of the tests, add it as an argument
 # if your code doesn't pass isort, you can run
 ./test.sh isort --apply
 ```
+
+## Appliance GraphQL queries
+After adding an appliance with graphql module, you should add query, mutation, type and model fields to graphql module `__init__.py`. They will be automatically loaded.
+
+Appliance Query and Mutation fields will be merged into the root of the schema.
+
+Fetching all appliances can be done with a type destructuring query, like so
+```graphql
+query Appliances {
+  appliances {
+    __typename  # this will be the appliance type name
+    ... on Lamp {  # this follows the Lamp type declared in appliances.lamp
+      id
+      name
+      applianceId
+      room {
+        name
+      }
+      state
+    }
+  }
+}

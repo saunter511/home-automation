@@ -18,6 +18,3 @@ class UserQuery(graphene.ObjectType):
             birth_date__month=datetime.now().month,
             birth_date__day__gte=datetime.now().day,
         )
-
-
-schema = graphene.Schema(query=UserQuery)
