@@ -1,6 +1,10 @@
 import merge from 'lodash/merge';
 
 const common = {
+	text: {
+		error: 'hsl(0, 100%, 50%)',
+	},
+
 	topbar: {
 		height: '35px',
 		background: 'hsl(0, 0%, 20%)',

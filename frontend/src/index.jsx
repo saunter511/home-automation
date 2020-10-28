@@ -4,6 +4,8 @@ import { ThemeProvider } from 'styled-components';
 import { ThemeContext, useTheme } from './Theme';
 import { createGlobalStyle } from 'styled-components';
 import { HashRouter as Router } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/client';
+import client from './client';
 
 import App from './App';
 
@@ -30,14 +32,16 @@ const Root = () => {
 	const { theme, toggle, isDark } = useTheme();
 
 	return (
-		<ThemeContext.Provider value={{ theme, toggle, isDark }}>
-			<ThemeProvider theme={theme}>
-				<Router>
-					<GlobalStyle />
-					<App />
-				</Router>
-			</ThemeProvider>
-		</ThemeContext.Provider>
+		<ApolloProvider client={client}>
+			<ThemeContext.Provider value={{ theme, toggle, isDark }}>
+				<ThemeProvider theme={theme}>
+					<Router>
+						<GlobalStyle />
+						<App />
+					</Router>
+				</ThemeProvider>
+			</ThemeContext.Provider>
+		</ApolloProvider>
 	);
 };
 

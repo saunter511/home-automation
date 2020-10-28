@@ -26,9 +26,11 @@
 		}
 	},
 	"dependencies": {
+		"@apollo/client": "^3.2.5",
 		"@babel/runtime": "^7.12.1",
 		"date-fns": "^2.16.1",
 		"framer-motion": "^2.9.4",
+		"graphql": "^15.4.0",
 		"history": "^5.0.0",
 		"lodash": "^4.17.20",
 		"polished": "^4.0.3",
@@ -105,7 +107,8 @@
 			"plugin:react/recommended"
 		],
 		"globals": {
-			"workbox": "readonly"
+			"workbox": "readonly",
+			"csrf_token": "readonly"
 		},
 		"parser": "babel-eslint",
 		"parserOptions": {
