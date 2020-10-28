@@ -1,0 +1,12 @@
+**/*.sqlite3
+**/*.egg-info
+
+**/env.example
+**/README.md
+**/.vscode
+**/static_files
+**/media_files
+
+**/node_modules
+**/dist
+**/webpack-stats.json

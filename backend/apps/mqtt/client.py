@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 def start_client():
-    client = mqtt.Client("control-center", protocol=mqtt.MQTTv5)
+    client = mqtt.Client(client_id="control-center", protocol=mqtt.MQTTv5)
 
     # Set username and password if at least username is specified in settings
     if settings.MQTT_USERNAME:
@@ -69,7 +69,7 @@ def start_client():
     mqtt_publish.connect(on_publish)
 
     try:
-        client.connect(settings.MQTT_URL, settings.MQTT_PORT, 60)
+        client.connect(settings.MQTT_URL, int(settings.MQTT_PORT), 60)
         return client
 
     except Exception as e:

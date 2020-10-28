@@ -12,9 +12,9 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Runtime security settings
-DEBUG = True
+DEBUG = bool(int(os.getenv("DEBUG", True)))
 SECRET_KEY = os.getenv("SECRET_KEY", "secret")
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"] if DEBUG else os.getenv("ALLOWED_HOSTS").split(",")
 
 SITE_DOMAIN = os.getenv("SITE_DOMAIN", "localhost")
 
@@ -40,18 +40,18 @@ USE_TZ = True
 # Static and media files
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "static_files"
-
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media_files"
 
+STATICFILES_DIRS = (BASE_DIR / "static",)
+STATIC_ROOT = os.getenv("STATIC_ROOT", BASE_DIR / "static_files")
+MEDIA_ROOT = os.getenv("MEDIA_ROOT", BASE_DIR / "media_files")
 
 # MQTT Config
-MQTT_URL = "localhost"
-MQTT_PORT = 1883
+MQTT_URL = os.getenv("MQTT_HOST", "localhost")
+MQTT_PORT = os.getenv("MQTT_PORT", 1883)
 MQTT_USERNAME = os.getenv("MQTT_USERNAME", None)
 MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", None)
-MQTT_TOPIC = "home"
+MQTT_TOPIC = os.getenv("MQTT_ROOT_TOPIC", "home")
 
 # Application definitions
 INSTALLED_APPS = [
@@ -78,12 +78,28 @@ INSTALLED_APPS = [
 
 # Database - https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 # fmt: off
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3"
+DB_TYPE = os.getenv("DB_BACKEND", 'sqlite')
+
+if DB_TYPE == 'postgres':
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("DB_NAME", 'home-automation'),
+            "USER": os.getenv("DB_USER"),
+            "PASSWORD": os.getenv("DB_PASSWORD"),
+            "HOST": os.getenv("DB_HOST"),
+            "PORT": os.getenv("DB_PORT", "5432")
+        }
     }
-}
+elif DB_TYPE == 'sqlite':
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3"
+        }
+    }
+else:
+    raise Exception("No database backend specified")
 # fmt: on
 
 REST_FRAMEWORK = {
@@ -100,14 +116,12 @@ GRAPHENE = {"SCHEMA": "core.schema.schema"}
 
 # Email settings
 DEFAULT_FROM_EMAIL = f"Home <home@{SITE_DOMAIN}>"  # default server email
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "console")
 
-if DEBUG:
-    # send emails to console in debug mode
+if EMAIL_BACKEND == "console":
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-else:
-    # TODO: Specify email backend for deployment
-    pass
-
+elif EMAIL_BACKEND == "postfix":
+    EMAIL_HOST = os.getenv("EMAIL_BACKEND_HOST")
 
 # Authentication settings
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -166,7 +180,9 @@ TEMPLATES = [
 ]
 
 # Webpack stats loader
-if DEBUG:
+WEBPACK_STATS_LOCATION = os.getenv("WEBPACK_STATS_LOCATION", "url")
+
+if WEBPACK_STATS_LOCATION == "url":
     import requests
     from webpack_loader.loader import WebpackLoader
 
@@ -179,20 +195,22 @@ if DEBUG:
         "DEFAULT": {
             "CACHE": False,
             "BUNDLE_DIR_NAME": "",
-            "STATS_URL": "http://localhost:5000/webpack-stats.json",
+            "STATS_URL": os.getenv("WEBPACK_STATS_URL", "http://localhost:5000/webpack-stats.json"),
             "POLL_INTERVAL": 0.1,
             "TIMEOUT": None,
             "LOADER_CLASS": "core.settings.URLWebpackLoader",
         }
     }
-else:
+elif WEBPACK_STATS_LOCATION == "path":
     WEBPACK_LOADER = {
         "DEFAULT": {
             "CACHE": True,
             "BUNDLE_DIR_NAME": "",
-            "STATS_FILE": BASE_DIR / "webpack-stats.json",
+            "STATS_FILE": os.getenv("WEBPACK_STATS_PATH", BASE_DIR / "webpack-stats.json"),
             "POLL_INTERVAL": 0.1,
             "TIMEOUT": None,
             "LOADER_CLASS": "webpack_loader.loader.WebpackLoader",
         }
     }
+else:
+    raise Exception("No webpack-stats.json location configured")

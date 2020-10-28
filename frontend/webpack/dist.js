@@ -13,7 +13,7 @@ module.exports = merge(config, {
 
 	// Configure where the output folder should be
 	output: {
-		publicPath: '/static/frontend',
+		publicPath: '/static/frontend/',
 	},
 
 	// Specify Terser configuration

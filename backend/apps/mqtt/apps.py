@@ -1,11 +1,8 @@
-import logging
 import os
 
 from django.apps import AppConfig
 
 from .client import start_client
-
-logger = logging.getLogger(__name__)
 
 
 class MqttConfig(AppConfig):
@@ -14,7 +11,7 @@ class MqttConfig(AppConfig):
 
     def ready(self):
         # Skip if running in the main thread
-        if not os.environ.get("RUN_MAIN"):
+        if not os.environ.get("RUN_MAIN") and not os.environ.get("RUN_WSGI"):
             return
 
         client = start_client()
