@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { RiDashboardFill } from 'react-icons/ri';
+import { RiDashboardFill } from '@meronex/icons/ri';
 
 const SidebarContainer = styled.div`
 	position: fixed;
