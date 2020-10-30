@@ -1,12 +1,12 @@
-import React from 'react';
+import { lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
 
 import Loading from 'Theme/Components/Loading';
 
-const Dashboard = React.lazy(() => import(/* webpackChunkName: 'dashboard' */ 'Pages/Dashboard'));
-const Settings = React.lazy(() => import(/* webpackChunkName: 'settings' */ 'Pages/Settings'));
-const Profile = React.lazy(() => import(/* webpackChunkName: 'profile' */ 'Pages/Profile'));
+const Dashboard = lazy(() => import(/* webpackChunkName: 'dashboard' */ 'Pages/Dashboard'));
+const Settings = lazy(() => import(/* webpackChunkName: 'settings' */ 'Pages/Settings'));
+const Profile = lazy(() => import(/* webpackChunkName: 'profile' */ 'Pages/Profile'));
 
 const PageWrapper = styled.div`
 	display: flex;
@@ -28,13 +28,13 @@ const PageWrapper = styled.div`
 const Routing = () => {
 	return (
 		<PageWrapper>
-			<React.Suspense fallback={<Loading />}>
+			<Suspense fallback={<Loading />}>
 				<Routes>
 					<Route path="/" element={<Dashboard />} />
 					<Route path="/settings" element={<Settings />} />
 					<Route path="/profile" element={<Profile />} />
 				</Routes>
-			</React.Suspense>
+			</Suspense>
 		</PageWrapper>
 	);
 };

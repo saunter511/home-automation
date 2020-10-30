@@ -1,10 +1,27 @@
 {
 	"name": "Home automation by Owocowe Piatki",
 	"short_name": "Home automation",
-	"icons": [],
 	"start_url": "/",
-	"display": "standalone",
 	"scope": "/",
 	"background_color": "#000000",
-	"theme_color": "#000000"
+	"theme_color": "#333333",
+	"display": "standalone",
+
+	"icons": [
+		{
+			"src": "/static/frontend/assets/icons/icon144.png",
+			"type": "image/png",
+			"sizes": "144x144"
+		},
+		{
+			"src": "/static/frontend/assets/icons/icon192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "/static/frontend/assets/icons/icon512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
 }

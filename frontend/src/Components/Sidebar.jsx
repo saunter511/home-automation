@@ -1,4 +1,4 @@
-import React from 'react';
+import { createContext, useContext } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { RiDashboardFill } from 'react-icons/ri';
@@ -68,10 +68,10 @@ const PageLink = styled(NavLink)`
 	}
 `;
 
-export const SidebarContext = React.createContext([false, () => {}]);
+export const SidebarContext = createContext([false, () => {}]);
 
 const Sidebar = () => {
-	const [open] = React.useContext(SidebarContext);
+	const [open] = useContext(SidebarContext);
 
 	return (
 		<SidebarContainer open={open}>

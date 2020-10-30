@@ -20,16 +20,18 @@ module.exports = {
 		rules: [
 			// Compile .js and .jsx files with babel
 			{
-				test: /\.(js|jsx)$/,
+				test: /\.[jt]s(x)?$/,
 				resolve: { extensions: ['.js', '.jsx'] },
-				exclude: /node_modules/,
-				use: 'babel-loader',
+				include: path.resolve(__dirname, '../src'),
+				use: ['thread-loader', 'babel-loader'],
 			},
 		],
 	},
 
 	// Create global bindings for common paths
 	resolve: {
+		symlinks: false,
+		cacheWithContext: false,
 		alias: {
 			Root: path.resolve(__dirname, '../src/'),
 			Components: path.resolve(__dirname, '../src/Components/'),

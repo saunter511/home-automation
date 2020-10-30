@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React from 'react';
+import { useContext } from 'react';
 
 import { ThemeContext } from 'Theme';
 import PageHeader from 'Theme/Components/PageHeader';
@@ -31,7 +31,7 @@ const CategoryHeader = styled.h2`
 `;
 
 const Settings = () => {
-	const { toggle, isDark } = React.useContext(ThemeContext);
+	const { toggle, isDark } = useContext(ThemeContext);
 
 	return (
 		<PageContainer>

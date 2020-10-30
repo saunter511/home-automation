@@ -18,21 +18,8 @@ module.exports = merge(config, {
 
 	// Specify Terser configuration
 	optimization: {
-		minimizer: [
-			new Terser({
-				cache: true,
-				parallel: true,
-				sourceMap: false,
-				terserOptions: {
-					compress: {
-						dead_code: true,
-						conditionals: true,
-						booleans: true,
-						ecma: 6,
-					},
-				},
-			}),
-		],
+		minimize: true,
+		minimizer: [new Terser()],
 	},
 
 	plugins: [

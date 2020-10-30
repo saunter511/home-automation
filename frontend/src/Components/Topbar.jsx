@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import { NavLink } from 'react-router-dom';
@@ -72,7 +72,7 @@ const SidebarHamburger = styled(Hamburger)`
 const Settings = styled(TopbarButton)``;
 
 const Topbar = () => {
-	const [open, setOpen] = React.useContext(SidebarContext);
+	const [open, setOpen] = useContext(SidebarContext);
 
 	return (
 		<TopbarContainer>

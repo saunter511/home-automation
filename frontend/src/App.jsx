@@ -1,8 +1,13 @@
 import styled from 'styled-components';
-import React from 'react';
+import { useState } from 'react';
+
+import { HashRouter as Router } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/client';
+import client from './client';
+
 import Sidebar, { SidebarContext } from 'Components/Sidebar';
-import Routing from 'Components/Routing';
 import Topbar from 'Components/Topbar';
+import Routing from 'Components/Routing';
 
 const Overlay = styled.div`
 	@media screen and (max-width: 800px) {
@@ -22,15 +27,19 @@ const Overlay = styled.div`
 `;
 
 const App = () => {
-	const [sidebar, setSidebar] = React.useState(false);
+	const [sidebar, setSidebar] = useState(false);
 
 	return (
-		<SidebarContext.Provider value={[sidebar, setSidebar]}>
-			<Topbar />
-			<Sidebar />
-			<Routing />
-			{sidebar ? <Overlay onClick={() => setSidebar(false)} /> : null}
-		</SidebarContext.Provider>
+		<ApolloProvider client={client}>
+			<Router>
+				<SidebarContext.Provider value={[sidebar, setSidebar]}>
+					<Topbar />
+					<Sidebar />
+					<Routing />
+					{sidebar ? <Overlay onClick={() => setSidebar(false)} /> : null}
+				</SidebarContext.Provider>
+			</Router>
+		</ApolloProvider>
 	);
 };
 

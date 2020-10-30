@@ -1,15 +1,14 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
+import { Suspense, lazy } from 'react';
+import { createGlobalStyle } from 'styled-components';
 import { ThemeProvider } from 'styled-components';
 import { ThemeContext, useTheme } from './Theme';
-import { createGlobalStyle } from 'styled-components';
-import { HashRouter as Router } from 'react-router-dom';
-import { ApolloProvider } from '@apollo/client';
-import client from './client';
 
-import App from './App';
+import SiteLoading from 'Theme/Components/SiteLoading';
 
-export const GlobalStyle = createGlobalStyle`
+if (module.hot) module.hot.accept();
+
+const GlobalStyle = createGlobalStyle`
 	html, body, #root {
 		height: 100%;
 		max-width: 100vw;
@@ -28,20 +27,20 @@ export const GlobalStyle = createGlobalStyle`
 	}
 `;
 
+const App = lazy(() => import(/* webpackChunkName: 'app' */ './App'));
+
 const Root = () => {
 	const { theme, toggle, isDark } = useTheme();
 
 	return (
-		<ApolloProvider client={client}>
-			<ThemeContext.Provider value={{ theme, toggle, isDark }}>
-				<ThemeProvider theme={theme}>
-					<Router>
-						<GlobalStyle />
-						<App />
-					</Router>
-				</ThemeProvider>
-			</ThemeContext.Provider>
-		</ApolloProvider>
+		<ThemeContext.Provider value={{ theme, toggle, isDark }}>
+			<ThemeProvider theme={theme}>
+				<GlobalStyle />
+				<Suspense fallback={<SiteLoading />}>
+					<App />
+				</Suspense>
+			</ThemeProvider>
+		</ThemeContext.Provider>
 	);
 };
 

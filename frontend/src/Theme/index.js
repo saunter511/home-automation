@@ -1,8 +1,8 @@
-import React from 'react';
+import { createContext, useState } from 'react';
 import themes from './themes';
 
 // Create react context for theme info
-export const ThemeContext = React.createContext({ theme: {}, toggle: () => {}, isDark: false });
+export const ThemeContext = createContext({ theme: {}, toggle: () => {}, isDark: false });
 
 // Define a hook to control theme from any component
 export const useTheme = () => {
@@ -19,7 +19,7 @@ export const useTheme = () => {
 	}
 
 	// Create a state variable holding theme variant
-	const [theme, setTheme] = React.useState(stored);
+	const [theme, setTheme] = useState(stored);
 
 	// Theme switcher function
 	const toggleTheme = () => {

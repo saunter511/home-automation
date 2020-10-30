@@ -45,7 +45,7 @@ const lightTheme = {
 };
 
 const darkTheme = {
-	background: 'hsl(0, 0%, 17%)',
+	background: 'hsl(0, 0%, 9%)',
 	buttonBg: '#6f6f6f',
 
 	text: {
