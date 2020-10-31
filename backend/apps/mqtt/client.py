@@ -3,7 +3,7 @@ import logging
 import paho.mqtt.client as mqtt
 from django.conf import settings
 
-from .signals import mqtt_publish, mqtt_receive
+from .signals import mqtt_receive
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +53,7 @@ def start_client():
         payload = msg.payload.decode()
         mqtt_receive.send(__name__, topic=topic, payload=payload)
 
-    def on_publish(sender, topic, payload, **kwargs):
+    def signal_publish(sender, topic, payload, **kwargs):
         """
         Publish signal callback, push a message to mqtt with passed topic and payload
 
@@ -61,12 +61,12 @@ def start_client():
         :param topic: message topic
         :param payload: message payload
         """
-        client.publish(topic=f"{settings.MQTT_TOPIC}/{topic}", payload=payload)
+        client.publish(topic=topic, payload=payload)
 
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
     client.on_message = on_message
-    mqtt_publish.connect(on_publish)
+    client.signal_publish = signal_publish
 
     try:
         client.connect(settings.MQTT_URL, int(settings.MQTT_PORT), 60)

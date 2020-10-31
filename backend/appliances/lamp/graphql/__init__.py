@@ -1,6 +1,7 @@
 import graphene
 
 from ..models import Lamp as LampModel
+from .mutations import BatchSetLamp, SetLamp, ToggleLamp
 from .types import Lamp as LampType
 
 type = LampType
@@ -15,4 +16,6 @@ class Query(graphene.ObjectType):
 
 
 class Mutation(graphene.ObjectType):
-    pass
+    toggle_lamp = ToggleLamp.Field()
+    set_lamp = SetLamp.Field()
+    batch_set_lamp = BatchSetLamp.Field()
