@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY frontend/package.json frontend/yarn.lock /app/
-RUN yarn install --silent
+RUN yarn install
 
 # Copy app files and build
 COPY frontend/ /app/
