@@ -1,47 +1,65 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { RiDashboardFill } from '@meronex/icons/ri';
+import { motion, AnimateSharedLayout } from 'framer-motion';
 
-const SidebarContainer = styled.div`
-	position: fixed;
-	top: ${(p) => p.theme.topbar.height};
+const SidebarContainer = styled.nav`
+	grid-area: sidebar;
+	width: ${(p) => p.theme.sidebar.width};
 
 	display: flex;
 	flex-direction: column;
-
 	z-index: 100;
-
 	height: 100%;
-	background: ${(p) => p.theme.sidebar.background};
 
-	@media screen and (max-width: 800px) {
-		width: ${(p) => p.theme.sidebar.mobile.width};
+	transition: transform 0.4s;
 
-		box-shadow: rgba(0, 0, 0, 0.25) 2px 2px 4px;
+	@media screen and (max-width: 900px) {
+		position: fixed;
 		transform: ${(p) => (p.open ? 'translateX(0)' : 'translateX(-100%)')};
-		transition: transform 0.2s;
+		background: ${(p) => p.theme.background};
+		top: ${(p) => p.theme.topbar.height};
+		left: 0;
+		bottom: 0;
+		padding-top: 10px;
+	}
+`;
+
+const Overlay = styled(motion.div)`
+	@media screen and (min-width: 900px) {
+		display: none;
 	}
 
-	@media screen and (min-width: 800px) {
-		width: ${(p) => p.theme.sidebar.desktop.width};
+	@media screen and (max-width: 900px) {
+		position: fixed;
+		top: ${(p) => p.theme.topbar.height};
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgb(0, 0, 0);
 
-		box-shadow: ${(p) => p.theme.box.shadow};
+		opacity: 0.6;
+
+		&:hover {
+			cursor: pointer;
+		}
 	}
 `;
 
 const PageLink = styled(NavLink)`
 	display: flex;
-	height: 30px;
-	width: 100%;
 	align-items: center;
+	justify-content: center;
+	position: relative;
+
+	width: 100%;
+
 	text-decoration: none;
+	color: ${(p) => p.theme.text.primary};
 
-	padding: 2px 5px;
-
-	justify-content: ${(p) => (p.open ? 'space-between' : 'center')};
-
-	color: ${(p) => p.theme.text.secondary};
+	padding: 0 10px;
 
 	& svg {
 		width: 25px;
@@ -55,31 +73,62 @@ const PageLink = styled(NavLink)`
 		padding-left: 10px;
 		align-items: center;
 		height: 40px;
-		font-size: 15px;
-	}
-
-	&.active {
-		color: ${(p) => p.theme.text.primary};
-		background: ${(p) => p.theme.sidebar.linkActive};
-	}
-
-	&:hover {
-		color: ${(p) => p.theme.text.primary};
+		font-size: 0.9rem;
 	}
 `;
+
+const AnimatedLinkBackground = styled(motion.div)`
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: -10;
+	margin: -10px -10px;
+
+	border-left: 5px solid ${(p) => p.theme.colors.accent};
+
+	background: ${(p) => p.theme.sidebar.linkActive};
+`;
+
+const AnimatedPageLink = (props) => {
+	const { pathname } = useLocation();
+
+	return (
+		<PageLink to={props.to} end={props.end}>
+			{props.to == pathname ? <AnimatedLinkBackground layoutId="current" /> : null}
+			{props.children}
+		</PageLink>
+	);
+};
+
+AnimatedPageLink.propTypes = {
+	to: PropTypes.string,
+	end: PropTypes.bool,
+	children: PropTypes.array,
+};
 
 export const SidebarContext = createContext([false, () => {}]);
 
 const Sidebar = () => {
-	const [open] = useContext(SidebarContext);
+	const [open, setOpen] = useContext(SidebarContext);
+
+	const location = useLocation();
+
+	useEffect(() => {
+		setTimeout(() => setOpen(false), 250);
+	}, [location, setOpen]);
 
 	return (
-		<SidebarContainer open={open}>
-			<PageLink to="/" end>
-				<RiDashboardFill />
-				<div>Dashboard</div>
-			</PageLink>
-		</SidebarContainer>
+		<>
+			<SidebarContainer open={open}>
+				<AnimateSharedLayout>
+					<AnimatedPageLink to="/" end>
+						<RiDashboardFill />
+						<div>Dashboard</div>
+					</AnimatedPageLink>
+				</AnimateSharedLayout>
+			</SidebarContainer>
+			{open && <Overlay onClick={() => setOpen(false)} />}
+		</>
 	);
 };
 

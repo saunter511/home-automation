@@ -10,7 +10,7 @@ const LoadingContainer = styled(motion.div)`
 	align-items: center;
 `;
 
-const Letter = styled(motion.div)`
+const Letter = styled(motion.span)`
 	font-size: 2rem;
 	letter-spacing: 1rem;
 	font-weight: 900;
@@ -22,8 +22,8 @@ const parentVariants = {
 };
 
 const childVariants = {
-	visible: { scale: 1, rotateZ: 0, transition: { duration: 0.5 } },
-	hidden: { scale: 0, rotateZ: 180, transition: { duration: 0.5 } },
+	visible: { scale: 1, transition: { duration: 0.5 } },
+	hidden: { scale: 0, transition: { duration: 0.5 } },
 };
 
 const SiteLoading = () => {

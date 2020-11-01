@@ -1,22 +1,43 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-const Button = styled.a`
+const ButtonContainer = styled.a`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	padding: 5px;
 
-	color: ${(p) => p.theme.text.primary};
-	background: ${(p) => p.theme.buttonBg};
-	border-radius: 5px;
-
-	box-shadow: rgba(0, 0, 0, 0.25) 2px 2px 4px;
-
-	padding: 4px;
+	color: ${(p) => p.theme.button.text};
 	text-decoration: none;
+
+	background: ${(p) => p.theme.button.background};
 
 	&:hover {
 		cursor: pointer;
+		background: ${(p) => p.theme.button.backgroundHover};
+	}
+
+	&:focus {
+		background: ${(p) => p.theme.button.backgroundHover};
+		outline: none;
+		outline-offset: 0;
+	}
+
+	&:active {
+		background: ${(p) => p.theme.button.backgroundActive};
 	}
 `;
+
+const Button = (props) => {
+	return (
+		<ButtonContainer tabIndex="0" {...props}>
+			{props.children}
+		</ButtonContainer>
+	);
+};
+
+Button.propTypes = {
+	children: PropTypes.array,
+};
 
 export default Button;

@@ -19,11 +19,30 @@ const GlobalStyle = createGlobalStyle`
 
 	*, *:before, &:after {
 		box-sizing: inherit;
+
 	}
 
     body {
 		background: ${(p) => p.theme.background};
 		color: ${(p) => p.theme.text.primary};
+		overflow: none;
+	}
+
+	::-webkit-scrollbar {
+		width: 5px;
+	}
+
+
+	::-webkit-scrollbar-track {
+		background: ${(p) => p.theme.scrollbar.background};
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: ${(p) => p.theme.scrollbar.handle};
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: ${(p) => p.theme.scrollbar.handleHover};
 	}
 `;
 

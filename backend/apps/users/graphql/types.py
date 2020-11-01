@@ -8,7 +8,7 @@ from ..models import User
 class UserType(DjangoObjectType):
     class Meta:
         model = User
-        exclude = ["id", "password"]
+        exclude = ["password"]
 
     full_name = graphene.String()
     short_name = graphene.String()

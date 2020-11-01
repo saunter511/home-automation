@@ -9,21 +9,28 @@ import Sidebar, { SidebarContext } from 'Components/Sidebar';
 import Topbar from 'Components/Topbar';
 import Routing from 'Components/Routing';
 
-const Overlay = styled.div`
-	@media screen and (max-width: 800px) {
-		background: rgba(0, 0, 0, 0.5);
-		z-index: 50;
+const Layout = styled.div`
+	display: grid;
 
-		position: fixed;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
+	grid-template-columns: ${(p) => p.theme.sidebar.width} 1fr;
+	grid-template-rows: ${(p) => p.theme.topbar.height} 1fr;
 
-		&:hover {
-			cursor: pointer;
-		}
+	grid-gap: 10px;
+
+	@media screen and (max-width: 900px) {
+		grid-template-areas:
+			'topbar topbar'
+			'content content';
 	}
+
+	@media screen and (min-width: 900px) {
+		grid-template-areas:
+			'topbar topbar'
+			'sidebar content';
+	}
+
+	height: 100%;
+	width: 100%;
 `;
 
 const App = () => {
@@ -33,10 +40,11 @@ const App = () => {
 		<ApolloProvider client={client}>
 			<Router>
 				<SidebarContext.Provider value={[sidebar, setSidebar]}>
-					<Topbar />
-					<Sidebar />
-					<Routing />
-					{sidebar ? <Overlay onClick={() => setSidebar(false)} /> : null}
+					<Layout sidebarOpen={sidebar}>
+						<Topbar />
+						<Sidebar />
+						<Routing />
+					</Layout>
 				</SidebarContext.Provider>
 			</Router>
 		</ApolloProvider>

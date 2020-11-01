@@ -1,67 +1,98 @@
 import merge from 'lodash/merge';
 
+// secondary colors for gradients
+const colors = {
+	accent: 'hsl(220, 100%, 50%)',
+	accent2: 'hsl(204, 100%, 50%)',
+
+	error: 'hsl(0, 100%, 50%)',
+	error2: 'hsl(0, 100%, 65%)',
+
+	success: 'hsl(125, 95%, 35%)',
+	success2: 'hsl(125, 95%, 50%)',
+
+	warning: 'hsl(43, 100%, 45%)',
+	warning2: 'hsl(43, 100%, 55%)',
+};
+
 const common = {
-	text: {
-		error: 'hsl(0, 100%, 50%)',
-	},
+	colors: colors,
 
 	topbar: {
-		height: '35px',
-		background: 'hsl(0, 0%, 20%)',
-		text: 'hsl(0, 0%, 70%)',
-		textActive: 'hsl(0, 0%, 90%)',
+		height: '60px',
 	},
 
 	sidebar: {
-		desktop: {
-			width: '150px',
-		},
+		width: '200px',
+	},
 
-		mobile: {
-			width: '40vw',
-		},
+	button: {
+		shadow: 'hsla(0, 0%, 0%, 0.25) 0 0 2px',
+	},
+
+	box: {
+		shadow: 'hsla(0, 0%, 0%, 0.25) 0 0 2px',
 	},
 };
 
 const lightTheme = {
-	background: 'hsl(0, 0%, 90%)',
-	buttonBg: '#e5e5e5',
+	background: 'hsl(240, 10%, 88%)',
 
 	text: {
-		primary: '#000',
-		secondary: '#696969',
-	},
-
-	box: {
-		background: '#FFFFFF',
-		shadow: '2px 2px 0px 2px hsla(0, 0%, 100%, 50%)',
-		highlight: 'rgba(255, 255, 255, 0.5)',
+		primary: 'hsl(0, 0%, 0%)',
+		secondary: 'hsl(240, 12%, 58%)',
 	},
 
 	sidebar: {
-		background: '#FFFFFF',
 		linkActive: 'hsl(0, 0%, 95%)',
+	},
+
+	button: {
+		text: 'hsl(0, 0%, 0%)',
+		background: 'hsl(0, 0%, 90%)',
+		backgroundHover: 'hsl(0, 0%, 80%)',
+		backgroundActive: 'hsl(0, 0%, 70%)',
+	},
+
+	box: {
+		background: 'hsl(0, 0%, 100%)',
+		highlight: 'hsla(0, 0%, 100%, 0.5)',
+	},
+
+	scrollbar: {
+		background: 'hsl(240, 10%, 70%)',
+		handle: 'hsl(0, 0%, 50%)',
+		handleHover: 'hsl(0, 0%, 35%)',
 	},
 };
 
 const darkTheme = {
 	background: 'hsl(0, 0%, 9%)',
-	buttonBg: '#6f6f6f',
 
 	text: {
-		primary: '#EFE9F4',
-		secondary: '#B0B0B0',
-	},
-
-	box: {
-		background: '#505050',
-		shadow: '2px 2px 0px 2px hsla(0, 0%, 34%, 38%)',
-		highlight: 'hsla(0, 0%, 34%, 38%)',
+		primary: 'hsl(220, 50%, 95%)',
+		secondary: 'hsl(0, 0%, 52%)',
 	},
 
 	sidebar: {
-		background: '#444444',
-		linkActive: 'hsl(0, 0%, 22%)',
+		linkActive: 'hsl(0, 0%, 13%)',
+	},
+
+	button: {
+		text: 'hsl(220, 50%, 95%)',
+		background: 'hsl(0, 0%, 30%)',
+		backgroundHover: 'hsl(0, 0%, 35%)',
+	},
+
+	box: {
+		background: 'hsl(0, 0%, 13%)',
+		highlight: 'hsla(0, 0%, 34%, 38%)',
+	},
+
+	scrollbar: {
+		background: 'hsl(0, 0%, 13%)',
+		handle: 'hsl(0, 0%, 20%)',
+		handleHover: 'hsl(0, 0%, 25%)',
 	},
 };
 

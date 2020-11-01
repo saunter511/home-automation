@@ -5,6 +5,8 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+	target: 'web',
+
 	// Specify entry files
 	entry: {
 		main: './src/index.jsx',
