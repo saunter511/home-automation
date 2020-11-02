@@ -1,16 +1,25 @@
 import styled from 'styled-components';
 
-const LoadingContainer = styled.div`
-	width: 100%;
-	height: 100%;
-
+const Loading = styled.div`
 	display: flex;
-	justify-content: center;
 	align-items: center;
-`;
+	justify-content: center;
+	border: 1px solid ${(p) => p.theme.text.secondary};
+	border-top: 1px solid ${(p) => p.theme.text.primary};
+	border-radius: 50%;
+	width: 16px;
+	height: 16px;
+	animation: spin 1s ease-in-out infinite;
+	z-index: 1;
 
-const Loading = () => {
-	return <LoadingContainer>Loading...</LoadingContainer>;
-};
+	@keyframes spin {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+`;
 
 export default Loading;

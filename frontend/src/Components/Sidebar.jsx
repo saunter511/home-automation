@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { NavLink, useLocation } from 'react-router-dom';
 import { RiDashboardFill } from '@meronex/icons/ri';
-<<<<<<< HEAD
 import { motion, AnimateSharedLayout } from 'framer-motion';
-=======
-import MdcFloorLamp from '@meronex/icons/mdc/MdcFloorLamp';
->>>>>>> Added lamp page
+import FaLightbulb from '@meronex/icons/fa/FaLightbulb';
 
 const SidebarContainer = styled.nav`
 	grid-area: sidebar;
@@ -122,7 +119,6 @@ const Sidebar = () => {
 	}, [location, setOpen]);
 
 	return (
-<<<<<<< HEAD
 		<>
 			<SidebarContainer open={open}>
 				<AnimateSharedLayout>
@@ -130,22 +126,14 @@ const Sidebar = () => {
 						<RiDashboardFill />
 						<div>Dashboard</div>
 					</AnimatedPageLink>
+					<AnimatedPageLink to="/lamps" end>
+						<FaLightbulb />
+						<div>Lamps</div>
+					</AnimatedPageLink>
 				</AnimateSharedLayout>
 			</SidebarContainer>
 			{open && <Overlay onClick={() => setOpen(false)} />}
 		</>
-=======
-		<SidebarContainer open={open}>
-			<PageLink to="/" end>
-				<RiDashboardFill />
-				<div>Dashboard</div>
-			</PageLink>
-			<PageLink to="/lamps" end>
-				<MdcFloorLamp />
-				<div>Lamps</div>
-			</PageLink>
-		</SidebarContainer>
->>>>>>> Added lamp page
 	);
 };
 

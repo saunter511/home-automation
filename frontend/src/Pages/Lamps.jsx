@@ -1,51 +1,59 @@
 import styled from 'styled-components';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 import PageHeader from 'Theme/Components/PageHeader';
 import PageContainer from 'Theme/Components/PageContainer';
 import Loading from 'Theme/Components/Loading';
 import Error from 'Theme/Components/Error';
 import CategoryHeader from 'Theme/Components/CategoryHeader';
 import Box from 'Theme/Components/Box';
+import Button from 'Theme/Components/Button';
+import Spacer from 'Theme/Components/Spacer';
 
 import MdcReload from '@meronex/icons/mdc/MdcReload';
+import MdcLightbulbOffOutline from '@meronex/icons/mdc/MdcLightbulbOffOutline';
+import MdcLightbulbOnOutline from '@meronex/icons/mdc/MdcLightbulbOnOutline';
 
 const GET_LAMPS = gql`
-	query getLamp {
+	query Rooms {
 		rooms {
-			name
-		}
-		lamps {
 			id
 			name
-			room {
-				name
+			codeName
+			floor
+			appliances {
+				... on Lamp {
+					id
+					name
+					applianceId
+					state
+				}
 			}
-			state
+		}
+	}
+`;
+
+const TOGGLE_LAMP = gql`
+	mutation toggleLamp($id: ID) {
+		toggleLamp(id: $id) {
+			ok
+			newState
 		}
 	}
 `;
 
 const LampsGrid = styled.div`
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+	grid-gap: 15px;
 
-	@media screen and (max-width: 1200px) {
+	@media screen and (max-width: 1300px) {
 		grid-template-columns: 1fr 1fr;
 	}
 
-	@media screen and (max-width: 800px) {
+	@media screen and (max-width: 900px) {
 		grid-template-columns: 1fr;
 	}
-`;
-
-const Status = styled.div`
-	display: inline-block;
-	transition: 0.1s;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background-color: ${(props) => (props.status ? 'green' : 'red')};
 `;
 
 const Refresh = styled.div`
@@ -59,36 +67,62 @@ const Refresh = styled.div`
 	}
 `;
 
-const Lamps = () => {
-	const { loading, error, data, refetch } = useQuery(GET_LAMPS, { pollInterval: 5000 });
-	if (loading) return <Loading />;
-	if (error) return <Error message={error} />;
+const LampContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	margin: 3px;
+`;
 
-	const roomList = data.rooms.map((room) => {
-		console.log(data.lamps.room);
-		return (
-			<Box key={room.name}>
-				<CategoryHeader> {room.name} </CategoryHeader>
-				{data.lamps.map((lamp) => {
-					if (lamp.room.name == room.name)
-						return (
-							<div key={lamp.id}>
-								{' '}
-								{lamp.name} <Status status={lamp.state} />{' '}
-							</div>
-						);
-				})}
-			</Box>
-		);
+const Lamps = () => {
+	const { loading: queryLoading, error: queryError, data, refetch } = useQuery(GET_LAMPS, {
+		pollInterval: 5000,
 	});
+
+	const [toggleLamp, { loading: mutationLoading }] = useMutation(TOGGLE_LAMP, {
+		refetchQueries: [{ query: GET_LAMPS }],
+		awaitRefetchQuerieswait: true,
+	});
+
+	if (queryLoading) return <Loading />;
+	if (queryError) return <Error message={queryError} />;
+
+	const roomList = data.rooms
+		.filter((room) => room.appliances.length > 0)
+		.map((room) => {
+			return (
+				<Box key={room.name}>
+					<CategoryHeader> {room.name} </CategoryHeader>
+					{room.appliances.map((lamp) => {
+						return (
+							<LampContainer key={lamp.id}>
+								{' '}
+								{lamp.name}
+								<Spacer />
+								<Button
+									onClick={() => {
+										toggleLamp({ variables: { id: lamp.id } });
+									}}
+								>
+									{mutationLoading || queryLoading ? (
+										<Loading />
+									) : lamp.state ? (
+										<MdcLightbulbOnOutline />
+									) : (
+										<MdcLightbulbOffOutline />
+									)}
+								</Button>
+							</LampContainer>
+						);
+					})}
+				</Box>
+			);
+		});
 
 	return (
 		<PageContainer>
 			<PageHeader>
-				{' '}
-				Lamps{' '}
+				Lamps
 				<Refresh onClick={() => refetch()}>
-					{' '}
 					<MdcReload />
 				</Refresh>
 			</PageHeader>
