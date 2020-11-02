@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
 
 import Loading from 'Theme/Components/Loading';
-import Lamps from 'Pages/Lamps';
+const Lamps = lazy(() => import(/* webpackChunkName: 'lamps' */ 'Pages/Lamps'));
 
 const Dashboard = lazy(() => import(/* webpackChunkName: 'dashboard' */ 'Pages/Dashboard'));
 const Profile = lazy(() => import(/* webpackChunkName: 'profile' */ 'Pages/Profile'));
