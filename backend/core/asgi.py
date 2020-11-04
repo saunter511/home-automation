@@ -1,21 +1,12 @@
 """
-ASGI config for core project.
-https://docs.djangoproject.com/en/3.1/howto/deployment/asgi/
+ASGI entrypoint. Configures Django and then runs the application
+defined in the ASGI_APPLICATION setting.
 """
 import os
 
-from channels.routing import ProtocolTypeRouter, URLRouter
-from django.urls import path
-from graphene_subscriptions.consumers import GraphqlSubscriptionConsumer
+import django
+from channels.routing import get_default_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
-
-
-# fmt: off
-application = ProtocolTypeRouter({
-    # "http": get_asgi_application(),
-    "websocket": URLRouter([
-        path("graphql/", GraphqlSubscriptionConsumer)]
-    )
-})
-# fmt: on
+django.setup()
+application = get_default_application()

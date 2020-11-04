@@ -28,7 +28,7 @@ ROOT_URLCONF = "core.urls"
 # WSGI and ASGI Application entrypoint
 # https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface
 WSGI_APPLICATION = "core.wsgi.application"
-ASGI_APPLICATION = "core.asgi.application"
+ASGI_APPLICATION = "core.routing.application"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

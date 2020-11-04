@@ -18,7 +18,9 @@ RUN yarn build
 FROM python:3.8-slim
 ENV PYTHONUNBUFFERED 1
 
-RUN pip install poetry uvicorn psycopg2-binary
+RUN apt-get update && apt-get install gcc -y && apt-get clean
+
+RUN pip install poetry psycopg2-binary
 
 RUN mkdir -p /app
 WORKDIR /app
