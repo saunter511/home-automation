@@ -1,7 +1,6 @@
 import ReactDOM from 'react-dom';
 import { Suspense, lazy } from 'react';
-import { createGlobalStyle } from 'styled-components';
-import { ThemeProvider } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { ThemeContext, useTheme } from './Theme';
 
 import SiteLoading from 'Theme/Components/SiteLoading';

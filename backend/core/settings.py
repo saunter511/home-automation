@@ -25,9 +25,10 @@ if DEBUG:
 # Main url configuration file path
 ROOT_URLCONF = "core.urls"
 
-# WSGI Application entrypoint
+# WSGI and ASGI Application entrypoint
 # https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface
 WSGI_APPLICATION = "core.wsgi.application"
+ASGI_APPLICATION = "core.asgi.application"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -65,10 +66,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # libraries
     "polymorphic",
+    "channels",
     "webpack_loader",
     "rest_framework.authtoken",
     "rest_framework",
     "graphene_django",
+    "graphene_subscriptions",
     # modules
     "apps.users",
     "apps.home",
@@ -113,6 +116,13 @@ REST_FRAMEWORK = {
 }
 
 GRAPHENE = {"SCHEMA": "core.schema.schema"}
+
+# Channels config
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    }
+}
 
 # Email settings
 DEFAULT_FROM_EMAIL = f"Home <home@{SITE_DOMAIN}>"  # default server email

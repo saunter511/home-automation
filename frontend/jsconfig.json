@@ -8,6 +8,7 @@
 			"Components/*": ["src/Components/*"],
 			"Pages/*": ["src/Pages/*"],
 			"Theme/*": ["src/Theme/*"],
+			"Utils/*": ["src/Utils/*"],
 			"Root/*": ["src/*"]
 		}
 	}

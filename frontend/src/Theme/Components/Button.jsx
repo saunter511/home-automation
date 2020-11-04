@@ -40,4 +40,13 @@ Button.propTypes = {
 	children: PropTypes.array,
 };
 
+export const ButtonRow = styled.div`
+	display: flex;
+	margin-top: 10px;
+
+	& ${ButtonContainer} {
+		margin-right: 5px;
+	}
+`;
+
 export default Button;

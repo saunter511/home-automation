@@ -29,6 +29,8 @@ djangorestframework = "^3.12.1"
 graphene-django = "^2.13.0"
 django-filter = "^2.4.0"
 django-polymorphic = "^3.0.0"
+channels = "^2.4.0"
+graphene-subscriptions = "^1.0.2"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"

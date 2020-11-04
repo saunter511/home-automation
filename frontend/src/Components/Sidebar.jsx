@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { NavLink, useLocation } from 'react-router-dom';
 import { RiDashboardFill } from '@meronex/icons/ri';
 import { motion, AnimateSharedLayout } from 'framer-motion';
-import FaLightbulb from '@meronex/icons/fa/FaLightbulb';
+import { AiFillBulb } from '@meronex/icons/ai';
 
 const SidebarContainer = styled.nav`
 	grid-area: sidebar;
@@ -127,7 +127,7 @@ const Sidebar = () => {
 						<div>Dashboard</div>
 					</AnimatedPageLink>
 					<AnimatedPageLink to="/lamps" end>
-						<FaLightbulb />
+						<AiFillBulb />
 						<div>Lamps</div>
 					</AnimatedPageLink>
 				</AnimateSharedLayout>

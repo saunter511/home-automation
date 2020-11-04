@@ -8,6 +8,7 @@ from apps.users.graphql.queries import UserQuery
 
 queries = [HomeQuery, UserQuery]
 mutations = []
+subscriptions = []
 
 # Attach all appliance queries dynamically
 for appliance in inspect.getmembers(appliances, inspect.ismodule):
@@ -21,6 +22,10 @@ for appliance in inspect.getmembers(appliances, inspect.ismodule):
         if hasattr(appliance[1].graphql, "Mutation"):
             mutations.append(appliance[1].graphql.Mutation)
 
+        # Attach subscriptions
+        if hasattr(appliance[1].graphql, "Subscription"):
+            subscriptions.append(appliance[1].graphql.Subscription)
+
 
 class Query((*queries), graphene.ObjectType):
     pass
@@ -30,4 +35,8 @@ class Mutation((*mutations), graphene.ObjectType):
     pass
 
 
-schema = graphene.Schema(query=Query, mutation=Mutation)
+class Subscription((*subscriptions), graphene.ObjectType):
+    pass
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation, subscription=Subscription)

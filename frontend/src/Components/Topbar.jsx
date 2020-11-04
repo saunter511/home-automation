@@ -5,7 +5,6 @@ import { FaUserAlt } from '@meronex/icons/fa';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Hamburger from 'Theme/Components/Hamburger';
 import { SidebarContext } from './Sidebar';
 
 const TopbarContainer = styled.div`
@@ -19,18 +18,6 @@ const TopbarContainer = styled.div`
 
 	width: 100%;
 	height: ${(p) => p.theme.topbar.height};
-`;
-
-const SidebarHamburger = styled(Hamburger)`
-	margin-right: 10px;
-
-	& span {
-		background: ${(p) => (p.state ? p.theme.colors.error : p.theme.colors.accent2)};
-	}
-
-	@media screen and (min-width: 900px) {
-		display: none;
-	}
 `;
 
 const UserPanel = styled(NavLink)`
@@ -48,7 +35,6 @@ const UserPanel = styled(NavLink)`
 	& span {
 		margin: 0 10px;
 		font-size: 15px;
-
 		color: ${(p) => p.theme.text.secondary};
 	}
 
@@ -64,6 +50,49 @@ const UserPanel = styled(NavLink)`
 
 	&:hover {
 		cursor: pointer;
+	}
+`;
+
+const Hamburger = styled.div`
+	@media screen and (min-width: 900px) {
+		display: none;
+	}
+
+	width: 32px;
+	height: 20px;
+	z-index: 10;
+	margin-right: 10px;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	& span {
+		display: block;
+		position: relative;
+		border-radius: 3px;
+		width: 26px;
+		height: 4px;
+		transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+
+		margin: 0 auto;
+
+		background: ${(p) => (p.state ? p.theme.colors.error : p.theme.colors.accent2)};
+	}
+
+	& span:nth-child(1) {
+		transform: ${(p) => (p.state ? 'translateY(8px) rotate(45deg)' : '')};
+	}
+
+	& span:nth-child(2) {
+		margin-top: 4px;
+		margin-bottom: 4px;
+		opacity: ${(p) => (p.state ? 0 : 1)};
+		transition: opacity 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+	}
+
+	& span:nth-child(3) {
+		transform: ${(p) => (p.state ? 'translateY(-8px) rotate(-45deg)' : '')};
 	}
 `;
 
@@ -115,11 +144,11 @@ const Topbar = () => {
 
 	return (
 		<TopbarContainer>
-			<SidebarHamburger state={open} onClick={() => setOpen(!open)}>
+			<Hamburger state={open} onClick={() => setOpen(!open)}>
 				<span />
 				<span />
 				<span />
-			</SidebarHamburger>
+			</Hamburger>
 
 			<Logo>
 				<svg

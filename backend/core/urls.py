@@ -53,6 +53,7 @@ urlpatterns = [
     ),
 ]
 
+
 # Enable media and static files in debug mode
 if settings.DEBUG:
     from django.conf.urls.static import static

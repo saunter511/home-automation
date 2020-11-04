@@ -1,6 +1,19 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
+export const BoxHeader = styled.h3`
+	margin: 4px 0;
+	width: 100%;
+	user-select: none;
+	color: ${(p) => p.theme.text.secondary};
+`;
+
+export const BoxContent = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding: 5px 0;
+`;
+
 const Box = styled(motion.div)`
 	display: flex;
 	flex-direction: column;
@@ -17,16 +30,5 @@ const Box = styled(motion.div)`
 Box.defaultProps = {
 	variant: 'accent',
 };
-
-export const BoxHeader = styled.h4`
-	margin: 4px 0;
-	width: 100%;
-`;
-
-export const BoxContent = styled.div`
-	display: flex;
-	flex-direction: column;
-	padding: 5px 0;
-`;
 
 export default Box;

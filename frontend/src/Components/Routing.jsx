@@ -1,10 +1,9 @@
 import { lazy, Suspense } from 'react';
-import styled from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
+import styled from 'styled-components';
+import { Loading } from 'Theme/Components';
 
-import Loading from 'Theme/Components/Loading';
-const Lamps = lazy(() => import(/* webpackChunkName: 'lamps' */ 'Pages/Lamps'));
-
+const Lamps = lazy(() => import(/* webpackChunkName: 'lamps' */ 'Pages/Lamps/'));
 const Dashboard = lazy(() => import(/* webpackChunkName: 'dashboard' */ 'Pages/Dashboard'));
 const Profile = lazy(() => import(/* webpackChunkName: 'profile' */ 'Pages/Profile'));
 

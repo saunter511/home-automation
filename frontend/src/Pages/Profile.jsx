@@ -1,23 +1,19 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { format } from 'date-fns';
 import { useContext } from 'react';
 import styled from 'styled-components';
 import { ThemeContext } from 'Theme';
-import Box, { BoxHeader, BoxContent } from 'Theme/Components/Box';
-import Button from 'Theme/Components/Button';
-import Error from 'Theme/Components/Error';
-import Loading from 'Theme/Components/Loading';
-import PageContainer from 'Theme/Components/PageContainer';
-import { format } from 'date-fns';
-
-const GET_USER = gql`
-	query getUser {
-		currentUser {
-			id
-			fullName
-			lastLogin
-		}
-	}
-`;
+import {
+	Box,
+	BoxContent,
+	BoxHeader,
+	Button,
+	ButtonRow,
+	Error,
+	Loading,
+	PageContainer,
+} from 'Theme/Components';
+import { GET_USER } from 'Utils/queries';
 
 const ProfileGrid = styled.div`
 	display: grid;
@@ -34,20 +30,10 @@ const ProfileGrid = styled.div`
 	}
 `;
 
-const ButtonRow = styled.div`
-	display: flex;
-	margin-top: 10px;
-
-	& a {
-		width: 50%;
-		margin-right: 5px;
-	}
-`;
-
 const Profile = () => {
 	const { toggle, isDark } = useContext(ThemeContext);
-
 	const { loading, error, data } = useQuery(GET_USER);
+
 	if (loading) return <Loading />;
 	if (error) return <Error message={error.message} />;
 
