@@ -7,6 +7,7 @@ const { merge } = require('webpack-merge');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = merge(config, {
 	mode: 'production',
@@ -39,5 +40,11 @@ module.exports = merge(config, {
 
 		// Create a javascript bundle info needed by django
 		new BundleTracker({ path: __dirname, filename: '../webpack-stats.json' }),
+
+		// Inject workbox into serviceworker
+		new InjectManifest({
+			swSrc: path.join(__dirname, '../src/sw.js'),
+			swDest: 'sw.js',
+		}),
 	],
 });

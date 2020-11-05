@@ -2,10 +2,25 @@ import ReactDOM from 'react-dom';
 import { Suspense, lazy } from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { ThemeContext, useTheme } from './Theme';
+import { parseToRgb, toColorString } from 'polished';
 
 import SiteLoading from 'Theme/Components/SiteLoading';
 
 if (module.hot) module.hot.accept();
+
+// Register service worker
+if ('serviceWorker' in navigator && process.env.NODE_ENV != 'development') {
+	window.addEventListener('load', () => {
+		navigator.serviceWorker
+			.register('/sw.js')
+			.then(() => {
+				console.log('ServiceWorker registered!');
+			})
+			.catch((err) => {
+				console.log(`Failed to register ServiceWorker! ${err.message}`);
+			});
+	});
+}
 
 const GlobalStyle = createGlobalStyle`
 	html, body, #root {
@@ -49,6 +64,10 @@ const App = lazy(() => import(/* webpackChunkName: 'app' */ './App'));
 
 const Root = () => {
 	const { theme, toggle, isDark } = useTheme();
+
+	document
+		.querySelector('meta[name="theme-color"]')
+		.setAttribute('content', toColorString(parseToRgb(theme.background)));
 
 	return (
 		<ThemeContext.Provider value={{ theme, toggle, isDark }}>

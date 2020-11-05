@@ -1,10 +1,9 @@
 {
-	"name": "Home automation by Owocowe Piatki",
+	"name": "Home automation",
 	"short_name": "Home automation",
 	"start_url": "/",
 	"scope": "/",
 	"background_color": "#000000",
-	"theme_color": "#333333",
 	"display": "standalone",
 
 	"icons": [
@@ -23,5 +22,5 @@
 			"type": "image/png",
 			"sizes": "512x512"
 		}
-	],
+	]
 }

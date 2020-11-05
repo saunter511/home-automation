@@ -51,6 +51,10 @@ urlpatterns = [
         login_required(TemplateView.as_view(template_name="frontend.html")),
         name="frontend",
     ),
+    # serve service worker as a template
+    path(
+        "sw.js", TemplateView.as_view(template_name="sw.js", content_type="application/javascript")
+    ),
 ]
 
 
