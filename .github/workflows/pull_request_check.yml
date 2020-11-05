@@ -15,5 +15,5 @@ jobs:
       - uses: actions/checkout@v2
       - uses: deepakputhraya/action-pr-title@master
         with:
-          regex: '(HA-\d+):' 
+          regex: '(HA-\d+|HOTFIX):' 
      

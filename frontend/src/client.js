@@ -17,7 +17,7 @@ const httpLink = createHttpLink({
 	credentials: 'same-origin',
 });
 
-const secure = document.location.protocol == 'https';
+const secure = document.location.protocol == 'https:';
 
 const wsLink = new WebSocketLink({
 	uri: `${secure ? 'wss' : 'ws'}://${document.location.host}/graphql/`,

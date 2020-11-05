@@ -50,11 +50,12 @@ After you finish your work, go to github and create a pull request from your for
 ##### Pull request title
 
 Pull request has to follow the "HA-{Jira issue number}:" syntax
+For hotfixes "HOTFIX:" prefix is allowed
 
 The regex is as follows
 
 ```
-   (HA(2)?-\d+)
+   (HA-\d+|HOTFIX):
 ```
 
 ##### Pull request comment
