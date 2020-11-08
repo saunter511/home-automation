@@ -6,6 +6,7 @@ import { Loading } from 'Theme/Components';
 const Lamps = lazy(() => import(/* webpackChunkName: 'lamps' */ 'Pages/Lamps/'));
 const Dashboard = lazy(() => import(/* webpackChunkName: 'dashboard' */ 'Pages/Dashboard'));
 const Profile = lazy(() => import(/* webpackChunkName: 'profile' */ 'Pages/Profile'));
+const NotFound = lazy(() => import(/* webpackChunkName: 'profile' */ 'Pages/NotFound'));
 
 const PageWrapper = styled.div`
 	grid-area: content;
@@ -27,6 +28,7 @@ const Routing = () => {
 					<Route path="/" element={<Dashboard />} />
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/lamps" element={<Lamps />} />
+					<Route path="/*" element={<NotFound />} />
 				</Routes>
 			</Suspense>
 		</PageWrapper>
