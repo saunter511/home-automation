@@ -1,7 +1,7 @@
 import graphene
 
 from ..models import Appliance, Room
-from .appliance_type import ApplianceUnionType
+from .appliance_type import APPLIANCES, ApplianceUnionType
 from .room_type import RoomType
 
 
@@ -16,7 +16,10 @@ class ApplianceQuery(graphene.ObjectType):
     appliances = graphene.List(ApplianceUnionType)
 
     def resolve_appliances(self, info):
-        return Appliance.objects.all()
+        appliances = Appliance.objects.all()
+
+        # Only return the graphql-enabled appliances
+        return [app for app in appliances if type(app) in APPLIANCES.keys()]
 
 
 class HomeQuery(ApplianceQuery, RoomQuery, graphene.ObjectType):
