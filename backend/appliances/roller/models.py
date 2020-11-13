@@ -29,5 +29,5 @@ class Roller(Appliance):
         elif payload.lower() == "closed":
             self.open = False
 
-        logger.info(f"Roller {self.mqtt_topic} is now {payload.lower()}")
+        logger.info(f"Roller {self.mqtt_topic} {payload.lower()}")
         self.save()

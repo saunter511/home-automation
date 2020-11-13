@@ -39,7 +39,7 @@ def start_client():
         :param userdata: user data passed when creating a client
         :param rc: return code
         """
-        logger.debug(f"MQTT Broker disconnected [{rc}]")
+        logger.warning(f"MQTT Broker disconnected [{rc}]")
 
     def on_message(client, userdata, msg):
         """
@@ -51,6 +51,7 @@ def start_client():
         """
         topic = msg.topic
         payload = msg.payload.decode()
+        logger.debug(f"Received message '{payload}' on topic '{topic}'")
         mqtt_receive.send(__name__, topic=topic, payload=payload)
 
     def signal_publish(sender, topic, payload, **kwargs):
@@ -61,6 +62,7 @@ def start_client():
         :param topic: message topic
         :param payload: message payload
         """
+        logger.debug(f"Publishing message '{payload}' on topic '{topic}'")
         client.publish(topic=topic, payload=payload)
 
     client.on_connect = on_connect
@@ -73,5 +75,5 @@ def start_client():
         return client
 
     except Exception as e:
-        logger.error(f"Failed to connect to broker: {e}")
+        logger.critical(f"Failed to connect to broker: {e}")
         return None

@@ -1,6 +1,10 @@
+import logging
+
 from django.conf import settings
 from django.db import models
 from polymorphic.models import PolymorphicModel
+
+logger = logging.getLogger(__name__)
 
 
 class Room(models.Model):
@@ -28,9 +32,14 @@ class Room(models.Model):
         """
         Handle mqtt message to the room
         """
-        appliance = self.appliances.get(  # type: ignore
-            polymorphic_ctype__model=topic[0], appliance_id=topic[1]
-        )
+
+        try:
+            appliance = self.appliances.get(
+                polymorphic_ctype__model=topic[0], appliance_id=topic[1]
+            )
+        except Exception:
+            logger.warning(f"No appliance '{topic[0]}' with id {topic[1]}")
+            return
 
         # pass the message to appliance
         appliance.mqtt_message(topic[2:], payload)

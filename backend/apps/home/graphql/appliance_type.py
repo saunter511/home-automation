@@ -14,9 +14,9 @@ for app in settings.INSTALLED_APPS:
         try:
             module = importlib.import_module(f"{app}.graphql")  # type: ignore
             APPLIANCES[module.model] = module.type  # type: ignore
-            logger.info(f"Loaded appliance {app}")
-        except Exception as e:
-            logger.error(f"Couldn't import graphql module from appliance {app}: {e}")
+            logger.success(f"Loaded appliance {app}")
+        except Exception:
+            pass
 
 
 class ApplianceUnionType(graphene.Union):

@@ -28,4 +28,5 @@ class Lamp(Appliance):
         if (self.state and is_off) or (not self.state and is_on) or is_toggle:
             self.state = not self.state
             self.save()
+            logger.info(f"Lamp {self.mqtt_topic} switched {'on' if self.state else 'off'}")
             return

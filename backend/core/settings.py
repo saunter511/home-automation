@@ -8,6 +8,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+from .logging import ColoredFormatter
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -146,14 +148,34 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Logging - https://docs.djangoproject.com/en/3.0/topics/logging/
+LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG" if DEBUG else "INFO")
+
+app_logger = {
+    "handlers": ["console"],
+    "level": LOG_LEVEL,
+    "propagate": False,
+}
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "handlers": {"console": {"level": "DEBUG", "class": "logging.StreamHandler"}},
+    "formatters": {"colored": {"()": ColoredFormatter}},
+    "handlers": {
+        "console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "colored"},
+    },
     "loggers": {
-        "django": {"handlers": ["console"], "level": "INFO", "propagate": False},
-        "apps": {"handlers": ["console"], "level": "DEBUG", "propagate": False},
-        "": {"handlers": ["console"], "level": "INFO"},
+        "django": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+        "apps": app_logger,
+        "appliances": app_logger,
+        "": {
+            "handlers": ["console"],
+            "level": "INFO" if DEBUG else "WARNING",
+            "propagate": True,
+        },
     },
 }
 
