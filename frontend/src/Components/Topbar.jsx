@@ -1,5 +1,4 @@
 import { gql, useQuery } from '@apollo/client';
-import { readableColor } from 'polished';
 import { useContext } from 'react';
 import { FaUserAlt } from '@meronex/icons/fa';
 import { NavLink } from 'react-router-dom';
@@ -29,13 +28,13 @@ const UserPanel = styled(NavLink)`
 
 	text-decoration: none;
 
-	color: ${(p) => readableColor(p.theme.sidebar.linkActive)};
 	border-radius: 5px;
+
+	color: ${(p) => p.theme.text.secondary};
 
 	& span {
 		margin: 0 10px;
 		font-size: 15px;
-		color: ${(p) => p.theme.text.secondary};
 	}
 
 	& svg {

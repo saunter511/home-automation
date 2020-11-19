@@ -5,6 +5,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { RiDashboardFill } from '@meronex/icons/ri';
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import { AiFillBulb } from '@meronex/icons/ai';
+import { FaThermometerHalf } from '@meronex/icons/fa';
 
 const SidebarContainer = styled.nav`
 	grid-area: sidebar;
@@ -126,9 +127,13 @@ const Sidebar = () => {
 						<RiDashboardFill />
 						<div>Dashboard</div>
 					</AnimatedPageLink>
-					<AnimatedPageLink to="/lamps" end>
+					<AnimatedPageLink to="/lamps">
 						<AiFillBulb />
 						<div>Lamps</div>
+					</AnimatedPageLink>
+					<AnimatedPageLink to="/temp-sensors">
+						<FaThermometerHalf />
+						<div>Temperature</div>
 					</AnimatedPageLink>
 				</AnimateSharedLayout>
 			</SidebarContainer>

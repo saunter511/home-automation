@@ -9,20 +9,30 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('home', '0002_auto_20201022_2356'),
+        ("home", "0002_auto_20201022_2356"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='TempSensor',
+            name="TempSensor",
             fields=[
-                ('appliance_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='home.appliance')),
-                ('last_read', models.FloatField(null=True, verbose_name='last_read')),
+                (
+                    "appliance_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="home.appliance",
+                    ),
+                ),
+                ("last_read", models.FloatField(null=True, verbose_name="last_read")),
             ],
             options={
-                'verbose_name': 'Temperature Sensor',
-                'verbose_name_plural': 'Temperature sensors',
+                "verbose_name": "Temperature Sensor",
+                "verbose_name_plural": "Temperature sensors",
             },
-            bases=('home.appliance',),
+            bases=("home.appliance",),
         ),
     ]

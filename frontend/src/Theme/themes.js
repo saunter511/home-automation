@@ -40,7 +40,7 @@ const lightTheme = {
 
 	text: {
 		primary: 'hsl(0, 0%, 0%)',
-		secondary: 'hsl(240, 12%, 58%)',
+		secondary: 'hsl(240, 9%, 35%)',
 	},
 
 	sidebar: {
@@ -71,7 +71,7 @@ const darkTheme = {
 
 	text: {
 		primary: 'hsl(220, 50%, 95%)',
-		secondary: 'hsl(0, 0%, 52%)',
+		secondary: 'hsl(0, 0%, 54%)',
 	},
 
 	sidebar: {

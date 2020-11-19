@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_ROOM_LAMPS = gql`
-	query Rooms {
+	query RoomLamps {
 		rooms {
 			id
 			name
@@ -43,6 +43,41 @@ export const LAMP_SUB = gql`
 		lamp {
 			id
 			state
+		}
+	}
+`;
+
+export const GET_ROOM_TEMP_SENSORS = gql`
+	query RoomTempSensors {
+		rooms {
+			id
+			name
+			appliances {
+				... on TempSensor {
+					id
+					name
+					lastRead
+					history {
+						id
+						readTime
+						value
+					}
+				}
+			}
+		}
+	}
+`;
+
+export const TEMP_SENSOR_UPDATE_SUB = gql`
+	subscription TempSensorUpdateSub {
+		tempSensor {
+			id
+			lastRead
+			history {
+				id
+				readTime
+				value
+			}
 		}
 	}
 `;

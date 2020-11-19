@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Loading } from 'Theme/Components';
 
 const Lamps = lazy(() => import(/* webpackChunkName: 'lamps' */ 'Pages/Lamps/'));
+const TempSensors = lazy(() => import(/* webpackChunkName: 'temp-sensors'*/ 'Pages/TempSensors/'));
 const Dashboard = lazy(() => import(/* webpackChunkName: 'dashboard' */ 'Pages/Dashboard'));
 const Profile = lazy(() => import(/* webpackChunkName: 'profile' */ 'Pages/Profile'));
 const NotFound = lazy(() => import(/* webpackChunkName: 'profile' */ 'Pages/NotFound'));
@@ -28,6 +29,7 @@ const Routing = () => {
 					<Route path="/" element={<Dashboard />} />
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/lamps" element={<Lamps />} />
+					<Route path="/temp-sensors" element={<TempSensors />} />
 					<Route path="/*" element={<NotFound />} />
 				</Routes>
 			</Suspense>
