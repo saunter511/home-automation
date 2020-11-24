@@ -1,11 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
 import { useContext, useState, useRef, useEffect } from 'react';
-import { FiUser } from '@meronex/icons/fi';
 import { FaUserAlt } from '@meronex/icons/fa';
-import { FiTrello } from '@meronex/icons/fi';
-import { FiLogOut } from '@meronex/icons/fi';
-import { RiSunLine } from '@meronex/icons/ri';
-import { RiMoonLine } from '@meronex/icons/ri';
+import { FiUser, FiTrello, FiLogOut } from '@meronex/icons/fi';
+import { RiSunLine, RiMoonLine } from '@meronex/icons/ri';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { ThemeContext } from 'Theme';
