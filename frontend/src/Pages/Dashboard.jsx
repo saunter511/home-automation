@@ -2,9 +2,8 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { GET_LAMPS, LAMP_SUB, GET_USER } from 'Utils/queries';
+import { GET_LAMPS, LAMP_SUB } from 'Utils/queries';
 import { Box, BoxHeader, BoxContent, PageContainer } from 'Theme/Components';
-
 
 const DashGrid = styled.div`
 	display: grid;
@@ -52,43 +51,47 @@ const LampBox = () => {
 	);
 };
 
-const TimeBox = styled.div`	
-font-size: xx-large;
-`
+const TimeBox = styled.div`
+	font-size: xx-large;
+`;
 
-
-
-const DateAndTimeBox = () =>{
+const DateAndTimeBox = () => {
 	const locale = 'en';
-	const [today, setDate] = useState(new Date()); 
+	const [today, setDate] = useState(new Date());
 	useEffect(() => {
-		const timer = setInterval(() => { 
-		setDate(new Date());
-	  }, 60 * 1000);
-	  return () => {
-		clearInterval(timer); 
-	  }
+		const timer = setInterval(() => {
+			setDate(new Date());
+		}, 60 * 1000);
+		return () => {
+			clearInterval(timer);
+		};
 	}, []);
 	const day = today.toLocaleDateString(locale, { weekday: 'long' });
-    const date = `${day}, ${today.getDate()} ${today.toLocaleDateString(locale, { month: 'long' })}\n\n`;
+	const date = `${day}, ${today.getDate()} ${today.toLocaleDateString(locale, {
+		month: 'long',
+	})}\n\n`;
 
-    const time = today.toLocaleTimeString(locale, { hour: 'numeric', hour12: false, minute: 'numeric' });
+	const time = today.toLocaleTimeString(locale, {
+		hour: 'numeric',
+		hour12: false,
+		minute: 'numeric',
+	});
 
-	return(
+	return (
 		<Box variant="success">
 			<BoxHeader>{date}</BoxHeader>
 			<BoxContent>
-			<TimeBox >{time} </TimeBox>
+				<TimeBox>{time} </TimeBox>
 			</BoxContent>
 		</Box>
-	)
-}
+	);
+};
 
 const Dashboard = () => {
 	return (
 		<PageContainer>
 			<DashGrid>
-				<DateAndTimeBox/>
+				<DateAndTimeBox />
 				<LampBox />
 			</DashGrid>
 		</PageContainer>
