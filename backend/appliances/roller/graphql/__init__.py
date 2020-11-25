@@ -1,6 +1,7 @@
 import graphene
 from django.db.models.signals import post_save
-from graphene_subscriptions.signals import post_save_subscription
+
+from utils.subscription_signal import post_save_subscription
 
 from ..models import Roller as RollerModel
 from .mutations import BatchSetRoller, SetRoller, ToggleRoller
