@@ -37,7 +37,9 @@ const Lamps = () => {
 	if (queryLoading) return <Loading />;
 	if (queryError) return <Error message={queryError} />;
 
-	const roomList = data.rooms.filter((room) => room.appliances.length > 0);
+	const roomList = data.rooms.filter(
+		(room) => room.appliances.filter((appliance) => appliance.__typename == 'Lamp').length > 0
+	);
 
 	return (
 		<PageContainer>
