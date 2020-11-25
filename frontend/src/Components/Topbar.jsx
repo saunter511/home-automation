@@ -1,9 +1,11 @@
 import { gql, useQuery } from '@apollo/client';
-import { useContext } from 'react';
+import { useContext, useState, useRef, useEffect } from 'react';
 import { FaUserAlt } from '@meronex/icons/fa';
+import { FiUser, FiTrello, FiLogOut } from '@meronex/icons/fi';
+import { RiSunLine, RiMoonLine } from '@meronex/icons/ri';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { ThemeContext } from 'Theme';
 import { SidebarContext } from './Sidebar';
 
 const TopbarContainer = styled.div`
@@ -19,16 +21,19 @@ const TopbarContainer = styled.div`
 	height: ${(p) => p.theme.topbar.height};
 `;
 
-const UserPanel = styled(NavLink)`
+const DropdownContainer = styled.div`
+	width: ${(p) => p.theme.sidebar.width};
+	margin-left: auto;
+`;
+
+const UserPanel = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
-	margin-left: auto;
-	padding: 5px 10px;
-
+	height: 100%;
+	padding: 10px 10px;
 	text-decoration: none;
-
-	border-radius: 5px;
+	background: ${(p) => (p.active ? p.theme.box.background : p.theme.background)};
 
 	color: ${(p) => p.theme.text.secondary};
 
@@ -49,6 +54,7 @@ const UserPanel = styled(NavLink)`
 
 	&:hover {
 		cursor: pointer;
+		background: ${(p) => p.theme.box.background};
 	}
 `;
 
@@ -128,18 +134,121 @@ const Logo = styled.div`
 	}
 `;
 
+const Menu = styled.div`
+	position: fixed;
+	top: ${(p) => p.theme.topbar.height - 5};
+	width: ${(p) => p.theme.sidebar.width};
+
+	transition: opacity 0.2s, transform 0.4s ease-in, visibility 0.4s;
+
+	opacity: ${(p) => (p.active ? '1' : '0')};
+	visibility: ${(p) => (p.active ? 'visible' : 'hidden')};
+	transform: ${(p) => (p.active ? 'translateY(0)' : 'translateY(0px);')};
+
+	@media screen and (max-width: 900px) {
+		width: 100%;
+		left: 0;
+		right: 0;
+	}
+
+	& a {
+		color: ${(p) => p.theme.text.primary};
+		text-decoration: none;
+	}
+`;
+
+const MenuItem = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	text-decoration: none;
+	padding: 10px 20px;
+	background: ${(p) => p.theme.box.background};
+	box-shadow: ${(p) => p.theme.box.shadow};
+	border-left: 3px solid ${(p) => (p.variant ? p.theme.colors[p.variant] : p.theme.colors.accent)};
+
+	@media screen and (max-width: 900px) {
+		padding: 20px;
+	}
+
+	&:hover {
+		cursor: pointer;
+		background: ${(p) => p.theme.background};
+	}
+`;
+
 const USER_QUERY = gql`
 	query getCurrentUser {
 		currentUser {
 			id
 			shortName
+			isSuperuser
 		}
 	}
 `;
 
+const DropdownMenu = () => {
+	const dropdownRef = useRef(null);
+	const [isActive, setIsActive] = useState(false);
+	const { toggle, isDark } = useContext(ThemeContext);
+	const { data, loading, error } = useQuery(USER_QUERY);
+
+	useEffect(() => {
+		const pageClickEvent = (e) => {
+			if (dropdownRef.current !== null && !dropdownRef.current.contains(e.target)) {
+				setIsActive(!isActive);
+			}
+		};
+
+		if (isActive) {
+			window.addEventListener('click', pageClickEvent);
+		}
+
+		return () => {
+			window.removeEventListener('click', pageClickEvent);
+		};
+	}, [isActive]);
+
+	return (
+		<DropdownContainer>
+			<UserPanel onClick={() => setIsActive(!isActive)} active={isActive}>
+				<span>{!loading && !error && data.currentUser.shortName}</span>
+				<FaUserAlt />
+			</UserPanel>
+
+			<Menu ref={dropdownRef} active={isActive}>
+				<NavLink to="/Profile" onClick={() => setIsActive(!isActive)}>
+					<MenuItem>
+						Profile <FiUser />
+					</MenuItem>
+				</NavLink>
+				{!loading && !error && data.currentUser.isSuperuser && (
+					<a href="/admin">
+						<MenuItem>
+							Admin <FiTrello />
+						</MenuItem>
+					</a>
+				)}
+				<MenuItem
+					onClick={() => {
+						toggle();
+						setIsActive(!isActive);
+					}}
+				>
+					Switch theme {isDark ? <RiSunLine /> : <RiMoonLine />}
+				</MenuItem>
+				<a href="/users/logout">
+					<MenuItem>
+						Logout <FiLogOut />
+					</MenuItem>
+				</a>
+			</Menu>
+		</DropdownContainer>
+	);
+};
+
 const Topbar = () => {
 	const [open, setOpen] = useContext(SidebarContext);
-	const { data, loading, error } = useQuery(USER_QUERY);
 
 	return (
 		<TopbarContainer>
@@ -177,10 +286,7 @@ const Topbar = () => {
 				<div>Home</div>
 			</Logo>
 
-			<UserPanel to="/profile">
-				<span>{!loading && !error && data.currentUser.shortName}</span>
-				<FaUserAlt />
-			</UserPanel>
+			<DropdownMenu />
 		</TopbarContainer>
 	);
 };
