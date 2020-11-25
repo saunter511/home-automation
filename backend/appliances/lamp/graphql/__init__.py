@@ -1,6 +1,7 @@
 import graphene
 from django.db.models.signals import post_save
-from graphene_subscriptions.signals import post_save_subscription
+
+from utils.subscription_signal import post_save_subscription
 
 from ..models import Lamp as LampModel
 from .mutations import BatchSetLamp, SetLamp, ToggleLamp
