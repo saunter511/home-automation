@@ -22,7 +22,7 @@ run_black() {
 
 run_unittests() {
     printf "\nRunning unittests\n"
-    poetry run python manage.py test
+    poetry run pytest -v
 }
 
 case "$1" in
