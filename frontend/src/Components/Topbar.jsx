@@ -29,11 +29,10 @@ const DropdownContainer = styled.div`
 const UserPanel = styled.div`
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: flex-end;
 	height: 100%;
 	padding: 10px 10px;
 	text-decoration: none;
-	background: ${(p) => (p.active ? p.theme.box.background : p.theme.background)};
 
 	color: ${(p) => p.theme.text.secondary};
 
@@ -54,7 +53,6 @@ const UserPanel = styled.div`
 
 	&:hover {
 		cursor: pointer;
-		background: ${(p) => p.theme.box.background};
 	}
 `;
 

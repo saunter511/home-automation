@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 export const BoxHeader = styled.h3`
-	margin: 4px 0;
+	margin: 2px 0;
 	width: 100%;
 	user-select: none;
 	color: ${(p) => p.theme.text.secondary};

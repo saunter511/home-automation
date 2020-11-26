@@ -55,10 +55,11 @@ export const GET_ROOM_TEMP_SENSORS = gql`
 			appliances {
 				... on TempSensor {
 					id
+					applianceId
 					name
 					lastRead
+					lastReadTime
 					history {
-						id
 						readTime
 						value
 					}
@@ -73,8 +74,8 @@ export const TEMP_SENSOR_UPDATE_SUB = gql`
 		tempSensor {
 			id
 			lastRead
+			lastReadTime
 			history {
-				id
 				readTime
 				value
 			}
