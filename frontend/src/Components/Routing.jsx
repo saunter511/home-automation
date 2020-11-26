@@ -1,7 +1,9 @@
+import PropTypes from 'prop-types';
 import { lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
 import styled from 'styled-components';
-import { Loading } from 'Theme/Components';
+import { Loading, Error, Button } from 'Theme/Components';
 
 const Lamps = lazy(() => import(/* webpackChunkName: 'lamps' */ 'Pages/Lamps/'));
 const TempSensors = lazy(() => import(/* webpackChunkName: 'temp-sensors'*/ 'Pages/TempSensors/'));
@@ -21,18 +23,40 @@ const PageWrapper = styled.div`
 	padding: 0 20px;
 `;
 
+const ErrorFallback = ({ error, resetErrorBoundary }) => {
+	return (
+		<Error message={error ? error.message : ''}>
+			<Button onClick={resetErrorBoundary}>Go back</Button>
+		</Error>
+	);
+};
+
+ErrorFallback.propTypes = {
+	error: PropTypes.object,
+	resetErrorBoundary: PropTypes.func,
+};
+
 const Routing = () => {
+	const navigate = useNavigate();
+
 	return (
 		<PageWrapper>
-			<Suspense fallback={<Loading />}>
-				<Routes>
-					<Route path="/" element={<Dashboard />} />
-					<Route path="/profile" element={<Profile />} />
-					<Route path="/lamps" element={<Lamps />} />
-					<Route path="/temp-sensors" element={<TempSensors />} />
-					<Route path="/*" element={<NotFound />} />
-				</Routes>
-			</Suspense>
+			<ErrorBoundary
+				FallbackComponent={ErrorFallback}
+				onReset={() => {
+					navigate(-1);
+				}}
+			>
+				<Suspense fallback={<Loading />}>
+					<Routes>
+						<Route path="/" element={<Dashboard />} />
+						<Route path="/profile" element={<Profile />} />
+						<Route path="/lamps" element={<Lamps />} />
+						<Route path="/temp-sensors" element={<TempSensors />} />
+						<Route path="/*" element={<NotFound />} />
+					</Routes>
+				</Suspense>
+			</ErrorBoundary>
 		</PageWrapper>
 	);
 };
