@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-
+import { format } from 'date-fns';
 import { GET_LAMPS, LAMP_SUB } from 'Utils/queries';
 import { Box, BoxHeader, BoxContent, PageContainer } from 'Theme/Components';
 
@@ -51,10 +51,36 @@ const LampBox = () => {
 	);
 };
 
+const TimeBox = styled.div`
+	font-size: xx-large;
+`;
+
+const DateAndTimeBox = () => {
+	const [today, setDate] = useState(new Date());
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setDate(new Date());
+		}, 1000);
+		return () => {
+			clearInterval(timer);
+		};
+	}, []);
+
+	return (
+		<Box variant="success">
+			<BoxHeader>{format(today, 'EEEE, dd MMMM')}</BoxHeader>
+			<BoxContent>
+				<TimeBox>{format(today, 'HH:mm:ss')} </TimeBox>
+			</BoxContent>
+		</Box>
+	);
+};
+
 const Dashboard = () => {
 	return (
 		<PageContainer>
 			<DashGrid>
+				<DateAndTimeBox />
 				<LampBox />
 			</DashGrid>
 		</PageContainer>

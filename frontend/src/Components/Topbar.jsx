@@ -143,7 +143,6 @@ const Menu = styled.div`
 
 	opacity: ${(p) => (p.active ? '1' : '0')};
 	visibility: ${(p) => (p.active ? 'visible' : 'hidden')};
-	transform: ${(p) => (p.active ? 'translateY(0)' : 'translateY(0px);')};
 
 	@media screen and (max-width: 900px) {
 		width: 100%;
