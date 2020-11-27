@@ -137,6 +137,8 @@ const Menu = styled.div`
 	top: ${(p) => p.theme.topbar.height - 5};
 	width: ${(p) => p.theme.sidebar.width};
 
+	z-index: 100;
+
 	transition: opacity 0.2s, transform 0.4s ease-in, visibility 0.4s;
 
 	opacity: ${(p) => (p.active ? '1' : '0')};
