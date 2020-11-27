@@ -9,7 +9,8 @@ const Lamps = lazy(() => import(/* webpackChunkName: 'lamps' */ 'Pages/Lamps/'))
 const TempSensors = lazy(() => import(/* webpackChunkName: 'temp-sensors'*/ 'Pages/TempSensors/'));
 const Dashboard = lazy(() => import(/* webpackChunkName: 'dashboard' */ 'Pages/Dashboard'));
 const Profile = lazy(() => import(/* webpackChunkName: 'profile' */ 'Pages/Profile'));
-const NotFound = lazy(() => import(/* webpackChunkName: 'profile' */ 'Pages/NotFound'));
+const Rollers = lazy(() => import(/* webpackChunkName: 'rollers' */ 'Pages/Rollers'));
+const NotFound = lazy(() => import(/* webpackChunkName: 'notfound' */ 'Pages/NotFound'));
 
 const PageWrapper = styled.div`
 	grid-area: content;
@@ -53,6 +54,7 @@ const Routing = () => {
 						<Route path="/profile" element={<Profile />} />
 						<Route path="/lamps" element={<Lamps />} />
 						<Route path="/temp-sensors" element={<TempSensors />} />
+						<Route path="/rollers" element={<Rollers />} />
 						<Route path="/*" element={<NotFound />} />
 					</Routes>
 				</Suspense>

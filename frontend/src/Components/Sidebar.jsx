@@ -6,6 +6,7 @@ import { RiDashboardFill } from '@meronex/icons/ri';
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import { AiFillBulb } from '@meronex/icons/ai';
 import { FaThermometerHalf } from '@meronex/icons/fa';
+import { MdcBlinds } from '@meronex/icons/mdc';
 
 const SidebarContainer = styled.nav`
 	grid-area: sidebar;
@@ -134,6 +135,10 @@ const Sidebar = () => {
 					<AnimatedPageLink to="/temp-sensors">
 						<FaThermometerHalf />
 						<div>Temperature</div>
+					</AnimatedPageLink>
+					<AnimatedPageLink to="/rollers">
+						<MdcBlinds />
+						<div>Rollers</div>
 					</AnimatedPageLink>
 				</AnimateSharedLayout>
 			</SidebarContainer>
