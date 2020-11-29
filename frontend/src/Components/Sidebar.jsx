@@ -14,7 +14,7 @@ const SidebarContainer = styled.nav`
 
 	display: flex;
 	flex-direction: column;
-	z-index: 100;
+	z-index: 10;
 	height: 100%;
 
 	transition: transform 0.4s;

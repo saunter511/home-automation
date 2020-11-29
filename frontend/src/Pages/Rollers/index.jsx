@@ -22,7 +22,7 @@ const RoomGrid = styled.div`
 	}
 `;
 
-const Lamps = () => {
+const Rollers = () => {
 	const { loading: queryLoading, error: queryError, data, refetch, subscribeToMore } = useQuery(
 		GET_ROOM_ROLLERS
 	);
@@ -38,7 +38,7 @@ const Lamps = () => {
 	if (queryError) return <Error message={queryError} />;
 
 	const roomList = data.rooms.filter(
-		(room) => room.appliances.filter((appliance) => appliance.__typename == 'Lamp').length > 0
+		(room) => room.appliances.filter((appliance) => appliance.__typename == 'Roller').length > 0
 	);
 
 	return (
@@ -52,4 +52,4 @@ const Lamps = () => {
 	);
 };
 
-export default Lamps;
+export default Rollers;
