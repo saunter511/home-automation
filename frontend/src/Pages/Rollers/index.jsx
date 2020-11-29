@@ -22,7 +22,7 @@ const RoomGrid = styled.div`
 	}
 `;
 
-const Lamps = () => {
+const Rollers = () => {
 	const { loading: queryLoading, error: queryError, data, refetch, subscribeToMore } = useQuery(
 		GET_ROOM_ROLLERS
 	);
@@ -52,4 +52,4 @@ const Lamps = () => {
 	);
 };
 
-export default Lamps;
+export default Rollers;
