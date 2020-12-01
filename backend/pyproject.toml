@@ -17,6 +17,7 @@ packages = [
 
 [tool.poetry.scripts]
 server = "core.scripts:runserver"
+celery = "core.scripts:run_celery"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -31,6 +32,10 @@ django-filter = "^2.4.0"
 django-polymorphic = "^3.0.0"
 channels = "^2.4.0"
 graphene-subscriptions = "^1.0.2"
+celery = "^5.0.2"
+django-celery-beat = "^2.1.0"
+django-redis = "^4.12.1"
+django-celery-results = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"
