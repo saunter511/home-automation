@@ -33,7 +33,6 @@ export const TOGGLE_LAMP = gql`
 	mutation toggleLamp($id: ID) {
 		toggleLamp(id: $id) {
 			ok
-			newState
 		}
 	}
 `;

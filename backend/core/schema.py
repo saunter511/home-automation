@@ -27,15 +27,15 @@ for appliance in inspect.getmembers(appliances, inspect.ismodule):
             subscriptions.append(appliance[1].graphql.Subscription)
 
 
-class Query((*queries), graphene.ObjectType):
+class Query(*queries, graphene.ObjectType):
     pass
 
 
-class Mutation((*mutations), graphene.ObjectType):
+class Mutation(*mutations, graphene.ObjectType):
     pass
 
 
-class Subscription((*subscriptions), graphene.ObjectType):
+class Subscription(*subscriptions, graphene.ObjectType):
     pass
 
 

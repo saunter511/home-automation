@@ -33,7 +33,7 @@ const LampBox = () => {
 	if (loading) return null;
 	if (error) return null;
 
-	const litLamps = data.lamps.filter((lamp) => lamp.state);
+	const litLamps = data.lamps.filter((lamp) => lamp.state == 'on');
 
 	if (litLamps.length == 0) return null;
 

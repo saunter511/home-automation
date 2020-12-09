@@ -172,6 +172,11 @@ LOGGING = {
             "level": "WARNING",
             "propagate": False,
         },
+        "daphne": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
         "apps": app_logger,
         "appliances": app_logger,
         "": {

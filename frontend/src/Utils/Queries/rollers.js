@@ -9,7 +9,7 @@ export const GET_ROOM_ROLLERS = gql`
 				... on Roller {
 					id
 					name
-					open
+					state
 				}
 			}
 		}
@@ -21,7 +21,7 @@ export const GET_ROLLERS = gql`
 		rollers {
 			id
 			name
-			open
+			state
 			room {
 				name
 			}
@@ -41,7 +41,7 @@ export const ROLLER_SUB = gql`
 	subscription subRoller {
 		roller {
 			id
-			open
+			state
 		}
 	}
 `;

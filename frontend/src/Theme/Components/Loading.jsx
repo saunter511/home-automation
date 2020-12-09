@@ -4,12 +4,12 @@ const Loading = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 1px solid ${(p) => p.theme.text.secondary};
-	border-top: 1px solid ${(p) => p.theme.text.primary};
+	border: 3px solid ${(p) => p.theme.text.secondary};
+	border-top: 3px solid ${(p) => p.theme.text.primary};
 	border-radius: 50%;
 	width: 16px;
 	height: 16px;
-	animation: spin 1s ease-in-out infinite;
+	animation: spin 1.1s infinite linear;
 	z-index: 1;
 
 	@keyframes spin {

@@ -64,6 +64,11 @@ const lightTheme = {
 		handle: 'hsl(0, 0%, 50%)',
 		handleHover: 'hsl(0, 0%, 35%)',
 	},
+
+	rollers: {
+		color1: 'hsl(240, 5%, 60%)',
+		color2: 'hsl(240, 5%, 55%)',
+	},
 };
 
 const darkTheme = {
@@ -93,6 +98,11 @@ const darkTheme = {
 		background: 'hsl(0, 0%, 13%)',
 		handle: 'hsl(0, 0%, 20%)',
 		handleHover: 'hsl(0, 0%, 25%)',
+	},
+
+	rollers: {
+		color1: 'hsl(0, 0%, 40%)',
+		color2: 'hsl(0, 0%, 30%)',
 	},
 };
 

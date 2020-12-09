@@ -14,10 +14,10 @@ class RollerAdmin(ApplianceChildAdmin):
     def get_exclude(self, request, obj):
         if obj:
             return ()
-        return ("open",)
+        return ("state",)
 
     def get_readonly_fields(self, request, obj):
         if obj:
-            return ("open",)
+            return ("state",)
         else:
             return ()

@@ -2,13 +2,19 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 
+import { Loading } from 'Theme/Components';
+
 import { TOGGLE_ROLLER } from 'Utils/Queries/rollers';
 
 const RollerButton = styled.div`
-	width: 30px;
-	height: 30px;
-	border: 1px solid ${(p) => p.theme.text.primary};
-	border-top: 3px solid ${(p) => p.theme.text.primary};
+	width: 40px;
+	height: 40px;
+
+	border-width: 5px 2px 2px 2px;
+	border-style: solid;
+	border-color: ${(p) => p.theme.text.secondary};
+	background: rgba(0, 0, 0, 0.2);
+
 	overflow: hidden;
 
 	&:hover {
@@ -19,18 +25,31 @@ const RollerButton = styled.div`
 		z-index: 100;
 		width: 100%;
 		height: 100%;
-		transform: ${(p) => (p.open ? 'translateY(-75%)' : 'translateY(-0%)')};
-		transition: transform 0.8s;
 
-		& div:nth-child(even) {
-			height: 20%;
-			background: ${(p) => p.theme.text.secondary};
-		}
+		transform: ${(p) => {
+			switch (p.state) {
+				case 'opened':
+					return 'translateY(-65%)';
+				case 'requestClose':
+					return 'translateY(-50%)';
+				case 'closed':
+					return 'translateY(0%)';
+				case 'requestOpen':
+					return 'translateY(-15%)';
+			}
+		}};
+		transition: transform 0.5s;
 
-		& div:nth-child(odd) {
+		& div {
 			height: 20%;
-			filter: brightness(70%);
-			background: ${(p) => p.theme.text.secondary};
+
+			&:nth-child(even) {
+				background: ${(p) => p.theme.rollers.color1};
+			}
+
+			&:nth-child(odd) {
+				background: ${(p) => p.theme.rollers.color2};
+			}
 		}
 	}
 `;
@@ -44,24 +63,24 @@ const RollerRow = styled.div`
 		margin-right: 10px;
 	}
 
+	& ${Loading} {
+		margin: 0 5px;
+	}
+
 	&:hover {
 		cursor: pointer;
 	}
 `;
 
-const Roller = ({ Roller }) => {
+const Roller = ({ roller }) => {
 	const [toggleRoller] = useMutation(TOGGLE_ROLLER);
 
+	const moving = roller.state == 'requestOpen' || roller.state == 'requestClose';
+
 	return (
-		<RollerRow
-			onClick={() => {
-				toggleRoller({ variables: { id: Roller.id } });
-				console.log(Roller.open);
-			}}
-		>
-			<RollerButton open={Roller.open}>
+		<RollerRow onClick={() => toggleRoller({ variables: { id: roller.id } })}>
+			<RollerButton state={roller.state}>
 				<div>
-					<div></div>
 					<div></div>
 					<div></div>
 					<div></div>
@@ -69,13 +88,14 @@ const Roller = ({ Roller }) => {
 					<div></div>
 				</div>
 			</RollerButton>
-			{Roller.name}
+			{roller.name}
+			{moving ? <Loading /> : null}
 		</RollerRow>
 	);
 };
 
 Roller.propTypes = {
-	Roller: PropTypes.object,
+	roller: PropTypes.object,
 };
 
 export default Roller;

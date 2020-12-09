@@ -10,7 +10,7 @@ const Room = ({ room }) => {
 			<BoxContent>
 				{room.appliances.map((appliance) => {
 					if (appliance.__typename == 'Roller')
-						return <Roller key={appliance.id} Roller={appliance} />;
+						return <Roller key={appliance.id} roller={appliance} />;
 				})}
 			</BoxContent>
 		</Box>
