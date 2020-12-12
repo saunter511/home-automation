@@ -5,7 +5,7 @@ import { AiTwotoneBulb } from '@meronex/icons/ai';
 
 import { Loading } from 'Theme/Components';
 
-import { TOGGLE_LAMP } from 'Utils/queries';
+import { TOGGLE_LAMP } from 'Utils/queries/lamps';
 
 const Bulb = styled(AiTwotoneBulb)`
 	color: ${(p) => p.theme.text.secondary};

@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 
 import { Loading } from 'Theme/Components';
 
-import { TOGGLE_ROLLER } from 'Utils/Queries/rollers';
+import { TOGGLE_ROLLER } from 'Utils/queries/rollers';
 
 const RollerButton = styled.div`
 	width: 40px;

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { format } from 'date-fns';
-import { GET_LAMPS, LAMP_SUB } from 'Utils/queries';
+import { GET_LAMPS, LAMP_SUB } from 'Utils/queries/lamps';
 import { Box, BoxHeader, BoxContent, PageContainer } from 'Theme/Components';
 
 const DashGrid = styled.div`

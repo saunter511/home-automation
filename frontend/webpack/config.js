@@ -24,10 +24,10 @@ module.exports = {
 		cacheWithContext: false,
 		alias: {
 			Root: path.resolve(__dirname, '../src/'),
-			Components: path.resolve(__dirname, '../src/Components/'),
-			Pages: path.resolve(__dirname, '../src/Pages/'),
-			Theme: path.resolve(__dirname, '../src/Theme'),
-			Utils: path.resolve(__dirname, '../src/Utils'),
+			Components: path.resolve(__dirname, '../src/components/'),
+			Pages: path.resolve(__dirname, '../src/pages/'),
+			Theme: path.resolve(__dirname, '../src/theme'),
+			Utils: path.resolve(__dirname, '../src/utils'),
 		},
 	},
 

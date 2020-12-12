@@ -5,7 +5,7 @@ import { PageContainer, Loading, Error } from 'Theme/Components';
 
 import Room from './Room';
 
-import { GET_ROOM_ROLLERS, ROLLER_SUB } from 'Utils/Queries/rollers';
+import { GET_ROOM_ROLLERS, ROLLER_SUB } from 'Utils/queries/rollers';
 
 const RoomGrid = styled.div`
 	display: grid;

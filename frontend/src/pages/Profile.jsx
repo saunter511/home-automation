@@ -13,7 +13,7 @@ import {
 	Loading,
 	PageContainer,
 } from 'Theme/Components';
-import { GET_USER } from 'Utils/queries';
+import { GET_USER } from 'Utils/queries/users';
 
 const ProfileGrid = styled.div`
 	display: grid;

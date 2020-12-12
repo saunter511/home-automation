@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { PageContainer, Loading, Error } from 'Theme/Components';
+import { Error, Loading, PageContainer } from 'Theme/Components';
+
+import { GET_ROOM_TEMP_SENSORS, TEMP_SENSOR_UPDATE_SUB } from 'Utils/queries/tempSensors';
 
 import Room from './Room';
-
-import { GET_ROOM_LAMPS, LAMP_SUB } from 'Utils/queries';
 
 const RoomGrid = styled.div`
 	display: grid;
@@ -22,23 +22,22 @@ const RoomGrid = styled.div`
 	}
 `;
 
-const Lamps = () => {
-	const { loading: queryLoading, error: queryError, data, refetch, subscribeToMore } = useQuery(
-		GET_ROOM_LAMPS
-	);
+const TempSensors = () => {
+	const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_ROOM_TEMP_SENSORS);
 
 	useEffect(() => {
 		refetch();
 		subscribeToMore({
-			document: LAMP_SUB,
+			document: TEMP_SENSOR_UPDATE_SUB,
 		});
 	}, [refetch, subscribeToMore]);
 
-	if (queryLoading) return <Loading />;
-	if (queryError) return <Error message={queryError} />;
+	if (loading) return <Loading />;
+	if (error) return <Error message={error} />;
 
 	const roomList = data.rooms.filter(
-		(room) => room.appliances.filter((appliance) => appliance.__typename == 'Lamp').length > 0
+		(room) =>
+			room.appliances.filter((appliance) => appliance.__typename == 'TempSensor').length > 0
 	);
 
 	return (
@@ -52,4 +51,4 @@ const Lamps = () => {
 	);
 };
 
-export default Lamps;
+export default TempSensors;

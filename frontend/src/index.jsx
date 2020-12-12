@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import { Suspense, lazy } from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { ThemeContext, useTheme } from './Theme';
+import { ThemeContext, useTheme } from './theme';
 import { parseToRgb, toColorString } from 'polished';
 
 import SiteLoading from 'Theme/Components/SiteLoading';

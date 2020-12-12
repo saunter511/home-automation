@@ -5,10 +5,10 @@
 		"allowSyntheticDefaultImports": false,
 		"baseUrl": "./",
 		"paths": {
-			"Components/*": ["src/Components/*"],
-			"Pages/*": ["src/Pages/*"],
-			"Theme/*": ["src/Theme/*"],
-			"Utils/*": ["src/Utils/*"],
+			"Components/*": ["src/components/*"],
+			"Pages/*": ["src/pages/*"],
+			"Theme/*": ["src/theme/*"],
+			"Utils/*": ["src/utils/*"],
 			"Root/*": ["src/*"]
 		}
 	}
