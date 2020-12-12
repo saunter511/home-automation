@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 
-import { SEND_MESSAGE } from 'Utils/Queries/chat';
+import { SEND_MESSAGE } from 'Utils/queries/chat';
 
 const InputBoxForm = styled.form`
 	width: 100%;

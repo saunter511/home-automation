@@ -5,11 +5,11 @@ import { useQuery } from '@apollo/client';
 import { format, isToday } from 'date-fns';
 
 import { Loading } from 'Theme/Components';
-import { GET_MESSAGES, MESSAGE_SUB } from 'Utils/Queries/chat';
+import { GET_MESSAGES, MESSAGE_SUB } from 'Utils/queries/chat';
 
 const MessageBoxWrapper = styled.div`
 	overflow-y: scroll;
-	height: 80%;
+	height: 75%;
 `;
 
 const MessageWrapper = styled.div`
