@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
 		max-width: 100vw;
 		margin: 0;
 		box-sizing: border-box;
-		font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
+		font-family: Roboto, sans-serif;
 	}
 
 	*, *:before, &:after {

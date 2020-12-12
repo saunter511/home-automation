@@ -125,7 +125,7 @@ const Logo = styled.div`
 	& div {
 		height: 30px;
 		margin: 0 5px;
-		/* margin-bottom: -1.8px; */
+		margin-bottom: 7px;
 
 		font-size: 30px;
 		font-weight: 900;

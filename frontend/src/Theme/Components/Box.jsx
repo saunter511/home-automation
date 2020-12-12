@@ -5,6 +5,7 @@ export const BoxHeader = styled.h3`
 	margin: 2px 0;
 	width: 100%;
 	user-select: none;
+	font-weight: 400;
 	color: ${(p) => p.theme.text.secondary};
 `;
 
@@ -18,7 +19,7 @@ const Box = styled(motion.div)`
 	display: flex;
 	flex-direction: column;
 
-	padding: 10px;
+	padding: 3px 10px;
 	min-height: 100px;
 
 	background: ${(p) => p.theme.box.background};
