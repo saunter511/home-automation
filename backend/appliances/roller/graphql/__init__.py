@@ -1,3 +1,5 @@
+import os
+
 import graphene
 from django.db.models.signals import post_save
 
@@ -8,7 +10,8 @@ from .mutations import BatchSetRoller, SetRoller, ToggleRoller
 from .subscriptions import RollerSubscription
 from .types import Roller as RollerType
 
-post_save.connect(post_save_subscription, sender=RollerModel, dispatch_uid="roller_post_save")
+if os.environ.get("RUN_MAIN") or os.environ.get("RUN_WSGI"):
+    post_save.connect(post_save_subscription, sender=RollerModel, dispatch_uid="roller_post_save")
 
 type = RollerType
 model = RollerModel

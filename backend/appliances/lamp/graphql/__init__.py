@@ -1,3 +1,5 @@
+import os
+
 import graphene
 from django.db.models.signals import post_save
 
@@ -8,7 +10,8 @@ from .mutations import BatchSetLamp, SetLamp, ToggleLamp
 from .subscriptions import LampSwitched
 from .types import Lamp as LampType
 
-post_save.connect(post_save_subscription, sender=LampModel, dispatch_uid="lamp_post_save")
+if os.environ.get("RUN_MAIN") or os.environ.get("RUN_WSGI"):
+    post_save.connect(post_save_subscription, sender=LampModel, dispatch_uid="lamp_post_save")
 
 type = LampType
 model = LampModel

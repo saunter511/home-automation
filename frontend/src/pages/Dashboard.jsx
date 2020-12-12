@@ -20,6 +20,27 @@ const DashGrid = styled.div`
 	}
 `;
 
+const containerVariants = {
+	before: {},
+	after: {
+		transition: { staggerChildren: 0.05 },
+	},
+};
+
+const boxVariants = {
+	before: {
+		opacity: 0,
+		y: -20,
+	},
+	after: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			type: 'spring',
+		},
+	},
+};
+
 const LampBox = () => {
 	const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_LAMPS);
 
@@ -38,7 +59,7 @@ const LampBox = () => {
 	if (litLamps.length == 0) return null;
 
 	return (
-		<Box variant="warning">
+		<Box variant="warning" variants={boxVariants}>
 			<BoxHeader>Lit lamps</BoxHeader>
 			<BoxContent>
 				{litLamps.map((lamp) => (
@@ -67,7 +88,7 @@ const DateAndTimeBox = () => {
 	}, []);
 
 	return (
-		<Box variant="success">
+		<Box variant="success" variants={boxVariants}>
 			<BoxHeader>{format(today, 'EEEE, dd MMMM')}</BoxHeader>
 			<BoxContent>
 				<TimeBox>{format(today, 'HH:mm:ss')} </TimeBox>
@@ -78,7 +99,7 @@ const DateAndTimeBox = () => {
 
 const Dashboard = () => {
 	return (
-		<PageContainer>
+		<PageContainer variants={containerVariants} initial="before" animate="after">
 			<DashGrid>
 				<DateAndTimeBox />
 				<LampBox />

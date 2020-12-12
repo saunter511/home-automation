@@ -8,6 +8,7 @@ import client from './client';
 import Sidebar, { SidebarContext } from 'Components/Sidebar';
 import Topbar from 'Components/Topbar';
 import Routing from 'Components/Routing';
+import Chat from 'Components/Chat/Chat';
 
 const Layout = styled.div`
 	display: grid;
@@ -47,6 +48,8 @@ const App = () => {
 					</Layout>
 				</SidebarContext.Provider>
 			</Router>
+
+			<Chat />
 		</ApolloProvider>
 	);
 };

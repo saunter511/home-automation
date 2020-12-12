@@ -22,6 +22,13 @@ const RoomGrid = styled.div`
 	}
 `;
 
+const containerVariants = {
+	before: {},
+	after: {
+		transition: { staggerChildren: 0.05 },
+	},
+};
+
 const Lamps = () => {
 	const { loading: queryLoading, error: queryError, data, refetch, subscribeToMore } = useQuery(
 		GET_ROOM_LAMPS
@@ -42,7 +49,7 @@ const Lamps = () => {
 	);
 
 	return (
-		<PageContainer>
+		<PageContainer variants={containerVariants} initial="before" animate="after">
 			<RoomGrid>
 				{roomList.map((room) => (
 					<Room room={room} key={room.id} />

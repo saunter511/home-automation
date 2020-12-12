@@ -1,3 +1,5 @@
+import os
+
 import graphene
 from django.db.models.signals import post_save
 
@@ -8,7 +10,8 @@ from .mutations import BatchSetSocket, SetSocket, ToggleSocket
 from .subscriptions import SocketSwitched
 from .types import Socket as SocketType
 
-post_save.connect(post_save_subscription, sender=SocketModel, dispatch_uid="socket_post_save")
+if os.environ.get("RUN_MAIN") or os.environ.get("RUN_WSGI"):
+    post_save.connect(post_save_subscription, sender=SocketModel, dispatch_uid="socket_post_save")
 
 type = SocketType
 model = SocketModel

@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     # modules
     "apps.users",
     "apps.home",
+    "apps.chat",
     "appliances.lamp",
     "appliances.roller",
     "appliances.temp_sensor",

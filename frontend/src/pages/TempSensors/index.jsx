@@ -22,6 +22,13 @@ const RoomGrid = styled.div`
 	}
 `;
 
+const containerVariants = {
+	before: {},
+	after: {
+		transition: { staggerChildren: 0.05 },
+	},
+};
+
 const TempSensors = () => {
 	const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_ROOM_TEMP_SENSORS);
 
@@ -41,7 +48,7 @@ const TempSensors = () => {
 	);
 
 	return (
-		<PageContainer>
+		<PageContainer variants={containerVariants} initial="before" animate="after">
 			<RoomGrid>
 				{roomList.map((room) => (
 					<Room room={room} key={room.id} />

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
-const PageContainer = styled.div`
+const PageContainer = styled(motion.div)`
 	width: 100%;
 	height: 100%;
 `;

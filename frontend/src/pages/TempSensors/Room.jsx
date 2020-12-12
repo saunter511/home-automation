@@ -56,6 +56,20 @@ const getChartColor = (theme, applianceId) => {
 	}
 };
 
+const boxVariants = {
+	before: {
+		opacity: 0,
+		y: -20,
+	},
+	after: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			type: 'spring',
+		},
+	},
+};
+
 const Room = ({ room }) => {
 	const { theme } = useContext(ThemeContext);
 
@@ -103,7 +117,7 @@ const Room = ({ room }) => {
 	};
 
 	return (
-		<RoomBox>
+		<RoomBox variants={boxVariants}>
 			<BoxHeader>{room.name}</BoxHeader>
 			<BoxContent>
 				<ChartContainer>

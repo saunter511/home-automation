@@ -1,3 +1,5 @@
+import os
+
 import graphene
 from django.db.models.signals import post_save
 
@@ -7,11 +9,12 @@ from ..models import TempSensor as TempSensorModel
 from .subscriptions import TempSensorUpdated
 from .types import TempSensor as TempSensorType
 
-post_save.connect(
-    post_save_subscription,
-    sender=TempSensorModel,
-    dispatch_uid="temp_sensor_post_save",
-)
+if os.environ.get("RUN_MAIN") or os.environ.get("RUN_WSGI"):
+    post_save.connect(
+        post_save_subscription,
+        sender=TempSensorModel,
+        dispatch_uid="temp_sensor_post_save",
+    )
 
 type = TempSensorType
 model = TempSensorModel

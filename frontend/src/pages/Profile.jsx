@@ -1,8 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { format } from 'date-fns';
-import { useContext } from 'react';
 import styled from 'styled-components';
-import { ThemeContext } from 'Theme';
 import {
 	Box,
 	BoxContent,
@@ -30,17 +28,37 @@ const ProfileGrid = styled.div`
 	}
 `;
 
+const containerVariants = {
+	before: {},
+	after: {
+		transition: { staggerChildren: 0.05 },
+	},
+};
+
+const boxVariants = {
+	before: {
+		opacity: 0,
+		y: -20,
+	},
+	after: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			type: 'spring',
+		},
+	},
+};
+
 const Profile = () => {
-	const { toggle, isDark } = useContext(ThemeContext);
 	const { loading, error, data } = useQuery(GET_USER);
 
 	if (loading) return <Loading />;
 	if (error) return <Error message={error.message} />;
 
 	return (
-		<PageContainer>
+		<PageContainer variants={containerVariants} initial="before" animate="after">
 			<ProfileGrid>
-				<Box>
+				<Box variants={boxVariants}>
 					<BoxHeader>Profile</BoxHeader>
 					<BoxContent>
 						<div>{data.currentUser.fullName} </div>
@@ -51,21 +69,8 @@ const Profile = () => {
 
 						<ButtonRow>
 							<Button href="/users/password-change">Change password</Button>
-							<Button href="/users/logout">Log out</Button>
 						</ButtonRow>
 					</BoxContent>
-				</Box>
-
-				<Box variant="error">
-					<BoxHeader>Settings</BoxHeader>
-
-					<ButtonRow>
-						<Button onClick={() => toggle()}>
-							Switch to {isDark ? 'light' : 'dark'} theme
-						</Button>
-
-						<Button href="/admin">Admin</Button>
-					</ButtonRow>
 				</Box>
 			</ProfileGrid>
 		</PageContainer>

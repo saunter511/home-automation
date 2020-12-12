@@ -3,9 +3,23 @@ import { Box, BoxHeader, BoxContent } from 'Theme/Components';
 
 import Roller from './Roller';
 
+const boxVariants = {
+	before: {
+		opacity: 0,
+		y: -20,
+	},
+	after: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			type: 'spring',
+		},
+	},
+};
+
 const Room = ({ room }) => {
 	return (
-		<Box>
+		<Box variants={boxVariants}>
 			<BoxHeader>{room.name}</BoxHeader>
 			<BoxContent>
 				{room.appliances.map((appliance) => {

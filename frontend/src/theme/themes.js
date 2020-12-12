@@ -69,6 +69,10 @@ const lightTheme = {
 		color1: 'hsl(240, 5%, 60%)',
 		color2: 'hsl(240, 5%, 55%)',
 	},
+
+	chat: {
+		background: 'hsla(240, 10%, 75%, 0.75)',
+	},
 };
 
 const darkTheme = {
@@ -103,6 +107,10 @@ const darkTheme = {
 	rollers: {
 		color1: 'hsl(0, 0%, 40%)',
 		color2: 'hsl(0, 0%, 30%)',
+	},
+
+	chat: {
+		background: 'hsla(0, 0%, 5%, 0.75)',
 	},
 };
 

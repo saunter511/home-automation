@@ -10,7 +10,6 @@ const Loading = styled.div`
 	width: 16px;
 	height: 16px;
 	animation: spin 1.1s infinite linear;
-	z-index: 1;
 
 	@keyframes spin {
 		0% {
