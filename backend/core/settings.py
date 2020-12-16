@@ -226,28 +226,28 @@ TEMPLATES = [
 
 CACHE_TYPE = os.getenv("CACHE_TYPE", "locmem")
 REDIS_URL = (
-    "redis://",
-    f"{os.getenv('REDIS_HOST', 'localhost')}",
-    f":{os.getenv('REDIS_PORT', 6379)}",
-    f"/{os.getenv('REDIS_DB_NUMBER', 1)}/",
+    "redis://"
+    f"{os.getenv('REDIS_HOST', 'localhost')}"
+    f":{os.getenv('REDIS_PORT', 6379)}"
+    f"/{os.getenv('REDIS_DB_NUMBER', 1)}/"
 )
 
 # Celery config
-
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
-
 CELERY_CACHE_BACKEND = "default"
 CELERY_RESULT_BACKEND = "django-db"
-
-# Celery will not work unless you have Redis server
-CELERY_BROKER_URL = REDIS_URL
+CELERY_BROKER_URL = REDIS_URL  # Celery will not work unless redis is running
 
 # Cache config
-
+# fmt: off
 if CACHE_TYPE == "locmem":
-    CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache"
+        }
+    }
 elif CACHE_TYPE == "redis":
     CACHES = {
         "default": {
@@ -259,7 +259,7 @@ elif CACHE_TYPE == "redis":
     }
 else:
     raise Exception("No cache backend specified")
-
+# fmt: on
 
 # Webpack manifest config
 if os.getenv("RUN_MAIN"):
