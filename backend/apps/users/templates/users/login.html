@@ -8,9 +8,11 @@
 {%endblock%}
 
 {% block content %}
-  
+
   <form class="form" method="post" action="{% url 'login' %}">
     {% csrf_token %}
+
+    <h2>Sign in to Home Automation</h2>
 
     <div class="form__info">
       {% if next %}
@@ -21,7 +23,7 @@
           <p>Please login to see this page.</p>
         {% endif %}
       {% endif %}
-  
+
       {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
       {% endif %}
@@ -32,14 +34,16 @@
         {{ form.username.label_tag }}
         {{ form.username }}
     </div>
-    
+
     <div class="form__item">
         {{ form.password.label_tag }}
         {{ form.password }}
-    </div>  
+    </div>
 
-    <input type="submit" value="Let me in" />
+    <input type="submit" value="Sign in" />
     <input type="hidden" name="next" value="{{ next }}" />
+
+    <a class="form__link" href="{% url 'password_reset' %}">Forgot your password?</a>
   </form>
-   
+
 {% endblock %}

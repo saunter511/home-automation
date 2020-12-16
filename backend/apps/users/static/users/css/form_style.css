@@ -5,19 +5,21 @@
 	max-width: 500px;
 	padding: 30px;
 	margin: 5px;
-	background-color: white;
+	background-color: hsl(0, 0%, 100%);
 
-	-webkit-box-shadow: 4px 4px 9px 0px rgba(0,0,0,0.35);
-	-moz-box-shadow: 4px 4px 9px 0px rgba(0,0,0,0.35);
-	box-shadow: 4px 4px 9px 0px rgba(0,0,0,0.35);
+	-webkit-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.35);
+	-moz-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.35);
+	box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.35);
+
+	border-left: 3px solid hsl(220, 100%, 50%);
 }
 
-.form [type=submit] {
+.form [type='submit'] {
 	cursor: pointer;
 	border: 0;
 	color: white;
 	font-size: 17px;
-	background-color: #009A17;
+	background-color: hsl(220, 100%, 50%);
 }
 
 .form input {
@@ -26,7 +28,7 @@
 	border-bottom: 1px solid black;
 }
 
-.form input:-webkit-autofill, 
+.form input:-webkit-autofill,
 input:focus:-webkit-autofill {
 	background-color: transparent;
 }
@@ -49,11 +51,10 @@ input:focus:-webkit-autofill {
 
 .form__info p {
 	display: block;
-	color: #E03D3D;
+	color: hsl(0, 72%, 56%);
 	margin: 10px 0;
 	padding: 5px 0;
 	padding-left: 4px;
-	border-left: 3px solid red;
 }
 
 .form__info p:first-child {
@@ -61,11 +62,11 @@ input:focus:-webkit-autofill {
 }
 
 .form__notification {
-	border-left: 10px solid #009A17;
+	border-left: 10px solid hsl(220, 100%, 50%);
 }
 
 .form__notification--error {
-	border-left: 10px solid #E03D3D;
+	border-left: 10px solid hsl(0, 72%, 56%);
 }
 
 .form .errorlist {
@@ -75,9 +76,19 @@ input:focus:-webkit-autofill {
 
 .form .errorlist li {
 	font-size: 13px;
-	color: #E03D3D;
+	color: hsl(0, 72%, 56%);
 	padding: 2px 5px;
-	border-left: 2px solid red;
 }
 
+.form__link {
+	display: block;
+	text-decoration: none;
+	color: hsl(0, 0%, 60%);
+	font-size: 90%;
+	margin-top: 5px;
+}
 
+.form__link:hover {
+	color: hsl(0, 0%, 40%);
+	text-decoration: underline;
+}
