@@ -22,7 +22,6 @@ celery = "core.scripts:run_celery"
 [tool.poetry.dependencies]
 python = "^3.8"
 django = "^3.1.2"
-django-webpack-loader = "^0.7.0"
 requests = "^2.24.0"
 docutils = "^0.16"
 paho-mqtt = "^1.5.1"

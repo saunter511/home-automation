@@ -5,8 +5,6 @@ const path = require('path');
 const config = require('./config.js');
 const { merge } = require('webpack-merge');
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const BundleTracker = require('webpack-bundle-tracker');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = merge(config, {
@@ -14,7 +12,7 @@ module.exports = merge(config, {
 
 	// Configure where the output folder should be
 	output: {
-		publicPath: '/static/frontend/',
+		publicPath: '/static/',
 	},
 
 	module: {
@@ -35,12 +33,6 @@ module.exports = merge(config, {
 	},
 
 	plugins: [
-		// Clean plugin removed output directory before building to avoid conflicts
-		new CleanWebpackPlugin(),
-
-		// Create a javascript bundle info needed by django
-		new BundleTracker({ path: __dirname, filename: '../webpack-stats.json' }),
-
 		// Inject workbox into serviceworker
 		new InjectManifest({
 			swSrc: path.join(__dirname, '../src/sw.js'),

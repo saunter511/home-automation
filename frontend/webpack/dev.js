@@ -5,15 +5,13 @@ const path = require('path');
 const config = require('./config.js');
 const { merge } = require('webpack-merge');
 const FriendlyErrors = require('friendly-errors-webpack-plugin');
-const BundleTracker = require('webpack-bundle-tracker');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = merge(config, {
 	mode: 'development',
-	devtool: 'cheap-module-source-map',
 
 	output: {
-		publicPath: 'http://localhost:5000/',
+		publicPath: 'http://localhost:5000/static/',
 		crossOriginLoading: 'anonymous',
 	},
 
@@ -40,6 +38,7 @@ module.exports = merge(config, {
 	// webpack-dev-server settings
 	devServer: {
 		contentBase: path.join(__dirname, '../dist'),
+		publicPath: '/static',
 		compress: true,
 		host: '0.0.0.0',
 		port: 5000,
@@ -66,8 +65,5 @@ module.exports = merge(config, {
 				messages: ['Available at: http://localhost:5000'],
 			},
 		}),
-
-		// Create a javascript bundle info needed by django
-		new BundleTracker({ path: __dirname, filename: '../dist/webpack-stats.json' }),
 	],
 });

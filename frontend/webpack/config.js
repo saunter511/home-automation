@@ -3,9 +3,12 @@
 
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 module.exports = {
 	target: 'web',
+	devtool: 'cheap-module-source-map',
 
 	// Specify entry files
 	entry: {
@@ -14,7 +17,7 @@ module.exports = {
 
 	// Specify output directory (./dist) and bundle name format
 	output: {
-		filename: 'js/[name].[hash].js',
+		filename: 'js/[name].[contenthash:8].js',
 		path: path.resolve(__dirname, '../dist'),
 	},
 
@@ -32,6 +35,9 @@ module.exports = {
 	},
 
 	plugins: [
+		// Clean plugin removed output directory before building to avoid conflicts
+		new CleanWebpackPlugin(),
+
 		// Copy assets and manifest to dist directory
 		new CopyPlugin({
 			patterns: [
@@ -46,6 +52,11 @@ module.exports = {
 					toType: 'file',
 				},
 			],
+		}),
+
+		// Save a manifest with bundle information
+		new WebpackManifestPlugin({
+			fileName: 'webpack-manifest.json',
 		}),
 	],
 };

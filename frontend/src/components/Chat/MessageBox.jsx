@@ -41,7 +41,7 @@ const Message = ({ msg }) => {
 };
 
 Message.propTypes = {
-	msg: PropTypes.obj,
+	msg: PropTypes.object.isRequired,
 };
 
 const MessageBox = () => {

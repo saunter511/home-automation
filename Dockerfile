@@ -32,8 +32,7 @@ RUN pip install -r requirements.txt
 COPY backend/ /app/
 
 # Copy frontend files to static
-COPY --from=frontend /app/dist/ /app/static/frontend/
+COPY --from=frontend /app/dist/ /app/static/
 COPY --from=frontend /app/dist/sw.js /app/templates/sw.js
-COPY --from=frontend /app/webpack-stats.json /app/webpack-stats.json
 
 CMD ["./entrypoint.sh"]

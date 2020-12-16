@@ -69,7 +69,6 @@ INSTALLED_APPS = [
     # libraries
     "polymorphic",
     "channels",
-    "webpack_loader",
     "rest_framework.authtoken",
     "rest_framework",
     "graphene_django",
@@ -77,6 +76,7 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "django_celery_results",
     # modules
+    "webpack",
     "apps.users",
     "apps.home",
     "apps.chat",
@@ -224,42 +224,6 @@ TEMPLATES = [
     },
 ]
 
-# Webpack stats loader
-WEBPACK_STATS_LOCATION = os.getenv("WEBPACK_STATS_LOCATION", "url")
-
-if WEBPACK_STATS_LOCATION == "url":
-    import requests
-    from webpack_loader.loader import WebpackLoader
-
-    class URLWebpackLoader(WebpackLoader):
-        def load_assets(self):
-            url = self.config["STATS_URL"]
-            return requests.get(url).json()
-
-    WEBPACK_LOADER = {
-        "DEFAULT": {
-            "CACHE": False,
-            "BUNDLE_DIR_NAME": "",
-            "STATS_URL": os.getenv("WEBPACK_STATS_URL", "http://localhost:5000/webpack-stats.json"),
-            "POLL_INTERVAL": 0.1,
-            "TIMEOUT": None,
-            "LOADER_CLASS": "core.settings.URLWebpackLoader",
-        }
-    }
-elif WEBPACK_STATS_LOCATION == "path":
-    WEBPACK_LOADER = {
-        "DEFAULT": {
-            "CACHE": True,
-            "BUNDLE_DIR_NAME": "",
-            "STATS_FILE": os.getenv("WEBPACK_STATS_PATH", BASE_DIR / "webpack-stats.json"),
-            "POLL_INTERVAL": 0.1,
-            "TIMEOUT": None,
-            "LOADER_CLASS": "webpack_loader.loader.WebpackLoader",
-        }
-    }
-else:
-    raise Exception("No webpack-stats.json location configured")
-
 CACHE_TYPE = os.getenv("CACHE_TYPE", "locmem")
 REDIS_URL = (
     "redis://",
@@ -295,3 +259,12 @@ elif CACHE_TYPE == "redis":
     }
 else:
     raise Exception("No cache backend specified")
+
+
+# Webpack manifest config
+if os.getenv("RUN_MAIN"):
+    WEBPACK_MANIFEST_URL = "http://localhost:5000/static/webpack-manifest.json"
+    WEBPACK_MANIFEST_CACHE = False
+else:
+    WEBPACK_MANIFEST_PATH = BASE_DIR / STATIC_ROOT / "webpack-manifest.json"
+    WEBPACK_MANIFEST_CACHE = True

@@ -1,24 +1,30 @@
 {
-	"name": "Home automation",
-	"short_name": "Home automation",
+	"name": "Home Aautomation",
+	"short_name": "Home Automation",
+	"description": "Home Automation dashboard PWA",
+
 	"start_url": "/",
 	"scope": "/",
+
 	"background_color": "#000000",
+	"theme_color": "#171717",
+
 	"display": "standalone",
+	"orientation": "portrait-primary",
 
 	"icons": [
 		{
-			"src": "/static/frontend/assets/icons/icon144.png",
+			"src": "/static/assets/icons/icon144.png",
 			"type": "image/png",
 			"sizes": "144x144"
 		},
 		{
-			"src": "/static/frontend/assets/icons/icon192.png",
+			"src": "/static/assets/icons/icon192.png",
 			"type": "image/png",
 			"sizes": "192x192"
 		},
 		{
-			"src": "/static/frontend/assets/icons/icon512.png",
+			"src": "/static/assets/icons/icon512.png",
 			"type": "image/png",
 			"sizes": "512x512"
 		}
