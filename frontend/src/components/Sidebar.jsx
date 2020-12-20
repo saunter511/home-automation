@@ -5,8 +5,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { RiDashboardFill } from '@meronex/icons/ri';
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import { AiFillBulb } from '@meronex/icons/ai';
-import { FaThermometerHalf } from '@meronex/icons/fa';
-import { MdcBlinds } from '@meronex/icons/mdc';
+import { FaThermometerHalf, FaDoorClosed } from '@meronex/icons/fa';
+import { MdcBlinds, MdcPowerSocketEu } from '@meronex/icons/mdc';
 
 const SidebarContainer = styled.nav`
 	grid-area: sidebar;
@@ -139,6 +139,14 @@ const Sidebar = () => {
 					<AnimatedPageLink to="/rollers">
 						<MdcBlinds />
 						<div>Rollers</div>
+					</AnimatedPageLink>
+					<AnimatedPageLink to="/sockets">
+						<MdcPowerSocketEu />
+						<div>Sockets</div>
+					</AnimatedPageLink>
+					<AnimatedPageLink to="/doorsandwindows">
+						<FaDoorClosed />
+						<div>Doors and windows</div>
 					</AnimatedPageLink>
 				</AnimateSharedLayout>
 			</SidebarContainer>

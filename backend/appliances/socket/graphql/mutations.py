@@ -23,7 +23,7 @@ class ToggleSocket(graphene.Mutation):
             return ToggleSocket(ok=False)
 
         mqtt_publish.send(__name__, topic=socket.mqtt_topic, payload=payload)
-        return ToggleSocket(ok=True, new_state=not socket.state)
+        return ToggleSocket(ok=True)
 
 
 class SetSocket(graphene.Mutation):
