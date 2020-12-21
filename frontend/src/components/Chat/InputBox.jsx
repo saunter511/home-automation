@@ -38,7 +38,7 @@ const InputBox = () => {
 	};
 
 	return (
-		<InputBoxForm onSubmit={handleSubmit(submitMessage)}>
+		<InputBoxForm onSubmit={handleSubmit(submitMessage)} autoComplete="off">
 			<input
 				ref={register({ required: true })}
 				type="text"

@@ -30,7 +30,7 @@ const UserPanel = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
-	height: 100%;
+	min-width: 100%;
 	padding: 10px 10px;
 	text-decoration: none;
 
@@ -43,6 +43,7 @@ const UserPanel = styled.div`
 
 	& svg {
 		font-size: 35px;
+		min-width: 35px;
 		border-radius: 50%;
 		padding: 2px;
 
