@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     "graphene_subscriptions",
     "django_celery_beat",
     "django_celery_results",
+    "django_filters",
     # modules
     "webpack",
     "apps.users",
