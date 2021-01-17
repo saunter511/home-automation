@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { Error, Loading, PageContainer } from 'Theme/Components';
+import { Error, PageLoading, PageContainer } from 'Theme/Components';
 
 import { GET_ROOM_TEMP_SENSORS, TEMP_SENSOR_UPDATE_SUB } from 'Utils/queries/tempSensors';
 
@@ -39,7 +39,7 @@ const TempSensors = () => {
 		});
 	}, [refetch, subscribeToMore]);
 
-	if (loading) return <Loading />;
+	if (loading) return <PageLoading />;
 	if (error) return <Error message={error} />;
 
 	const roomList = data.rooms.filter(

@@ -3,7 +3,7 @@ import { lazy, Suspense } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import styled from 'styled-components';
-import { Loading, Error, Button } from 'Theme/Components';
+import { PageLoading, Error, Button } from 'Theme/Components';
 
 const Lamps = lazy(() => import(/* webpackChunkName: 'lamps' */ 'Pages/Lamps/'));
 const TempSensors = lazy(() => import(/* webpackChunkName: 'temp-sensors'*/ 'Pages/TempSensors/'));
@@ -52,7 +52,7 @@ const Routing = () => {
 					navigate(-1);
 				}}
 			>
-				<Suspense fallback={<Loading />}>
+				<Suspense fallback={<PageLoading />}>
 					<Routes>
 						<Route path="/" element={<Dashboard />} />
 						<Route path="/profile" element={<Profile />} />

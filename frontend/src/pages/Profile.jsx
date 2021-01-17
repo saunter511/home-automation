@@ -8,7 +8,7 @@ import {
 	Button,
 	ButtonRow,
 	Error,
-	Loading,
+	PageLoading,
 	PageContainer,
 } from 'Theme/Components';
 import { GET_USER } from 'Utils/queries/users';
@@ -52,7 +52,7 @@ const boxVariants = {
 const Profile = () => {
 	const { loading, error, data } = useQuery(GET_USER);
 
-	if (loading) return <Loading />;
+	if (loading) return <PageLoading />;
 	if (error) return <Error message={error.message} />;
 
 	return (

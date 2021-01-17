@@ -73,6 +73,11 @@ const lightTheme = {
 	chat: {
 		background: 'hsla(240, 10%, 75%, 0.75)',
 	},
+
+	loading: {
+		primary: 'hsl(240, 10%, 65%)',
+		secondary: 'hsl(240, 10%, 79%)',
+	},
 };
 
 const darkTheme = {
@@ -111,6 +116,11 @@ const darkTheme = {
 
 	chat: {
 		background: 'hsla(0, 0%, 5%, 0.75)',
+	},
+
+	loading: {
+		primary: 'hsl(0, 0%, 35%)',
+		secondary: 'hsl(0, 0%, 18%)',
 	},
 };
 

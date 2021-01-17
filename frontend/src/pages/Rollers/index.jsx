@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { PageContainer, Loading, Error } from 'Theme/Components';
+import { PageContainer, PageLoading, Error } from 'Theme/Components';
 
 import Room from './Room';
 
@@ -41,7 +41,7 @@ const Rollers = () => {
 		});
 	}, [refetch, subscribeToMore]);
 
-	if (queryLoading) return <Loading />;
+	if (queryLoading) return <PageLoading />;
 	if (queryError) return <Error message={queryError} />;
 
 	const roomList = data.rooms.filter(
