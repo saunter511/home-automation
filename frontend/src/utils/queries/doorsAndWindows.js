@@ -21,8 +21,8 @@ export const GET_ROOM_DOORSANDWINDOWS = gql`
 	}
 `;
 
-export const GET_DOORSANDWINDOWS = gql`
-	query DoorsAndWindows {
+export const GET_DOORS = gql`
+	query Doors {
 		doors {
 			id
 			name
@@ -31,6 +31,11 @@ export const GET_DOORSANDWINDOWS = gql`
 			}
 			state
 		}
+	}
+`;
+
+export const GET_WINDOWS = gql`
+	query Windows {
 		windows {
 			id
 			name

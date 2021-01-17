@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { format } from 'date-fns';
 import { GET_LAMPS, LAMP_SUB } from 'Utils/queries/lamps';
-import { GET_DOORSANDWINDOWS, DOORS_SUB, WINDOWS_SUB } from 'Utils/queries/doorsAndWindows';
+import { GET_DOORS, GET_WINDOWS, DOORS_SUB, WINDOWS_SUB } from 'Utils/queries/doorsAndWindows';
 import { GET_BIRTHDAYS } from 'Utils/queries/birthdays';
 
 import { Box, BoxHeader, BoxContent, PageContainer } from 'Theme/Components';
@@ -44,14 +44,40 @@ const boxVariants = {
 	},
 };
 
-const DoorsAndWindowsBox = () => {
-	const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_DOORSANDWINDOWS);
+const DoorsBox = () => {
+	const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_DOORS);
 
 	useEffect(() => {
 		refetch();
 		subscribeToMore({
 			document: DOORS_SUB,
 		});
+	}, [refetch, subscribeToMore]);
+
+	if (loading) return null;
+	if (error) return null;
+
+	const openedDoors = data.doors.filter((door) => door.state);
+
+	if (openedDoors.length == 0) return null;
+
+	return (
+		<Box variant="error" variants={boxVariants}>
+			<BoxHeader>Opened doors</BoxHeader>
+			<BoxContent>
+				{openedDoors.map((i) => (
+					<div key={i.id}>{i.name}</div>
+				))}
+			</BoxContent>
+		</Box>
+	);
+};
+
+const WindowsBox = () => {
+	const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_WINDOWS);
+
+	useEffect(() => {
+		refetch();
 		subscribeToMore({
 			document: WINDOWS_SUB,
 		});
@@ -60,17 +86,15 @@ const DoorsAndWindowsBox = () => {
 	if (loading) return null;
 	if (error) return null;
 
-	const openedDoorsAndwindows = data.doors
-		.filter((door) => door.state)
-		.concat(data.windows.filter((window) => window.state));
+	const openedWindows = data.windows.filter((window) => window.state);
 
-	if (openedDoorsAndwindows.length == 0) return null;
+	if (openedWindows.length == 0) return null;
 
 	return (
 		<Box variant="warning" variants={boxVariants}>
-			<BoxHeader>Opened doors and windows</BoxHeader>
+			<BoxHeader>Opened windows</BoxHeader>
 			<BoxContent>
-				{openedDoorsAndwindows.map((i) => (
+				{openedWindows.map((i) => (
 					<div key={i.id}>{i.name}</div>
 				))}
 			</BoxContent>
@@ -163,7 +187,8 @@ const Dashboard = () => {
 				<DateAndTimeBox />
 				<BirthdaysBox />
 				<LampBox />
-				<DoorsAndWindowsBox />
+				<WindowsBox />
+				<DoorsBox />
 			</DashGrid>
 		</PageContainer>
 	);

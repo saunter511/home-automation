@@ -3,7 +3,7 @@ import os
 from django.apps import AppConfig
 
 from .client import start_client
-from .signals import mqtt_publish
+from .signals import mqtt_appliance_publish, mqtt_server_publish
 
 
 class MqttConfig(AppConfig):
@@ -17,5 +17,6 @@ class MqttConfig(AppConfig):
 
         client = start_client()
         if client:
-            mqtt_publish.connect(client.signal_publish)
+            mqtt_appliance_publish.connect(client.publish_appliance_signal)
+            mqtt_server_publish.connect(client.publish_server_signal)
             client.loop_start()

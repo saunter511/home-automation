@@ -1,5 +1,7 @@
 from django.dispatch import Signal
 
-# Both require 'topic' and 'payload'
-mqtt_receive = Signal()
-mqtt_publish = Signal()
+# All require 'topic' and 'payload'
+mqtt_appliance_receive = Signal()
+mqtt_appliance_publish = Signal()
+mqtt_server_receive = Signal()
+mqtt_server_publish = Signal()

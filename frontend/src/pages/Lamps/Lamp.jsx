@@ -18,9 +18,9 @@ const Bulb = styled(AiTwotoneBulb)`
 					return 'hsla(50, 100%, 50%, 0.8)';
 				case 'off':
 					return 'rgba(0, 0, 0, 0.1)';
-				case 'requestOff':
+				case 'request-off':
 					return 'hsla(50, 100%, 50%, 0.7)';
-				case 'requestOn':
+				case 'request-on':
 					return 'hsla(50, 100%, 50%, 0.2)';
 			}
 		}};
@@ -50,7 +50,7 @@ const LampRow = styled.div`
 const Lamp = ({ lamp }) => {
 	const [toggleLamp] = useMutation(TOGGLE_LAMP);
 
-	const switching = lamp.state == 'requestOn' || lamp.state == 'requestOff';
+	const switching = lamp.state == 'request-on' || lamp.state == 'request-off';
 
 	return (
 		<LampRow onClick={() => toggleLamp({ variables: { id: lamp.id } })}>

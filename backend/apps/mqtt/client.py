@@ -3,7 +3,7 @@ import logging
 import paho.mqtt.client as mqtt
 from django.conf import settings
 
-from .signals import mqtt_receive
+from .signals import mqtt_appliance_receive, mqtt_server_receive
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +26,9 @@ def start_client():
         :param properties: properties
         """
         if rc == 0:
-            client.subscribe(f"{settings.MQTT_TOPIC}/#")
+            client.subscribe(f"{settings.MQTT_TOPIC}/server/#")
+            client.subscribe(f"{settings.MQTT_TOPIC}/appliance/#")
+
             logger.info("Connected to MQTT broker")
         else:
             logger.error("Connection to MQTT broker failed")
@@ -49,12 +51,22 @@ def start_client():
         :param userdata: user data passed when creating a client
         :param msg: message object
         """
+
         topic = msg.topic
         payload = msg.payload.decode()
         logger.debug(f"Received message '{payload}' on topic '{topic}'")
-        mqtt_receive.send(__name__, topic=topic, payload=payload)
 
-    def signal_publish(sender, topic, payload, **kwargs):
+        topic = [part for part in topic.split("/") if part]
+        topic_type = topic[1]
+
+        if topic_type.lower() == "appliance":
+            mqtt_appliance_receive.send(__name__, topic=topic[2:], payload=payload)
+        elif topic_type.lower() == "server":
+            mqtt_server_receive.send(__name__, topic=topic[2:], payload=payload)
+        else:
+            logger.debug(f"Unknown topic type '{topic_type}'")
+
+    def publish_appliance_signal(sender, topic, payload, **kwargs):
         """
         Publish signal callback, push a message to mqtt with passed topic and payload
 
@@ -62,13 +74,25 @@ def start_client():
         :param topic: message topic
         :param payload: message payload
         """
-        logger.debug(f"Publishing message '{payload}' on topic '{topic}'")
+        logger.debug(f"Publishing appliance message '{payload}' on topic '{topic}'")
+        client.publish(topic=topic, payload=payload)
+
+    def publish_server_signal(sender, topic, payload, **kwargs):
+        """
+        Publish signal callback, push a message to mqtt with passed topic and payload
+
+        :param sender: signal sender
+        :param topic: message topic
+        :param payload: message payload
+        """
+        logger.debug(f"Publishing server message '{payload}' on topic '{topic}'")
         client.publish(topic=topic, payload=payload)
 
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
     client.on_message = on_message
-    client.signal_publish = signal_publish
+    client.publish_appliance_signal = publish_appliance_signal
+    client.publish_server_signal = publish_server_signal
 
     try:
         client.connect(settings.MQTT_URL, int(settings.MQTT_PORT), 60)

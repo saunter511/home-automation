@@ -1,8 +1,6 @@
 import graphene
 from django_fsm import can_proceed
 
-from apps.mqtt.signals import mqtt_publish
-
 from ..models import Socket
 
 
@@ -16,13 +14,13 @@ class ToggleSocket(graphene.Mutation):
         socket = Socket.objects.get(id=id)
 
         if can_proceed(socket.on):
-            payload = "on"
+            socket.on()
         elif can_proceed(socket.off):
-            payload = "off"
+            socket.off()
         else:
             return ToggleSocket(ok=False)
 
-        mqtt_publish.send(__name__, topic=socket.mqtt_topic, payload=payload)
+        socket.save()
         return ToggleSocket(ok=True)
 
 
@@ -39,7 +37,12 @@ class SetSocket(graphene.Mutation):
         if not can_proceed(socket.on if state else socket.off):
             return SetSocket(ok=False)
 
-        mqtt_publish.send(__name__, topic=socket.mqtt_topic, payload="on" if state else "off")
+        if state:
+            socket.on()
+        else:
+            socket.off()
+        socket.save()
+
         return SetSocket(ok=True, new_state=state)
 
 
@@ -55,8 +58,10 @@ class BatchSetSocket(graphene.Mutation):
 
         for socket in sockets:
             if can_proceed(socket.on if state else socket.off):
-                mqtt_publish.send(
-                    __name__, topic=socket.mqtt_topic, payload="on" if state else "off"
-                )
+                if state:
+                    socket.on()
+                else:
+                    socket.off()
+                socket.save()
 
         return BatchSetSocket(ok=True)

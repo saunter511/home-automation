@@ -24,7 +24,13 @@ class ApplianceParentAdmin(PolymorphicParentModelAdmin):
     """
 
     child_models = []
-    list_display = ("name", "get_appliance_type", "get_room_name", "mqtt_topic")
+    list_display = (
+        "name",
+        "get_appliance_type",
+        "get_room_name",
+        "mqtt_appliance_topic",
+        "mqtt_server_topic",
+    )
     list_filter = (PolymorphicChildModelFilter, "room__name")
 
     def get_appliance_type(self, obj):
@@ -62,7 +68,7 @@ class RoomAdmin(admin.ModelAdmin):
     ModelAdmin class for :model:`Room` model.
     """
 
-    list_display = ("name", "floor", "mqtt_topic")
+    list_display = ("name", "floor", "mqtt_appliance_topic", "mqtt_server_topic")
 
     inlines = [ApplianceInline]
 

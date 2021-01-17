@@ -15,9 +15,12 @@ class Window(Appliance):
         verbose_name_plural = "Windows"
 
     def __str__(self):
-        return f"<Window {self.mqtt_topic}>"
+        return f"<Window {self.mqtt_appliance_topic}>"
 
-    def mqtt_message(self, topic, payload):
+    def mqtt_server_message(self, topic, payload):
+        pass
+
+    def mqtt_appliance_message(self, topic, payload):
         """
         Handle the mqtt message passed from the room
         """
@@ -30,4 +33,4 @@ class Window(Appliance):
 
         self.save()
 
-        logger.info(f"Window {self.mqtt_topic}: {self.state}")
+        logger.info(f"Window {self.mqtt_appliance_topic}: {self.state}")

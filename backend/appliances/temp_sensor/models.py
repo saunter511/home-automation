@@ -33,7 +33,7 @@ class TempSensor(Appliance):
         verbose_name_plural = "Temperature sensors"
 
     def __str__(self):
-        return f"<TempSensor {self.mqtt_topic}>"
+        return f"<TempSensor {self.mqtt_appliance_topic}>"
 
     def save_reading(self, new_temp):
         self.last_read = new_temp
@@ -41,9 +41,14 @@ class TempSensor(Appliance):
         self.save()
 
         TempHistory.objects.create(value=new_temp, sensor=self)
-        logger.info(f"Temperature sensor {self.mqtt_topic} got a new reading: {new_temp}°C")
+        logger.info(
+            f"Temperature sensor {self.mqtt_appliance_topic} got a new reading: {new_temp}°C"
+        )
 
-    def mqtt_message(self, topic, payload):
+    def mqtt_server_message(self, topic, payload):
+        pass
+
+    def mqtt_appliance_message(self, topic, payload):
         """
         Handle a mqtt message to temperature sensor
         Parse payload as float, compare to the previous value and save if:

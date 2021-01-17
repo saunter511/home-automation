@@ -26,14 +26,20 @@ class RoomTest(TestCase):
         self.assertEqual(self.room.code_name, self.code_name, "The codename wasn't set correctly")
         self.assertEqual(self.room.floor, self.floor, "The floor wasn't set correctly")
 
-    def test_room_mqtt_topic(self):
+    def test_room_mqtt_topics(self):
         """
-        Test if the mqtt_topic property on Room model generates correct topic
+        Test if the mqtt_(appliance/server)_topic properties on Room model generate correct topics
         """
         self.assertEqual(
-            self.room.mqtt_topic,
-            f"{settings.MQTT_TOPIC}/{self.room.code_name}",
-            "Room MQTT topic isn't generated correctly",
+            self.room.mqtt_appliance_topic,
+            f"{settings.MQTT_TOPIC}/appliance/{self.room.code_name}",
+            "Room MQTT topics aren't generated correctly",
+        )
+
+        self.assertEqual(
+            self.room.mqtt_server_topic,
+            f"{settings.MQTT_TOPIC}/server/{self.room.code_name}",
+            "Room MQTT topics aren't generated correctly",
         )
 
     def test_room_add_duplicate(self):
@@ -69,13 +75,28 @@ class ApplianceTest(TestCase):
         )
         self.assertEqual(self.appliance.room, self.room, "The floor wasn't set correctly")
 
-    def test_appliance_mqtt_topic(self):
+    def test_appliance_mqtt_topics(self):
         """
-        Test if the mqtt_topic property on Appliance model generates correct topic
+        Test if the mqtt_(appliance/server)_topic property
+        on Appliance model generate correct topics
         """
         self.assertEqual(
-            self.appliance.mqtt_topic,
-            f"{self.room.mqtt_topic}/{self.appliance.polymorphic_ctype.model}/{self.appliance_id}",
+            self.appliance.mqtt_server_topic,
+            (
+                f"{self.room.mqtt_server_topic}"
+                f"/{self.appliance.polymorphic_ctype.model}"
+                f"/{self.appliance_id}"
+            ),
+            "Appliance MQTT topic isn't generated correctly",
+        )
+
+        self.assertEqual(
+            self.appliance.mqtt_appliance_topic,
+            (
+                f"{self.room.mqtt_appliance_topic}"
+                f"/{self.appliance.polymorphic_ctype.model}"
+                f"/{self.appliance_id}"
+            ),
             "Appliance MQTT topic isn't generated correctly",
         )
 

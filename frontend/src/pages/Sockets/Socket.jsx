@@ -18,9 +18,9 @@ const PowerSocket = styled(MdcPowerSocketFr)`
 					return 'hsl(120,100%,25%, 0.8)';
 				case 'off':
 					return (p) => p.theme.text.secondary;
-				case 'requestOff':
+				case 'request-off':
 					return 'hsl(120,100%,25%, 0.4)';
-				case 'requestOn':
+				case 'request-on':
 					return 'hsl(120,100%,25%, 0.4)';
 			}
 		}};
@@ -50,7 +50,7 @@ const SocketRow = styled.div`
 const Socket = ({ socket }) => {
 	const [toggleSocket] = useMutation(TOGGLE_SOCKET);
 
-	const switching = socket.state == 'requestOn' || socket.state == 'requestOff';
+	const switching = socket.state == 'request-on' || socket.state == 'request-off';
 
 	return (
 		<SocketRow onClick={() => toggleSocket({ variables: { id: socket.id } })}>

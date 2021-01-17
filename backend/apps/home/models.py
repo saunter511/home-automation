@@ -22,17 +22,20 @@ class Room(models.Model):
         verbose_name_plural = "Rooms"
 
     def __str__(self):
-        return f"{self.name} <{self.mqtt_topic}>"
+        return f"{self.name} <{self.mqtt_appliance_topic}>"
 
     @property
-    def mqtt_topic(self):
-        return f"{settings.MQTT_TOPIC}/{self.code_name}"
+    def mqtt_appliance_topic(self):
+        return f"{settings.MQTT_TOPIC}/appliance/{self.code_name}"
 
-    def mqtt_message(self, topic, payload):
-        """
-        Handle mqtt message to the room
-        """
+    @property
+    def mqtt_server_topic(self):
+        return f"{settings.MQTT_TOPIC}/server/{self.code_name}"
 
+    def mqtt_server_message(self, topic, payload):
+        """
+        Handle mqtt server message to the room
+        """
         try:
             appliance = self.appliances.get(
                 polymorphic_ctype__model=topic[0], appliance_id=topic[1]
@@ -42,7 +45,22 @@ class Room(models.Model):
             return
 
         # pass the message to appliance
-        appliance.mqtt_message(topic[2:], payload)
+        appliance.mqtt_server_message(topic[2:], payload)
+
+    def mqtt_appliance_message(self, topic, payload):
+        """
+        Handle mqtt appliance message to the room
+        """
+        try:
+            appliance = self.appliances.get(
+                polymorphic_ctype__model=topic[0], appliance_id=topic[1]
+            )
+        except Exception:
+            logger.warning(f"No appliance '{topic[0]}' with id {topic[1]}")
+            return
+
+        # pass the message to appliance
+        appliance.mqtt_appliance_message(topic[2:], payload)
 
 
 class Appliance(PolymorphicModel):
@@ -66,5 +84,11 @@ class Appliance(PolymorphicModel):
         unique_together = ("room", "polymorphic_ctype", "appliance_id")
 
     @property
-    def mqtt_topic(self):
-        return f"{self.room.mqtt_topic}/{self.polymorphic_ctype.model}/{self.appliance_id}"
+    def mqtt_appliance_topic(self):
+        return (
+            f"{self.room.mqtt_appliance_topic}/{self.polymorphic_ctype.model}/{self.appliance_id}"
+        )
+
+    @property
+    def mqtt_server_topic(self):
+        return f"{self.room.mqtt_server_topic}/{self.polymorphic_ctype.model}/{self.appliance_id}"

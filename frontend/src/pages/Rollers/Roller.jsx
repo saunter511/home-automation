@@ -30,11 +30,11 @@ const RollerButton = styled.div`
 			switch (p.state) {
 				case 'opened':
 					return 'translateY(-65%)';
-				case 'requestClose':
+				case 'request-close':
 					return 'translateY(-50%)';
 				case 'closed':
 					return 'translateY(0%)';
-				case 'requestOpen':
+				case 'request-open':
 					return 'translateY(-15%)';
 			}
 		}};
@@ -75,7 +75,7 @@ const RollerRow = styled.div`
 const Roller = ({ roller }) => {
 	const [toggleRoller] = useMutation(TOGGLE_ROLLER);
 
-	const moving = roller.state == 'requestOpen' || roller.state == 'requestClose';
+	const moving = roller.state == 'request-open' || roller.state == 'request-close';
 
 	return (
 		<RollerRow onClick={() => toggleRoller({ variables: { id: roller.id } })}>
