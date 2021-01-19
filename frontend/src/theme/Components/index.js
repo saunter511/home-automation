@@ -5,3 +5,4 @@ export { default as Loading } from './Loading';
 export { default as PageLoading } from './PageLoading';
 export { default as PageContainer } from './PageContainer';
 export { default as PageHeader } from './PageHeader';
+export { default as Checkbox } from './Checkbox';

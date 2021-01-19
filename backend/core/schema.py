@@ -8,9 +8,11 @@ from apps.chat.graphql import Query as ChatQuery
 from apps.chat.graphql import Subscription as ChatSubscription
 from apps.home.graphql.queries import HomeQuery
 from apps.users.graphql.queries import UserQuery
+from apps.todo.graphql import Query as TodoQuery
+from apps.todo.graphql import Mutation as TodoMutation
 
-queries = [HomeQuery, UserQuery, ChatQuery]
-mutations = [ChatMutation]
+queries = [HomeQuery, UserQuery, ChatQuery, TodoQuery]
+mutations = [ChatMutation, TodoMutation]
 subscriptions = [ChatSubscription]
 
 # Attach all appliance queries dynamically

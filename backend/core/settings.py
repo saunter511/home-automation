@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     "apps.users",
     "apps.home",
     "apps.chat",
+    "apps.todo",
     "appliances.lamp",
     "appliances.roller",
     "appliances.temp_sensor",
