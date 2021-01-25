@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { format } from 'date-fns';
 import { GET_LAMPS, LAMP_SUB } from 'Utils/queries/lamps';
 import { GET_DOORS, GET_WINDOWS, DOORS_SUB, WINDOWS_SUB } from 'Utils/queries/doorsAndWindows';
 import { GET_BIRTHDAYS } from 'Utils/queries/birthdays';
-import { GET_TODOS, TOGGLE_TODO } from 'Utils/queries/todos'
+import Todo from 'Components/Todo/Todo';
 
-import { Box, BoxHeader, BoxContent, PageContainer, Checkbox } from 'Theme/Components';
+import { Box, BoxHeader, BoxContent, PageContainer } from 'Theme/Components';
 
 const DashGrid = styled.div`
 	display: grid;
@@ -156,30 +156,14 @@ const LampBox = () => {
 	);
 };
 
-
-const TodoBox = () =>{
-	const { loading, error, data } = useQuery(GET_TODOS);
-	const [toggleTodo] = useMutation(TOGGLE_TODO, {
-		refetchQueries: [{ query: GET_TODOS }],
-		awaitRefetchQuerieswait: true,
-	});
-	if (loading) return null;
-	if (error) return null;
-
+const TodoBox = () => {
 	return (
 		<Box variant="warning" variants={boxVariants}>
 			<BoxHeader>Todos</BoxHeader>
-			<BoxContent>
-				{data.todos.map((todo) => (
-					<div key={todo.id}>
-					 <input type="checkbox" checked={todo.completed} onClick={toggleTodo({variables: {id : todo.id}})}/>	{todo.description} 
-					</div>
-				))}
-			</BoxContent>
+			<Todo></Todo>
 		</Box>
 	);
-
-}
+};
 
 const TimeBox = styled.div`
 	font-size: xx-large;
@@ -213,8 +197,9 @@ const Dashboard = () => {
 				<DateAndTimeBox />
 				<BirthdaysBox />
 				<LampBox />
-				<DoorsAndWindowsBox />
-				<TodoBox/>
+				<WindowsBox />
+				<DoorsBox />
+				<TodoBox />
 			</DashGrid>
 		</PageContainer>
 	);

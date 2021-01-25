@@ -7,13 +7,14 @@ from apps.chat.graphql import Mutation as ChatMutation
 from apps.chat.graphql import Query as ChatQuery
 from apps.chat.graphql import Subscription as ChatSubscription
 from apps.home.graphql.queries import HomeQuery
-from apps.users.graphql.queries import UserQuery
-from apps.todo.graphql import Query as TodoQuery
 from apps.todo.graphql import Mutation as TodoMutation
+from apps.todo.graphql import Query as TodoQuery
+from apps.todo.graphql import Subscription as TodoSubscription
+from apps.users.graphql.queries import UserQuery
 
 queries = [HomeQuery, UserQuery, ChatQuery, TodoQuery]
 mutations = [ChatMutation, TodoMutation]
-subscriptions = [ChatSubscription]
+subscriptions = [ChatSubscription, TodoSubscription]
 
 # Attach all appliance queries dynamically
 for appliance in inspect.getmembers(appliances, inspect.ismodule):
